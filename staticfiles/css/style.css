@@ -1,0 +1,33 @@
+/* Load Fonts */
+@font-face {
+  font-family: IranSans;
+  src: url('../font/IranSans.ttf') format('truetype');
+}
+
+:root
+{
+    --main-color: #5400b7;
+    --secondary-color: rebeccapurple;
+}
+
+html, body
+{
+    font-family: IranSans, Roboto, sans-serif!important;
+    height: 100%;
+}
+
+nav
+{
+    background-color: var(--main-color);
+}
+
+nav button
+{
+    background-color: rgba(255, 255, 255, 0.31) !important;
+    color: white !important;
+}
+
+.bg-purple
+{
+    background-color: var(--main-color);
+}
