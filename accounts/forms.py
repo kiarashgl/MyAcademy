@@ -5,26 +5,32 @@ from .models import User
 
 
 class SignupForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+	email = forms.EmailField(required=True)
 
-    class Meta:
-        model = User
-        fields = [
-            'username',
-            'first_name',
-            'last_name',
-            'email',
-            'password1',
-            'password2'
-        ]
+	# Suppress help texts
+	def __init__(self, *args, **kwargs):
+		super(UserCreationForm, self).__init__(*args, **kwargs)
+		for fieldname in ['username', 'password1', 'password2']:
+			self.fields[fieldname].help_text = None
 
-    def save(self, commit=True):
-        user = super(SignupForm, self).save(commit=False)
-        user.first_name = self.cleaned_data['first_name']
-        user.last_name = self.cleaned_data['last_name']
-        user.email = self.cleaned_data['email']
+	class Meta:
+		model = User
+		fields = [
+			'username',
+			'first_name',
+			'last_name',
+			'email',
+			'password1',
+			'password2'
+		]
 
-        if commit:
-            user.save()
+	def save(self, commit=True):
+		user = super(SignupForm, self).save(commit=False)
+		user.first_name = self.cleaned_data['first_name']
+		user.last_name = self.cleaned_data['last_name']
+		user.email = self.cleaned_data['email']
 
-        return user
+		if commit:
+			user.save()
+
+		return user
