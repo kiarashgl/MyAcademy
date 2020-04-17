@@ -13,9 +13,11 @@
         </ul>
 
         {% if user.is_authenticated %}
-            <button class="btn" type="button" onclick="window.location.href ='{% url "logout" %}'">خروج</button>
+            <button class="btn" type="button" onclick="window.location.href ='{% url "accounts:logout" %}'">خروج
+            </button>
         {% else %}
-            <button class="btn" type="button" onclick="window.location.href ='{% url "signup" %}'">ورود / ثبت‌نام
+            <button class="btn" type="button" onclick="window.location.href ='{% url "accounts:signup" %}'">ورود /
+                ثبت‌نام
             </button>
         {% endif %}
     </div>
