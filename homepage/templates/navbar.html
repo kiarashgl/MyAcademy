@@ -1,24 +1,24 @@
 <nav class="navbar navbar-expand-sm navbar-dark">
-    <a class="navbar-brand" href="#">مای‌آکادمی</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+	<a class="navbar-brand" href="{% url 'home' %}">مای‌آکادمی</a>
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+	        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">خانه</a>
-            </li>
-        </ul>
+	<div class="collapse navbar-collapse" id="navbarSupportedContent">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item active">
+				<a class="nav-link" href="{% url 'home' %}">خانه</a>
+			</li>
+		</ul>
 
-        {% if user.is_authenticated %}
-            <button class="btn" type="button" onclick="window.location.href ='{% url "accounts:logout" %}'">خروج
-            </button>
-        {% else %}
-            <button class="btn" type="button" onclick="window.location.href ='{% url "accounts:signup" %}'">ورود /
-                ثبت‌نام
-            </button>
-        {% endif %}
-    </div>
+		{% if user.is_authenticated %}
+			<span>{{ user.first_name }} عزیز، خوش آمدید!</span>
+			<a class="btn bg-light-purple ml-sm-2 mr-2" href='{% url "accounts:logout" %}'>خروج
+			</a>
+		{% else %}
+			<a class="btn bg-light-purple mx-2" href='{% url "accounts:login" %}'>ورود</a>
+			<a class="btn bg-orange mx-sm-2 ml-0" href='{% url "accounts:signup" %}'>ثبت‌نام</a>
+		{% endif %}
+	</div>
 </nav>

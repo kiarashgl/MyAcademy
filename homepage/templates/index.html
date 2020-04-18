@@ -1,17 +1,12 @@
-{% extends 'base.html' %}
+{% extends 'fullscreen_header.html' %}
 {% load static %}
 
 {% block css %}
     {{ block.super }}
     <link rel="stylesheet" href="{% static 'css/homepage-style.css' %}">
 {% endblock %}
-{% block content %}
-    <header>
-        <div class="row d-flex h-100">
-            <div class="col-8 m-auto text-center ">
-                <h1 class="text-white">مای‌آکادمی</h1>
-                <h3 class="text-white">با آگاهی کامل، مسیرت را انتخاب کن!</h3>
-            </div>
-        </div>
-    </header>
+
+{% block inside_content %}
+	<h1 class="text-white">مای‌آکادمی</h1>
+	<h3 class="text-white">با آگاهی کامل، مسیرت را انتخاب کن!</h3>
 {% endblock %}

@@ -1,0 +1,13 @@
+header {
+    background-image: url('../images/signupform.jpg');
+}
+
+.invalid-feedback
+{
+    color: #ff8d00!important;
+}
+
+.ltr-form input
+{
+	direction: ltr;
+}
