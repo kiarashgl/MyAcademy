@@ -8,9 +8,10 @@
 :root
 {
 	--main-color: #5400b7;
-	--secondary-color: rebeccapurple;
+	--secondary-color: #015ad4;
 	--light-purple: #6900ff;
 	--orange: #ff6e00;
+	--secondary-orange: #ffc700;
 }
 
 html, body
@@ -30,9 +31,9 @@ nav
 
 .bg-light-purple
 {
-	background-color: var(--light-purple) !important;
-	border-color: var(--light-purple) !important;
-	color: white !important;
+	background-color: var(--light-purple);
+	border-color: var(--light-purple);
+	color: white!important;
 }
 
 .bg-orange
@@ -54,4 +55,34 @@ nav
 	margin: 2rem 0;
 	border-radius: 20px;
 	color: white;
+}
+
+.btn.bg-light-purple:hover
+{
+	background-color: var(--secondary-color)!important;
+	border-color: var(--secondary-color)!important;
+}
+
+.btn.bg-orange:hover
+{
+	background-color: var(--secondary-orange)!important;
+	border-color: var(--secondary-orange)!important;
+}
+
+a.link
+{
+	color: white;
+	display: block;
+	-webkit-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+a.link:hover
+{
+	color: white;
+	text-decoration: none;
+	text-shadow: 0 0 5px var(--orange), 0 0 5px var(--orange);
 }

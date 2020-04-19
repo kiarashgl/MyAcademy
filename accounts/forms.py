@@ -1,7 +1,7 @@
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, SetPasswordForm
 from django import forms
 
 from .models import User
@@ -55,3 +55,9 @@ class SignupForm(UserCreationForm):
 			user.save()
 
 		return user
+
+
+class PasswordResetConfirmForm(SetPasswordForm):
+	def __init__(self, user, *args, **kwargs):
+		super().__init__(user, *args, **kwargs)
+		self.fields['new_password1'].help_text = None
