@@ -1,33 +1,88 @@
 /* Load Fonts */
-@font-face {
-  font-family: IranSans;
-  src: url('../font/IranSans.ttf') format('truetype');
+@font-face
+{
+	font-family: IranSans;
+	src: url('../font/IranSans.ttf') format('truetype');
 }
 
 :root
 {
-    --main-color: #5400b7;
-    --secondary-color: rebeccapurple;
+	--main-color: #5400b7;
+	--secondary-color: #015ad4;
+	--light-purple: #6900ff;
+	--orange: #ff6e00;
+	--secondary-orange: #ffc700;
 }
 
 html, body
 {
-    font-family: IranSans, Roboto, sans-serif!important;
-    height: 100%;
+	font-family: IranSans, Roboto, sans-serif !important;
+	height: 100%;
 }
 
 nav
 {
-    background-color: var(--main-color);
+	background-color: var(--main-color);
+	z-index: 1000;
+	position: fixed !important;
+	width: 100%;
+	color: white;
 }
 
-nav button
+.bg-light-purple
 {
-    background-color: rgba(255, 255, 255, 0.31) !important;
-    color: white !important;
+	background-color: var(--light-purple);
+	border-color: var(--light-purple);
+	color: white!important;
+}
+
+.bg-orange
+{
+	background-color: var(--orange) !important;
+	border-color: var(--orange) !important;
+	color: white !important;
 }
 
 .bg-purple
 {
-    background-color: var(--main-color);
+	background-color: var(--main-color);
+}
+
+.bg-purple-glass
+{
+	background-color: rgba(84, 0, 183, 0.62);
+	padding: 2rem;
+	margin: 2rem 0;
+	border-radius: 20px;
+	color: white;
+}
+
+.btn.bg-light-purple:hover
+{
+	background-color: var(--secondary-color)!important;
+	border-color: var(--secondary-color)!important;
+}
+
+.btn.bg-orange:hover
+{
+	background-color: var(--secondary-orange)!important;
+	border-color: var(--secondary-orange)!important;
+}
+
+a.link
+{
+	color: white;
+	display: block;
+	-webkit-transition: all 300ms ease;
+	-moz-transition: all 300ms ease;
+	-ms-transition: all 300ms ease;
+	-o-transition: all 300ms ease;
+	transition: all 300ms ease;
+}
+
+a.link:hover
+{
+	color: white;
+	text-decoration: none;
+	text-shadow: 0 0 5px var(--orange), 0 0 5px var(--orange);
 }

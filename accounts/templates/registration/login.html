@@ -1,0 +1,32 @@
+<!-- templates/signup.html -->
+{% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block title %}ورود{% endblock %}
+
+{% block inside_content %}
+	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+		<h2 class="mb-4">ورود به مای‌آکادمی</h2>
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{{ message.tags }}" role="alert">
+					{{ message }}
+				</div>
+			{% endfor %}
+		{% endif %}
+		<form method="post" class="col-9 col-sm-8 mx-auto ltr-form">
+			{% csrf_token %}
+			{{ form | crispy }}
+			<input type="submit" value="ورود" class="btn bg-light-purple">
+		</form>
+			<a href="{% url 'accounts:password_reset' %}" class="link mt-3">
+					گذرواژه‌‌ی خود را فراموش کرده‌اید؟
+			</a>
+	</div>
+{% endblock %}
