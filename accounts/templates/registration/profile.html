@@ -1,0 +1,41 @@
+<!-- templates/signup.html -->
+{% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    {{ block.super }}
+{% endblock %}
+
+{% block title %}پروفایل{% endblock %}
+
+{% block inside_content %}
+    <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+        <h2 class="mb-4">پروفایل</h2>
+
+        <img src="{{ user.profile_picture.url }}"> <br>
+
+        نام:
+        {{ user.first_name }} <br>
+
+        نام خانوادگی:
+        {{ user.last_name }} <br>
+
+
+        دانشگاه:
+        {{ user.university }} <br>
+
+
+        رشته:
+        {{ user.major }} <br>
+
+        بیو:
+        {{ user.bio }} <br>
+
+
+        <a href="{% url 'accounts:profile_edit' %}" class="btn bg-orange">
+            تغییر پروفایل
+        </a>
+
+    </div>
+{% endblock %}
