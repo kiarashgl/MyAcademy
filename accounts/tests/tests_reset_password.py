@@ -63,3 +63,4 @@ class ResetPasswordTest(TestCase):
 			kwargs={'uidb64': uid, 'token': token}))
 		self.assertEqual(response.status_code, 200)
 		self.assertEqual(len(response.context['messages']), 1)
+	
