@@ -4,38 +4,56 @@
 {% load crispy_forms_tags %}
 
 {% block css %}
-    {{ block.super }}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block title %}پروفایل{% endblock %}
 
 {% block inside_content %}
-    <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
-        <h2 class="mb-4">پروفایل</h2>
-
-        <img src="{{ user.profile_picture.url }}"> <br>
-
-        نام:
-        {{ user.first_name }} <br>
-
-        نام خانوادگی:
-        {{ user.last_name }} <br>
-
-
-        دانشگاه:
-        {{ user.university }} <br>
-
-
-        رشته:
-        {{ user.major }} <br>
-
-        بیو:
-        {{ user.bio }} <br>
-
-
-        <a href="{% url 'accounts:profile_edit' %}" class="btn bg-orange">
-            تغییر پروفایل
-        </a>
-
-    </div>
+	<div class="container col-sm-11 mx-auto bg-purple-glass">
+		{% if messages %}
+			{% for message in messages %}
+				<div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+					{{ message }}
+					<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+			{% endfor %}
+		{% endif %}
+		<div class="row">
+			<div class="col-sm-3 mb-3 mb-sm-0">
+				<div class="square">
+					<img src="{{ user.profile_picture.url }}">
+				</div>
+			</div>
+			<div class="col text-right">
+				<div>
+					<h3 class="d-inline">
+						{{ user.get_full_name }}
+					</h3>
+					{% if request.user == user %}
+						<a href="{% url 'accounts:profile_edit' %}" style="font-size:2rem" class="float-left text-white">
+							<i class="fas fa-user-edit"></i>
+						</a>
+					{% endif %}
+				</div>
+				<div class="row pt-2">
+					<div class="col-sm-6 px-0">
+						<span class="badge badge-secondary">دانشگاه</span>
+						{{ user.university }}
+					</div>
+					<div class="col-sm-6 px-0">
+						<span class="badge badge-secondary">رشته</span>
+						{{ user.major }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="text-justify my-2">
+			<span class="badge badge-secondary">بیوگرافی</span>
+			<p>{{ user.bio }}</p>
+		</div>
+	</div>
 {% endblock %}

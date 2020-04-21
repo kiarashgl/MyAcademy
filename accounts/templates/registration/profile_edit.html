@@ -4,18 +4,15 @@
 {% load crispy_forms_tags %}
 
 {% block css %}
-    {{ block.super }}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
 {% endblock %}
 
 {% block title %}پروفایل{% endblock %}
 
 {% block inside_content %}
-    <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
-        <h2 class="mb-4">ادیت پروفایل</h2>
-
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {% crispy form %}
-        </form>
-    </div>
+	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+		<h2 class="mb-4">ویرایش پروفایل</h2>
+		{% crispy form %}
+	</div>
 {% endblock %}

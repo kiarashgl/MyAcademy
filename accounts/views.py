@@ -50,7 +50,7 @@ class Profile(LoginRequiredMixin, generic.detail.DetailView):
 		return self.request.user
 
 
-class EditProfile(LoginRequiredMixin, generic.edit.UpdateView):
+class EditProfile(SuccessMessageMixin, LoginRequiredMixin, generic.edit.UpdateView):
 	login_url = reverse_lazy('accounts:login')
 	form_class = EditProfileForm
 	success_url = reverse_lazy('accounts:profile')

@@ -64,9 +64,10 @@ class PasswordResetConfirmForm(SetPasswordForm):
 
 
 class EditProfileForm(UserChangeForm):
-	# Suppress help texts
 	def __init__(self, *args, **kwargs):
 		super(UserChangeForm, self).__init__(*args, **kwargs)
+		self.fields['university'].widget.attrs['placeholder'] = 'مثلاً: صنعتی شریف'
+		self.fields['major'].widget.attrs['placeholder'] = 'مثلاً: مهندسی کامپیوتر'
 		self.helper = FormHelper()
 		self.helper.form_method = 'post'
 		self.helper.form_class = 'form-horizontal col-md-10 mx-auto'
@@ -74,14 +75,17 @@ class EditProfileForm(UserChangeForm):
 		self.helper.field_class = 'col'
 		self.helper.use_custom_control = True
 		self.helper.layout = Layout(
-			Div('first_name', css_class='col'),
-			Div('last_name', css_class='col'),
-			Div('university', css_class='col'),
-			Div('major', css_class='col'),
-			Div('bio', css_class='col'),
+			Div(
+				Div('first_name', css_class='col'),
+				Div('last_name', css_class='col'),
+				css_class='row'
+			),
+			Div('university'),
+			Div('major'),
+			Div('bio'),
 			Div('profile_picture', css_class='col'),
 			FormActions(
-				Submit('submit', 'به روزرسانی', css_class="bg-light-purple"),
+				Submit('submit', 'به‌روزرسانی', css_class="bg-light-purple"),
 			),
 		)
 
@@ -104,12 +108,8 @@ class EditProfileForm(UserChangeForm):
 		user.university = self.cleaned_data['university']
 		user.major = self.cleaned_data['major']
 
-		# If new image has been selected, set it to that image
-		# Else set to default profile_picture
 		if 'profile_picture' in self.files:
 			user.profile_picture = self.files['profile_picture']
-		else:
-			user.profile_picture = 'default_profile_picture.png'
 
 		if commit:
 			user.save()

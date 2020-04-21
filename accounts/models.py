@@ -11,10 +11,10 @@ class User(AbstractUser):
 	REQUIRED_FIELDS = ['first_name', 'last_name', 'email']
 
 	# Extra profile fields
-	profile_picture = models.ImageField(upload_to='profile_pictures', default='default_profile_picture.png')
-	bio = models.CharField(max_length=100, blank=True)
-	university = models.CharField(max_length=100, blank=True)
-	major = models.CharField(max_length=100, blank=True)
+	profile_picture = models.ImageField("تصویر نمایه", upload_to='profile_pictures', default='default_profile_picture.png')
+	bio = models.TextField("بیوگرافی", blank=True)
+	university = models.CharField("دانشگاه", max_length=100, blank=True)
+	major = models.CharField("رشته", max_length=100, blank=True,)
 
 	def __str__(self):
 		return self.username
