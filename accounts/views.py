@@ -1,4 +1,4 @@
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
@@ -41,21 +41,17 @@ class PasswordResetConfirm(SuccessMessageMixin, PasswordResetConfirmView):
 	success_url = reverse_lazy('accounts:login')
 
 
-class Profile(generic.detail.DetailView):
+class Profile(LoginRequiredMixin, generic.detail.DetailView):
+	login_url = reverse_lazy('accounts:login')
 	model = User
 	template_name = 'registration/profile.html'
 
 	def get_object(self, queryset=None):
 		return self.request.user
 
-	def dispatch(self, request, *args, **kwargs):
-		if not request.user.is_authenticated:
-			return redirect('accounts:login')
 
-		return super(Profile, self).get(request, *args, **kwargs)
-
-
-class EditProfile(generic.edit.UpdateView):
+class EditProfile(LoginRequiredMixin, generic.edit.UpdateView):
+	login_url = reverse_lazy('accounts:login')
 	form_class = EditProfileForm
 	success_url = reverse_lazy('accounts:profile')
 	success_message = "پروفایل شما با موفقیت به روزرسانی شد."
@@ -63,9 +59,3 @@ class EditProfile(generic.edit.UpdateView):
 
 	def get_object(self, queryset=None):
 		return self.request.user
-
-	def dispatch(self, request, *args, **kwargs):
-		if not request.user.is_authenticated:
-			return redirect('accounts:login')
-
-		return super(EditProfile, self).post(request, *args, **kwargs)
