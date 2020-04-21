@@ -48,6 +48,12 @@ class Profile(generic.detail.DetailView):
 	def get_object(self, queryset=None):
 		return self.request.user
 
+	def dispatch(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect('accounts:login')
+
+		return super(Profile, self).get(request, *args, **kwargs)
+
 
 class EditProfile(generic.edit.UpdateView):
 	form_class = EditProfileForm
@@ -57,3 +63,9 @@ class EditProfile(generic.edit.UpdateView):
 
 	def get_object(self, queryset=None):
 		return self.request.user
+
+	def dispatch(self, request, *args, **kwargs):
+		if not request.user.is_authenticated:
+			return redirect('accounts:login')
+
+		return super(EditProfile, self).post(request, *args, **kwargs)
