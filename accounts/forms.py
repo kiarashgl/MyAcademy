@@ -59,7 +59,7 @@ class SignupForm(UserCreationForm):
 class PasswordResetConfirmForm(SetPasswordForm):
 	def __init__(self, user, *args, **kwargs):
 		super().__init__(user, *args, **kwargs)
-    		self.fields['new_password1'].help_text = None
+		self.fields['new_password1'].help_text = None
 
 
 class EditProfileForm(UserChangeForm):
