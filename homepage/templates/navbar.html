@@ -13,9 +13,28 @@
 		</ul>
 
 		{% if user.is_authenticated %}
-			<span>{{ user.first_name }} عزیز، خوش آمدید!</span>
-			<a class="btn bg-light-purple ml-sm-2 mr-2" href='{% url "accounts:logout" %}'>خروج
-			</a>
+			<div class="nav-item profile dropdown">
+				<div class="square dropdown-toggle mr-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown"
+				     aria-haspopup="true" aria-expanded="false">
+					<img class="rounded-circle" src="{{ user.profile_picture.url | safe }}" alt="Profile Picture">
+				</div>
+				</button>
+				<div dir="rtl" class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<h6 class="dropdown-header">{{ user.first_name }} عزیز، خوش آمدید!</h6>
+					<a class="dropdown-item mx-auto text-center" href='{% url "accounts:profile" %}'>
+						<span>
+							<i class="fa fa-user-circle" aria-hidden="true"></i>
+							پروفایل
+						</span>
+					</a>
+					<a class="dropdown-item mx-auto text-center" href='{% url "accounts:logout" %}'>
+						<span>
+							<i class="fa fa-sign-out" aria-hidden="true"></i>
+							خروج
+						</span>
+					</a>
+				</div>
+			</div>
 		{% else %}
 			<a class="btn bg-light-purple mx-2" href='{% url "accounts:login" %}'>ورود</a>
 			<a class="btn bg-orange mx-sm-2 ml-0" href='{% url "accounts:signup" %}'>ثبت‌نام</a>
