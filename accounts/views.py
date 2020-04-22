@@ -1,4 +1,5 @@
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
+
 from django.contrib.auth.views import LoginView, PasswordResetView, PasswordResetConfirmView, redirect_to_login
 from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import redirect
@@ -7,6 +8,7 @@ from django.views import generic
 
 from .forms import SignupForm, PasswordResetConfirmForm, EditProfileForm
 from .models import User
+
 
 
 class Login(LoginView):
@@ -40,7 +42,6 @@ class PasswordResetConfirm(SuccessMessageMixin, PasswordResetConfirmView):
 	success_message = "گذرواژه‌ی شما با موفقیت تغییر کرد. می‌توانید با گذرواژه‌ی جدید به حساب‌تان وارد شوید."
 	success_url = reverse_lazy('accounts:login')
 
-
 class Profile(LoginRequiredMixin, generic.detail.DetailView):
 	login_url = reverse_lazy('accounts:login')
 	model = User
@@ -59,3 +60,4 @@ class EditProfile(SuccessMessageMixin, LoginRequiredMixin, generic.edit.UpdateVi
 
 	def get_object(self, queryset=None):
 		return self.request.user
+
