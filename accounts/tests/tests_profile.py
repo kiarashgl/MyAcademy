@@ -45,10 +45,11 @@ class ProfileTest(TestCase):
 		response = self.client.get(reverse('accounts:profile'))
 
 		# Redirect to home if user is not logged in
-		self.assertRedirects(response, reverse('accounts:login'))
+		self.assertEqual(response.url, reverse('accounts:login') + '?next=/accounts/profile/')
+
 
 	def test_profile_successful(self):
-		response = self.client.post(reverse('accounts:profile'))
+		response = self.client.get(reverse('accounts:profile'))
 
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'registration/profile.html')
