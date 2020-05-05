@@ -12,6 +12,7 @@
 
 {% block inside_content %}
     <h1>Department</h1>
+    <img src="{{ department.picture.url }}">
     <h2> {{ department.name }}</h2>
-    <h3> Score: {{ department.score }}</h3>
+    <h3> University: {{ department.my_university }}</h3>
 {% endblock %}
