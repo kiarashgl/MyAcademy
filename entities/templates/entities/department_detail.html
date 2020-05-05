@@ -1,0 +1,17 @@
+<!-- templates/signup.html -->
+{% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block title %}پروفایل استاد{% endblock %}
+
+{% block inside_content %}
+    <h1>Department</h1>
+    <h2> {{ department.name }}</h2>
+    <h3> Score: {{ department.score }}</h3>
+{% endblock %}
