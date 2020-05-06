@@ -6,6 +6,9 @@ class Entity(models.Model):
 	verified = models.BooleanField(default=False)
 	picture = models.ImageField(upload_to='profile_pictures', null=True, blank=True)
 
+	class Meta:
+		abstract = True
+
 
 class Professor(Entity):
 	first_name = models.CharField(max_length=30, blank=False)

@@ -12,6 +12,10 @@
 			</li>
 		</ul>
 
+        <form action="{% url 'entities:search_results' %}" method="get">
+            <input name="q" type="text" placeholder="Search...">
+        </form>
+
 		{% if user.is_authenticated %}
 			<div class="nav-item profile dropdown">
 				<div class="square dropdown-toggle mr-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown"
