@@ -3,7 +3,7 @@ from django.urls import reverse_lazy
 from crispy_forms.helper import FormHelper
 
 
-from .forms import SearchForm
+from core.forms import SearchForm
 
 
 class HomepageView(FormView):

@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
-from django.views.generic import DetailView, CreateView, ListView
+from django.views.generic import DetailView, CreateView, ListView, FormView
 from .models import Professor, Department, University, Entity
 from .forms import ProfessorForm, DepartmentForm, UniversityForm
-from django.db.models import Q, F
+from core.forms import SearchForm
+from django.db.models import Q, F, Value as V
+from django.db.models.functions import Concat
 
 
 # Create your views here.
@@ -66,28 +68,38 @@ class UniversitySuggest(CreateView):
 	success_url = reverse_lazy('home')
 
 
-class SearchResultsView(ListView):
+class SearchResultsView(FormView, ListView):
 	template_name = 'entities/search_results.html'
+	form_class = SearchForm
 
 	def get_queryset(self):
 		query = self.request.GET.get('q')
+		filter_by = self.request.GET.get('filter_by')
+		filter_by = filter_by if filter_by is not None else 'all'
 
-		print(query)
+		if filter_by == 'all' or filter_by == 'profs':
+			profs = Professor.objects.annotate(
+				full_name=Concat('first_name', V(' '), 'last_name')).filter(
+				Q(full_name__icontains=query),
+				verified=True
+			)
+		else:
+			profs = Professor.objects.none()
 
-		profs = Professor.objects.all().filter(
-			Q(first_name__icontains=query) | Q(last_name__icontains=query),
-			# TODO: Moos fix this (Make it search on first_name + " " + last_name instead of searching on them one by one
-			verified=True
-		)
+		if filter_by == 'all' or filter_by == 'deps':
+			deps = Department.objects.filter(
+				Q(name__icontains=query),
+				verified=True
+			)
+		else:
+			deps = Department.objects.none()
 
-		deps = Department.objects.filter(
-			Q(name__icontains=query),
-			verified=True
-		)
-
-		unis = University.objects.filter(
-			Q(name__icontains=query),
-			verified=True
-		)
+		if filter_by == 'all' or filter_by == 'unis':
+			unis = University.objects.filter(
+				Q(name__icontains=query),
+				verified=True
+			)
+		else:
+			unis = University.objects.none()
 
 		return list(profs) + list(deps) + list(unis)

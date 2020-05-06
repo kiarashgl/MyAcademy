@@ -11,7 +11,7 @@ class SearchForm(Form):
 	filter_by = ChoiceField(label='میان', 	initial='all', 
 										  	widget=RadioSelect, 
 										  	choices = (('all', 'همه'), ('profs', 'اساتید'), 
-															('depts', 'دانشکده‌ها'), 
+															('deps', 'دانشکده‌ها'), 
 															('unis', 'دانشگاه‌ها')))
 
 	def __init__(self, *args, **kwargs):

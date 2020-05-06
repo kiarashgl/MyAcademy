@@ -11,8 +11,13 @@
 {% block title %}نایج جستجو{% endblock %}
 
 {% block inside_content %}
-    <h1>Search Results</h1>
+    <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+    {% crispy form %}
+    </div>
 
+    <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+    <h2>نتایج</h2>
+    {% if object_list %}
     <ul>
         {% for entity in object_list %}
             <li>
@@ -20,4 +25,8 @@
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+    <p>جست‌وجوی شما نتیجه‌ای در بر نداشت!</p>
+    {% endif %}
+    </div>
 {% endblock %}
