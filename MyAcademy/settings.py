@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'django.contrib.staticfiles',
 	'crispy_forms',
 	'django_cleanup',
+	'django_nose',
 ]
 
 MIDDLEWARE = [
@@ -138,3 +139,11 @@ STATICFILES_DIRS = [
 
 # Django Crispy Forms Config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+# Use nose to run all tests
+TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
+
+NOSE_ARGS = [
+	'--with-coverage',
+	'--cover-package=accounts, entities, homepage', # Add packages here
+]
