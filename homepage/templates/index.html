@@ -1,5 +1,6 @@
 {% extends 'fullscreen_header.html' %}
 {% load static %}
+{% load crispy_forms_tags %}
 
 {% block css %}
     {{ block.super }}
@@ -9,4 +10,7 @@
 {% block inside_content %}
 	<h1 class="text-white">مای‌آکادمی</h1>
 	<h3 class="text-white">با آگاهی کامل، مسیرت را انتخاب کن!</h3>
+	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+	{% crispy form %}
+	</div>
 {% endblock %}
