@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
 
 class Entity(models.Model):
@@ -14,6 +15,10 @@ class Professor(Entity):
 	def __str__(self):
 		return self.first_name + " " + self.last_name
 
+	class Meta:
+		verbose_name = _("استاد")
+		verbose_name_plural = _("اساتید")
+
 
 class Department(Entity):
 	name = models.CharField(max_length=30, blank=False)
@@ -22,6 +27,10 @@ class Department(Entity):
 	def __str__(self):
 		return self.name
 
+	class Meta:
+		verbose_name = _("دپارتمان")
+		verbose_name_plural = _("دپارتمان ها")
+
 
 class University(Entity):
 	name = models.CharField(max_length=30, blank=False)
@@ -29,3 +38,7 @@ class University(Entity):
 
 	def __str__(self):
 		return self.name
+
+	class Meta:
+		verbose_name = _("دانشگاه")
+		verbose_name_plural = _("دانشگاه ها")
