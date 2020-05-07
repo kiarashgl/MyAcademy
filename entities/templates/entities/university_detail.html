@@ -5,14 +5,47 @@
 
 {% block css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/university_detail.css' %}">
 {% endblock %}
 
-{% block title %}پروفایل استاد{% endblock %}
+{% block title %}پروفایل دانشگاه{% endblock %}
 
 {% block inside_content %}
-    <h1>University</h1>
-    <img src="{{ university.picture.url }}">
-    <h2> {{ university.name }}</h2>
-    <h3> Address: {{ university.address }}</h3>
+
+    <div class="container emp-profile">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="profile-img">
+                    {% if univeristy.picture %}
+                        <img src="{{ univeristy.picture.url }}">
+                    {% else %}
+                        <img src="/media/default_profile_picture.png">
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="profile-head">
+                    <h5>دانشگاه</h5>
+
+                    <h2>
+                        {{ university.name }}
+                    </h2>
+
+                    <h4> {{ university.address }}</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2 ">
+            <div class="col-md-4">
+                <a class="btn bg-light-purple mx-2" href='#'>نظر بده</a>
+            </div>
+        </div>
+
+    </div>
+
 {% endblock %}

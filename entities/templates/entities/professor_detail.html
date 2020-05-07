@@ -5,17 +5,53 @@
 
 {% block css %}
     {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static "css/professor_detail.css" %}">
 {% endblock %}
 
 {% block title %}پروفایل استاد{% endblock %}
 
+
 {% block inside_content %}
-    <h1>Professor</h1>
-    {% if professor.picture %}
-        <img src="{{ professor.picture.url }}">
-    {% endif %}
-    <h2> {{ professor.first_name }} {{ professor.last_name }}</h2>
-    <h4> Department: {{ professor.my_department }}</h4>
-    <h5>University: {{ professor.my_department.my_university }}</h5>
+
+    <div class="container emp-profile">
+
+        <div class="row">
+
+            <div class="col-md-4">
+                <div class="profile-img">
+                    {% if professor.picture %}
+                        <img src="{{ professor.picture.url }}">
+                    {% else %}
+                        <img src="/media/default_profile_picture.png">
+                    {% endif %}
+
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="profile-head">
+                    <h5> استاد دانشگاه</h5>
+                    <h2>
+                        {{ professor.first_name }} {{ professor.last_name }}
+                    </h2>
+                    {% if professor.my_department %}
+                        <h6>
+                            {{ professor.my_department }}
+                            {% if professor.my_department.my_university %}
+                                - {{ professor.my_department.my_university }}
+                            {% endif %}
+                        </h6>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-2 ">
+            <div class="col-md-4">
+                <a class="btn bg-light-purple mx-2" href='#'>نظر بده</a>
+            </div>
+        </div>
+
+    </div>
+
 {% endblock %}
