@@ -1,0 +1,17 @@
+
+
+#results ul
+{
+	list-style-type: none;
+	padding: 0;
+}
+
+a.link
+{
+	display: inline;
+}
+
+.entity-card .square
+{
+	width: 60%;
+}

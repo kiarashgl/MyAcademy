@@ -1,0 +1,13 @@
+<div class="entity-card">
+{% firstof university.picture.url professor.picture.url department.picture.url as entity_picture %}
+
+	<div class="square circle mx-auto">
+			{% if entity_picture %}
+				<img src="{{ entity_picture }}">
+			{% else %}
+				<img src="/media/default_profile_picture.png">
+			{% endif %}
+		</div>
+	{% block entity_content %}
+	{% endblock %}
+</div>

@@ -5,6 +5,7 @@
 
 {% block css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/entity_detail.css" %}">
     <link rel="stylesheet" href="{% static 'css/department_detail.css' %}">
 {% endblock %}
 
@@ -17,13 +18,12 @@
         <div class="row">
 
             <div class="col-md-4">
-                <div class="profile-img">
+                <div class="square circle">
                     {% if department.picture %}
                         <img src="{{ department.picture.url }}">
                     {% else %}
                         <img src="/media/default_profile_picture.png">
                     {% endif %}
-
                 </div>
             </div>
 

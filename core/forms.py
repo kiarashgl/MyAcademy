@@ -1,4 +1,6 @@
+from crispy_forms.bootstrap import InlineRadios
 from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Div, Layout
 from django.urls import reverse_lazy
 
 from django.forms import Form, CharField, ChoiceField, RadioSelect, TextInput
@@ -18,5 +20,10 @@ class SearchForm(Form):
 		super(Form, self).__init__(*args, **kwargs)
 		self.helper = FormHelper()
 		self.helper.form_method = 'GET'
+		self.helper.form_class = 'no-asterisk'
 		self.helper.form_action = reverse_lazy('entities:search_results')
 		self.helper.disable_csrf = True
+		self.helper.layout = Layout(
+			Div('q'),
+			Div(InlineRadios('filter_by'))
+		)

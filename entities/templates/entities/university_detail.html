@@ -5,6 +5,7 @@
 
 {% block css %}
     {{ block.super }}
+    <link rel="stylesheet" href="{% static "css/entity_detail.css" %}">
     <link rel="stylesheet" href="{% static 'css/university_detail.css' %}">
 {% endblock %}
 
@@ -17,9 +18,9 @@
         <div class="row">
 
             <div class="col-md-4">
-                <div class="profile-img">
-                    {% if univeristy.picture %}
-                        <img src="{{ univeristy.picture.url }}">
+                <div class="square circle">
+                    {% if university.picture %}
+                        <img src="{{ university.picture.url }}">
                     {% else %}
                         <img src="/media/default_profile_picture.png">
                     {% endif %}
