@@ -21,6 +21,9 @@ class Professor(Entity):
 	class Meta:
 		verbose_name = _("استاد")
 		verbose_name_plural = _("اساتید")
+		constraints = [
+			models.UniqueConstraint(fields=['first_name', 'last_name', 'my_department'], name='unique_professor'),
+		]
 
 
 class Department(Entity):
@@ -33,10 +36,13 @@ class Department(Entity):
 	class Meta:
 		verbose_name = _("دانشکده")
 		verbose_name_plural = _("دانشکده‌ها")
+		constraints = [
+			models.UniqueConstraint(fields=['name', 'my_university'], name='unique_department'),
+		]
 
 
 class University(Entity):
-	name = models.CharField(max_length=30, blank=False)
+	name = models.CharField(max_length=30, blank=False, unique=True)
 	address = models.CharField(max_length=100, blank=True)  # TODO: Fix later
 
 	def __str__(self):
