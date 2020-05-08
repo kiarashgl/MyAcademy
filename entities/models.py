@@ -31,8 +31,8 @@ class Department(Entity):
 		return self.name
 
 	class Meta:
-		verbose_name = _("دپارتمان")
-		verbose_name_plural = _("دپارتمان ها")
+		verbose_name = _("دانشکده")
+		verbose_name_plural = _("دانشکده‌ها")
 
 
 class University(Entity):
@@ -44,4 +44,4 @@ class University(Entity):
 
 	class Meta:
 		verbose_name = _("دانشگاه")
-		verbose_name_plural = _("دانشگاه ها")
+		verbose_name_plural = _("دانشگاه‌ها")

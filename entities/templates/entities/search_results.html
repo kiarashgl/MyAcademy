@@ -2,6 +2,7 @@
 {% extends 'fullscreen_header.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load model_tag %}
 
 {% block css %}
     {{ block.super }}
@@ -21,7 +22,27 @@
     <ul>
         {% for entity in object_list %}
             <li>
+                <br/>
+                {% if entity|model_name == 'دانشگاه' %}
+                <a href="{% url 'entities:university_detail' pk=entity.pk %}", class="link mt-3">
                 {{ entity }}
+                </a>
+                (دانشگاه)
+                {% elif entity|model_name == 'دانشکده' %}
+                <a href="{% url 'entities:department_detail' pk=entity.pk %}", class="link mt-3">
+                {{ entity }}
+                </a>
+                (دانشکده)
+                <br/>
+                دانشگاه: {{entity.my_university}}
+                {% elif entity|model_name == 'استاد' %}
+                <a href="{% url 'entities:professor_detail' pk=entity.pk %}", class="link mt-3">
+                {{ entity }}
+                </a>
+                (استاد)
+                <br/>
+                دانشکده:‌ {{entity.my_department}}
+                {% endif %}
             </li>
         {% endfor %}
     </ul>
