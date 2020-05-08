@@ -73,7 +73,7 @@ class UniversityForm(ModelForm):
 		self.helper.use_custom_control = True
 		self.helper.layout = Layout(
 			Div('name', css_class='col'),
-			Div('address', css_class='ltr-form'),
+			Div('address', css_class='col'),
 			FormActions(
 				Submit('submit', 'ثبت', css_class="bg-light-purple"),
 			),

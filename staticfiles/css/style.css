@@ -29,6 +29,12 @@ nav
 	color: white;
 }
 
+ul
+{
+	list-style-type: none;
+	padding: 0;
+}
+
 .bg-light-purple
 {
 	background-color: var(--light-purple);
@@ -69,8 +75,13 @@ nav
 	border-color: var(--secondary-orange)!important;
 }
 
-a.link
+.dark .link
 {
+	color: black;
+}
+a, a:hover, .link
+{
+	text-decoration: none;
 	color: white;
 	display: block;
 	-webkit-transition: all 300ms ease;
@@ -80,12 +91,9 @@ a.link
 	transition: all 300ms ease;
 }
 
-a.link:hover
+a.link:hover, a:hover .link, a .link:hover
 {
-	color: white;
-	text-decoration: none;
 	text-shadow: 0 0 5px var(--orange), 0 0 5px var(--orange);
-
 }
 
 form.no-asterisk .asteriskField {

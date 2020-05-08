@@ -1,55 +1,26 @@
 <!-- templates/signup.html -->
-{% extends 'fullscreen_header.html' %}
+{% extends 'entities/entity_detail.html' %}
 {% load static %}
 {% load crispy_forms_tags %}
 
 {% block css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static "css/entity_detail.css" %}">
-    <link rel="stylesheet" href="{% static 'css/department_detail.css' %}">
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static "css/entity_detail.css" %}">
+	<link rel="stylesheet" href="{% static 'css/department_detail.css' %}">
 {% endblock %}
 
 {% block title %}پروفایل دپارتمان{% endblock %}
+{% block image_url %}{{ department.picture.url }}{% endblock %}
 
-{% block inside_content %}
+{% block profile_content %}
+	<h5>دپارتمان</h5>
+	<h2>
+		{{ department.name }}
+	</h2>
 
-    <div class="container emp-profile">
-
-        <div class="row">
-
-            <div class="col-md-4">
-                <div class="square circle">
-                    {% if department.picture %}
-                        <img src="{{ department.picture.url }}">
-                    {% else %}
-                        <img src="/media/default_profile_picture.png">
-                    {% endif %}
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="profile-head">
-                    <h5>دپارتمان</h5>
-
-                    <h2>
-                        {{ department.name }}
-                    </h2>
-
-                    {% if department.my_university %}
-                        <h6>
-                            {{ department.my_university }}
-                        </h6>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-
-        <div class="row mt-2 ">
-            <div class="col-md-4">
-                <a class="btn bg-light-purple mx-2" href='#'>نظر بده</a>
-            </div>
-        </div>
-
-    </div>
-
+	{% if department.my_university %}
+		<h6>
+			{{ department.my_university }}
+		</h6>
+	{% endif %}
 {% endblock %}
