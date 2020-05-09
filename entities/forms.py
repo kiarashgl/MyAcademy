@@ -24,6 +24,9 @@ class ProfessorForm(ModelForm):
 				Div('last_name', css_class='col'),
 				css_class='row'
 			),
+			Div(
+				Div('rank', css_class='ltr-form'),
+			),
 			Div('my_department', css_class='ltr-form'),
 			FormActions(
 				Submit('submit', 'ثبت', css_class="bg-light-purple"),
@@ -32,7 +35,7 @@ class ProfessorForm(ModelForm):
 
 	class Meta:
 		model = Professor
-		fields = ['first_name', 'last_name', 'my_department']
+		fields = ['first_name', 'last_name', 'rank', 'my_department']
 
 
 class DepartmentForm(ModelForm):

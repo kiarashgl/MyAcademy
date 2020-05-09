@@ -10,9 +10,21 @@ class Entity(models.Model):
 
 
 class Professor(Entity):
+	INSTRUCTOR = 'ins'
+	ASSISTANT = 'asi'
+	ASSOCIATE = 'aso'
+	FULL = 'ful'
+	ACADEMIC_RANK = [
+		(INSTRUCTOR, 'مدرس'),
+		(ASSISTANT, 'استادیار'),
+		(ASSOCIATE, 'دانشیار'),
+		(FULL, 'استاد'),
+	]
+
 	first_name = models.CharField(_("first name"), max_length=30, blank=False)
 	last_name = models.CharField(_("last name"), max_length=30, blank=False)
 	my_department = models.ForeignKey('Department', verbose_name="نام دانشکده", on_delete=models.SET_NULL, null=True)
+	rank = models.CharField(max_length=3, choices=ACADEMIC_RANK, verbose_name="مرتبه‌ی علمی", default=INSTRUCTOR)
 	picture = models.ImageField(upload_to='profile_pictures', blank=True, default='professor_default_picture.png')
 
 
