@@ -68,6 +68,27 @@ class UniversitySuggest(CreateView):
 	success_url = reverse_lazy('home')
 
 
+class ProfessorList(ListView):
+	template_name = 'entities/professor_list.html'
+
+	def get_queryset(self):
+		return Professor.objects.filter(verified=True)
+
+
+class DepartmentList(ListView):
+	template_name = 'entities/department_list.html'
+
+	def get_queryset(self):
+		return Department.objects.filter(verified=True)
+
+
+class UniversityList(ListView):
+	template_name = 'entities/university_list.html'
+
+	def get_queryset(self):
+		return University.objects.filter(verified=True)
+
+
 class SearchResultsView(FormView, ListView):
 	template_name = 'entities/search_results.html'
 	form_class = SearchForm

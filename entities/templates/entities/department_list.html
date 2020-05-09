@@ -1,0 +1,28 @@
+<!-- templates/signup.html -->
+{% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load model_tag %}
+
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+{% endblock %}
+
+{% block title %}لیست دپارتمان ها{% endblock %}
+
+{% block inside_content %}
+    <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass" id="results">
+        <h2>لیست دپارتمان ها</h2>
+        <ul class="row">
+            {% for entity in object_list %}
+                <li class="col-lg-6">
+                    <br/>
+                    {% render_department entity %}
+                </li>
+            {% empty %}
+                <p>هیچ استادی در سیستم وجود ندارد!</p>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

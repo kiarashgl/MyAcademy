@@ -12,5 +12,9 @@ urlpatterns = [
 	path('department/suggest', views.DepartmentSuggest.as_view(), name='department_suggest'),
 	path('university/suggest', views.UniversitySuggest.as_view(), name='university_suggest'),
 
+	path('professor/all', views.ProfessorList.as_view(), name='professor_all'),
+	path('department/all', views.DepartmentList.as_view(), name='department_all'),
+	path('university/all', views.UniversityList.as_view(), name='university_all'),
+
 	path('search', views.SearchResultsView.as_view(), name='search_results'),
 ]
