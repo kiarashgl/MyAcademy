@@ -1,4 +1,3 @@
-<!-- templates/signup.html -->
 {% extends 'fullscreen_header.html' %}
 {% load static %}
 {% load model_tag %}
@@ -9,19 +8,18 @@
     <link rel="stylesheet" href="{% static 'css/search_results.css' %}">
 {% endblock %}
 
-{% block title %}لیست دانشگاه ها{% endblock %}
+{% block title %}لیست دانشگاه‌ها{% endblock %}
 
 {% block inside_content %}
     <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass" id="results">
-        <h2>لیست دانشگاه ها</h2>
+        <h2>لیست دانشگاه‌ها</h2>
         <ul class="row">
             {% for entity in object_list %}
                 <li class="col-lg-6">
-                    <br/>
                     {% render_university entity %}
                 </li>
             {% empty %}
-                <p>هیچ استادی در سیستم وجود ندارد!</p>
+                <p>هیچ دانشگاهی در سیستم وجود ندارد!</p>
             {% endfor %}
         </ul>
     </div>

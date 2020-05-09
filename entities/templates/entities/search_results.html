@@ -22,7 +22,6 @@
     <ul class="row">
         {% for entity in object_list %}
             <li class="col-lg-6">
-                <br/>
                 {% if entity|model_name == 'دانشگاه' %}
 	                {% render_university entity %}
                 {% elif entity|model_name == 'دانشکده' %}

@@ -1,4 +1,3 @@
-<!-- templates/signup.html -->
 {% extends 'fullscreen_header.html' %}
 {% load static %}
 {% load model_tag %}
@@ -17,7 +16,6 @@
         <ul class="row">
             {% for entity in object_list %}
                 <li class="col-lg-6">
-                    <br/>
                     {% render_professor entity %}
                 </li>
             {% empty %}
