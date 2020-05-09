@@ -61,6 +61,7 @@ class SuggestTest(TestCase):
 		response = self.client.post(reverse('entities:professor_suggest'),
 									{'first_name': 'محمد علی',
 									 'last_name': 'آبام',
+									 'rank': Professor.ASSISTANT,
 									 'my_department': self.department.pk})
 
 		# Check the user is redirected to the home page
@@ -70,6 +71,7 @@ class SuggestTest(TestCase):
 		prof = Professor.objects.get(first_name='محمد علی', last_name='آبام')
 		self.assertEqual(prof.first_name, 'محمد علی')
 		self.assertEqual(prof.last_name, 'آبام')
+		self.assertEqual(prof.rank, Professor.ASSISTANT)
 		self.assertEqual(prof.my_department, self.department)
 		self.assertEqual(prof.verified, False)
 
@@ -77,6 +79,7 @@ class SuggestTest(TestCase):
 		response = self.client.post(reverse('entities:professor_suggest'),
 									{'first_name': self.professor.first_name,
 									 'last_name': self.professor.last_name,
+									 'rank': Professor.ASSISTANT,
 									 'my_department': self.department.pk})
 
 		self.assertEqual(response.status_code, 200)
@@ -87,6 +90,7 @@ class SuggestTest(TestCase):
 			url = reverse('entities:professor_suggest')
 			data = {'first_name': 'Mohammad ' + str(i),
 					'last_name': 'Abam',
+					'rank': Professor.ASSISTANT,
 					'my_department': self.department.pk}
 			self.client.post(url, data)
 

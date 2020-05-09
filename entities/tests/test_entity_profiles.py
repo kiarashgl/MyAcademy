@@ -87,7 +87,7 @@ class ProfileTest(TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'entities/professor_detail.html')
 
-		self.assertContains(response, "استاد دانشگاه")
+		self.assertContains(response, "مدرس")
 		self.assertContains(response, self.professor.first_name)
 		self.assertContains(response, self.professor.last_name)
 		self.assertContains(response, self.professor.my_department)
@@ -118,7 +118,7 @@ class ProfileTest(TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'entities/department_detail.html')
 
-		self.assertContains(response, "دپارتمان")
+		self.assertContains(response, "دانشکده")
 		self.assertContains(response, self.department.name)
 		self.assertContains(response, self.department.my_university)
 		self.assertContains(response, self.department.picture)
