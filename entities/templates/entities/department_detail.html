@@ -4,12 +4,8 @@
 
 {% block css %}
 	{{ block.super }}
-	<link rel="stylesheet" href="{% static "css/entity_detail.css" %}">
 	<link rel="stylesheet" href="{% static 'css/department_detail.css' %}">
 {% endblock %}
-
-{% block title %}پروفایل دانشکده{% endblock %}
-{% block image_url %}{{ department.picture.url }}{% endblock %}
 
 {% block profile_content %}
 	<h5>دانشکده</h5>

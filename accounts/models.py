@@ -13,7 +13,7 @@ class User(AbstractUser):
 
 
 	# Extra profile fields
-	profile_picture = models.ImageField("تصویر نمایه", upload_to='profile_pictures', default='default_profile_picture.png')
+	profile_picture = models.ImageField("تصویر نمایه", upload_to='profile_pictures', default='profile_pictures/default_profile_picture.jpg')
 	bio = models.TextField("بیوگرافی", blank=True)
 	university = models.CharField("دانشگاه", max_length=100, blank=True)
 	major = models.CharField("رشته", max_length=100, blank=True,)

@@ -31,10 +31,7 @@ make_unverified.short_description = "عدم تایید entity های انتخا�
 
 class EntityAdmin(admin.ModelAdmin):
 	def image_tag(self, obj):
-		try:
-			return format_html('<img width="50" height="50" src="{}" />'.format(obj.picture.url))
-		except:
-			return format_html('<img width="50" height="50" src="/media/default_profile_picture.png" />')
+		return format_html('<img width="50" height="50" src="{}" />'.format(obj.get_picture))
 
 	image_tag.short_description = 'Picture'
 
@@ -44,9 +41,6 @@ class ProfessorAdmin(EntityAdmin):
 	list_filter = ['verified']
 	search_fields = ['first_name', 'last_name']
 	actions = [make_verified, make_unverified]
-
-	def name(self, obj):
-		return obj.first_name + " " + obj.last_name
 
 	def my_university(self, obj):
 		return obj.my_department.my_university

@@ -10,8 +10,17 @@ from django.db.models.functions import Concat
 
 # Create your views here.
 
+class EntityDetail(DetailView):
 
-class ProfessorDetail(DetailView):
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['entity'] = self.object
+		return context
+
+	class Meta:
+		abstract = True
+
+class ProfessorDetail(EntityDetail):
 	template_name = 'entities/professor_detail.html'
 	queryset = Professor.objects.filter(verified=True)
 	model = Professor
@@ -24,7 +33,7 @@ class ProfessorDetail(DetailView):
 			return redirect(reverse_lazy('home'))
 
 
-class DepartmentDetail(DetailView):
+class DepartmentDetail(EntityDetail):
 	template_name = 'entities/department_detail.html'
 	queryset = Department.objects.filter(verified=True)
 	model = Department
@@ -37,7 +46,7 @@ class DepartmentDetail(DetailView):
 			return redirect(reverse_lazy('home'))
 
 
-class UniversityDetail(DetailView):
+class UniversityDetail(EntityDetail):
 	template_name = 'entities/university_detail.html'
 	queryset = University.objects.filter(verified=True)
 	model = University

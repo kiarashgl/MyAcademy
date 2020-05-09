@@ -1,9 +1,8 @@
 
 <a href="{% block url %}{% endblock %}">
 	<div class="entity-card mb-4 {% if dark %}dark{% endif %}">
-	{% firstof university.picture.url professor.picture.url department.picture.url as entity_picture %}
 		<div class="square circle mx-auto">
-			<img src="{{ entity_picture }}">
+			<img src="{{ entity.get_picture }}">
 		</div>
 		{% block entity_content %}
 		{% endblock %}

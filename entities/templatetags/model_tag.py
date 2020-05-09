@@ -9,12 +9,12 @@ def model_name(value):
 
 @register.inclusion_tag('entities/university_card.html')
 def render_university(university, dark=False):
-	return {'university' : university, 'dark': dark}
+	return {'entity' : university, 'dark': dark}
 
 @register.inclusion_tag('entities/department_card.html')
 def render_department(department, dark=False):
-	return {'department' : department, 'dark': dark}
+	return {'entity' : department, 'dark': dark}
 
 @register.inclusion_tag('entities/professor_card.html')
 def render_professor(professor, dark=False):
-	return {'professor' : professor, 'dark': dark}
+	return {'entity' : professor, 'dark': dark}

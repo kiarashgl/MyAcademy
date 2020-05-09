@@ -1,17 +1,17 @@
 
 {% extends 'entities/entity_card.html' %}
 {% block url %}
-	{% url 'entities:professor_detail' pk=professor.pk %}
+	{% url 'entities:professor_detail' pk=entity.pk %}
 {% endblock %}
 {% block entity_content %}
 	<div>
 		<div>
-			<h1 class="link mt-3">{{ professor }}</h1>
+			<h1 class="link mt-3">{{ entity }}</h1>
 		</div>
 
 	</div>
-	<span class="badge badge-primary">{{ professor.get_rank_display }}</span>
+	<span class="badge badge-primary">{{ entity.get_rank_display }}</span>
 	<div>
-		<span class="badge badge-info">{{ professor.my_department }} - {{ professor.my_department.my_university }}</span>
+		<span class="badge badge-info">{{ entity.my_department }} - {{ entity.my_department.my_university }}</span>
 	</div>
 {% endblock %}
