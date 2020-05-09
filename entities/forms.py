@@ -11,7 +11,7 @@ class ProfessorForm(ModelForm):
 	def __init__(self, *args, **kwargs):
 		super(ModelForm, self).__init__(*args, **kwargs)
 		self.fields['my_department'].queryset = Department.objects.filter(verified=True)
-
+		self.fields['my_department'].label_from_instance = lambda obj: f'{obj.name} - {obj.my_university}'
 		self.helper = FormHelper()
 		self.helper.form_method = 'post'
 		self.helper.form_class = 'form-horizontal col-md-10 mx-auto'

@@ -4,7 +4,6 @@ from django.utils.translation import ugettext_lazy as _
 
 class Entity(models.Model):
 	verified = models.BooleanField(default=False)
-	picture = models.ImageField(upload_to='profile_pictures', blank=True, default='default_profile_picture.png')
 
 	class Meta:
 		abstract = True
@@ -14,6 +13,8 @@ class Professor(Entity):
 	first_name = models.CharField(_("first name"), max_length=30, blank=False)
 	last_name = models.CharField(_("last name"), max_length=30, blank=False)
 	my_department = models.ForeignKey('Department', verbose_name="نام دانشکده", on_delete=models.SET_NULL, null=True)
+	picture = models.ImageField(upload_to='profile_pictures', blank=True, default='professor_default_picture.png')
+
 
 	def __str__(self):
 		return self.first_name + " " + self.last_name
@@ -29,6 +30,8 @@ class Professor(Entity):
 class Department(Entity):
 	name = models.CharField(max_length=30, blank=False)
 	my_university = models.ForeignKey('University', on_delete=models.SET_NULL, null=True)
+	picture = models.ImageField(upload_to='profile_pictures', blank=True, default='department_default_picture.png')
+
 
 	def __str__(self):
 		return self.name
@@ -44,6 +47,7 @@ class Department(Entity):
 class University(Entity):
 	name = models.CharField(_("name"), max_length=30, blank=False, unique=True)
 	address = models.CharField("آدرس", max_length=100, blank=True)
+	picture = models.ImageField(upload_to='profile_pictures', blank=True, default='university_default_picture.png')
 
 	def __str__(self):
 		return self.name
