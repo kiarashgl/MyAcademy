@@ -145,5 +145,5 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
 	'--with-coverage',
-	'--cover-package=accounts, entities, homepage', # Add packages here
+	'--cover-package=accounts, entities', # Add packages here
 ]

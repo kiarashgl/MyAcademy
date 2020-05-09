@@ -43,7 +43,7 @@ class Department(Entity):
 
 class University(Entity):
 	name = models.CharField(_("name"), max_length=30, blank=False, unique=True)
-	address = models.CharField("آدرس", max_length=100, blank=True)  # TODO: Fix later
+	address = models.CharField("آدرس", max_length=100, blank=True)
 
 	def __str__(self):
 		return self.name
