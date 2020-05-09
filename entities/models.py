@@ -56,8 +56,8 @@ class Professor(Entity):
 
 
 class Department(Entity):
-	name = models.CharField(max_length=30, blank=False)
-	my_university = models.ForeignKey('University', on_delete=models.SET_NULL, null=True)
+	name = models.CharField(_("name"), max_length=30, blank=False)
+	my_university = models.ForeignKey('University', verbose_name="دانشکده", on_delete=models.SET_NULL, null=True)
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -65,6 +65,11 @@ class Department(Entity):
 
 	def __str__(self):
 		return self.name
+
+	@property
+	def professors(self):
+		return Professor.objects.filter(my_department=self)
+
 
 	class Meta:
 		verbose_name = _("دانشکده")

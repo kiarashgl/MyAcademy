@@ -19,14 +19,13 @@
 {% endblock %}
 
 {% block other_content %}
-	<h2>دانشکده‌ها</h2>
-	<ul class="row justify-content-center">
-		{% for entity in university.departments %}
-			<li class="col-8 col-sm-6 col-lg-3">
-				{% render_department entity True %}
-			</li>
-		{% empty %}
-			<p>جست‌وجوی شما نتیجه‌ای در بر نداشت!</p>
-		{% endfor %}
-	</ul>
+	{% if university.departments %}<h2>دانشکده‌ها</h2>
+		<ul class="row justify-content-center">
+			{% for entity in university.departments %}
+				<li class="col-8 col-sm-6 col-lg-3">
+					{% render_department entity True %}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
 {% endblock %}

@@ -181,9 +181,15 @@ form.no-asterisk .asteriskField {
 	min-height: 280px;
 }
 
-.entity-card .square
+.entity-card > .square
 {
 	margin-bottom: .5rem;
+	max-width: 150px;
+}
+
+.entity-card .badge
+{
+	white-space: initial;
 }
 .entity-card h1
 {
@@ -193,4 +199,11 @@ form.no-asterisk .asteriskField {
 .entity-card h2
 {
 	font-size: small;
+}
+
+.btn.suggest
+{
+	display: inline-block;
+	position: absolute;
+	left: 0;
 }

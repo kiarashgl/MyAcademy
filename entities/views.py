@@ -1,3 +1,5 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, FormView
@@ -59,22 +61,28 @@ class UniversityDetail(EntityDetail):
 			return redirect(reverse_lazy('home'))
 
 
-class ProfessorSuggest(CreateView):
+class EntitySuggest(LoginRequiredMixin, SuccessMessageMixin, CreateView):
+	login_url = reverse_lazy('accounts:login')
+	success_url = reverse_lazy('home')
+
+	class Meta:
+		abstract = True
+
+class ProfessorSuggest(EntitySuggest):
 	template_name = 'entities/professor_suggest.html'
 	form_class = ProfessorForm
-	success_url = reverse_lazy('home')
+	success_message = "استاد با موفقیت پیشنهاد داده شد."
 
-
-class DepartmentSuggest(CreateView):
+class DepartmentSuggest(EntitySuggest):
 	template_name = 'entities/department_suggest.html'
 	form_class = DepartmentForm
-	success_url = reverse_lazy('home')
+	success_message = "دانشکده با موفقیت پیشنهاد داده شد."
 
 
-class UniversitySuggest(CreateView):
+class UniversitySuggest(EntitySuggest):
 	template_name = 'entities/university_suggest.html'
 	form_class = UniversityForm
-	success_url = reverse_lazy('home')
+	success_message = "دانشگاه با موفقیت پیشنهاد داده شد."
 
 
 class ProfessorList(ListView):

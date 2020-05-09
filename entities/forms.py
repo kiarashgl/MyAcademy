@@ -52,7 +52,7 @@ class DepartmentForm(ModelForm):
 		self.helper.use_custom_control = True
 		self.helper.layout = Layout(
 			Div('name', css_class='col'),
-			Div('my_university', css_class='ltr-form'),
+			Div('my_university', css_class='col'),
 			FormActions(
 				Submit('submit', 'ثبت', css_class="bg-light-purple"),
 			),

@@ -3,24 +3,31 @@
 {% load model_tag %}
 
 {% block css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+	<link rel="stylesheet" href="{% static 'css/search_results.css' %}">
 {% endblock %}
 
 {% block title %}لیست دانشگاه‌ها{% endblock %}
 
 {% block inside_content %}
-    <div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass" id="results">
-        <h2>لیست دانشگاه‌ها</h2>
-        <ul class="row">
-            {% for entity in object_list %}
-                <li class="col-lg-6">
-                    {% render_university entity %}
-                </li>
-            {% empty %}
-                <p>هیچ دانشگاهی در سیستم وجود ندارد!</p>
-            {% endfor %}
-        </ul>
-    </div>
+	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass" id="results">
+		<div class="position-relative">
+			<h2 class="mb-3 d-inline-block">لیست دانشگاه‌ها</h2>
+			{% if user.is_authenticated %}
+				<a href="{% url 'entities:university_suggest' %}" class="suggest btn btn-warning">
+					+<i class="fas fa-university"></i>
+				</a>
+			{% endif %}
+		</div>
+		<ul class="row">
+			{% for entity in object_list %}
+				<li class="col-lg-6">
+					{% render_university entity %}
+				</li>
+			{% empty %}
+				<p>هیچ دانشگاهی در سیستم وجود ندارد!</p>
+			{% endfor %}
+		</ul>
+	</div>
 {% endblock %}
