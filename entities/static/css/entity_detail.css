@@ -53,15 +53,3 @@ body {
 .profile-head h5 {
     color: #0062cc;
 }
-
-.profile-rating {
-    font-size: 12px;
-    color: #818182;
-    margin-top: 5%;
-}
-
-.profile-rating span {
-    color: #495057;
-    font-size: 15px;
-    font-weight: 600;
-}
