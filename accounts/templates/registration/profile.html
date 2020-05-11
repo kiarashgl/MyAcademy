@@ -24,7 +24,7 @@
 		{% endif %}
 		<div class="row">
 			<div class="col-sm-3 mb-3 mb-sm-0">
-				<div class="square">
+				<div class="square circle">
 					<img src="{{ user.profile_picture.url }}">
 				</div>
 			</div>
@@ -34,7 +34,8 @@
 						{{ user.get_full_name }}
 					</h3>
 					{% if request.user == user %}
-						<a href="{% url 'accounts:profile_edit' %}" style="font-size:2rem" class="float-left text-white">
+						<a href="{% url 'accounts:profile_edit' %}" style="font-size:2rem"
+						   class="float-left text-white">
 							<i class="fas fa-user-edit"></i>
 						</a>
 					{% endif %}

@@ -1,16 +1,13 @@
-header
-{
+header {
 	background: rgba(105, 0, 255, 1);
 	background: linear-gradient(-45deg, rgba(255, 110, 0, 1) 0%, rgb(84, 0, 183) 100%);
 }
 
-.current-image-container
-{
-	width: 100px!important;
+.current-image-container {
+	width: 100px !important;
 }
 
-.fa-user-edit
-{
+.fa-user-edit {
 	color: white;
 	-webkit-transition: all 200ms ease;
 	-moz-transition: all 200ms ease;
@@ -19,12 +16,10 @@ header
 	transition: all 200ms ease;
 }
 
-.fa-user-edit:hover
-{
+.fa-user-edit:hover {
 	color: gray;
 }
 
-textarea
-{
+textarea {
 	resize: none;
 }

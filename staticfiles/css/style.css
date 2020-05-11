@@ -1,12 +1,10 @@
 /* Load Fonts */
-@font-face
-{
+@font-face {
 	font-family: IranSans;
 	src: url('../font/IranSans.ttf') format('truetype');
 }
 
-:root
-{
+:root {
 	--main-color: #5400b7;
 	--secondary-color: #015ad4;
 	--light-purple: #6900ff;
@@ -14,14 +12,12 @@
 	--secondary-orange: #ffc700;
 }
 
-html, body
-{
+html, body {
 	font-family: IranSans, Roboto, sans-serif !important;
 	height: 100%;
 }
 
-nav
-{
+nav {
 	background-color: var(--main-color);
 	z-index: 1000;
 	position: fixed !important;
@@ -29,27 +25,28 @@ nav
 	color: white;
 }
 
-.bg-light-purple
-{
-	background-color: var(--light-purple);
-	border-color: var(--light-purple);
-	color: white!important;
+ul {
+	list-style-type: none;
+	padding: 0;
 }
 
-.bg-orange
-{
+.bg-light-purple {
+	background-color: var(--light-purple);
+	border-color: var(--light-purple);
+	color: white !important;
+}
+
+.bg-orange {
 	background-color: var(--orange) !important;
 	border-color: var(--orange) !important;
 	color: white !important;
 }
 
-.bg-purple
-{
+.bg-purple {
 	background-color: var(--main-color);
 }
 
-.bg-purple-glass
-{
+.bg-purple-glass {
 	background-color: rgba(84, 0, 183, 0.62);
 	padding: 2rem;
 	margin: 2rem 0;
@@ -57,20 +54,22 @@ nav
 	color: white;
 }
 
-.btn.bg-light-purple:hover
-{
-	background-color: var(--secondary-color)!important;
-	border-color: var(--secondary-color)!important;
+.btn.bg-light-purple:hover {
+	background-color: var(--secondary-color) !important;
+	border-color: var(--secondary-color) !important;
 }
 
-.btn.bg-orange:hover
-{
-	background-color: var(--secondary-orange)!important;
-	border-color: var(--secondary-orange)!important;
+.btn.bg-orange:hover {
+	background-color: var(--secondary-orange) !important;
+	border-color: var(--secondary-orange) !important;
 }
 
-a.link
-{
+.dark .link {
+	color: black;
+}
+
+a, a:hover, .link {
+	text-decoration: none;
 	color: white;
 	display: block;
 	-webkit-transition: all 300ms ease;
@@ -80,32 +79,31 @@ a.link
 	transition: all 300ms ease;
 }
 
-a.link:hover
-{
-	color: white;
-	text-decoration: none;
+a.link:hover, a:hover .link, a .link:hover {
 	text-shadow: 0 0 5px var(--orange), 0 0 5px var(--orange);
-
 }
 
-.square
-{
+form.no-asterisk .asteriskField {
+	display: none;
+}
+
+.square {
 	position: relative;
 	width: 100%;
+	overflow: hidden;
+
 }
 
-.square:after
-{
+.square:after {
 	content: "";
 	display: block;
 	padding-bottom: 100%;
 }
 
-.square img
-{
+.square img {
 	position: absolute;
+	min-height: 100%;
 	width: 100%;
-	height: 100%;
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -113,42 +111,75 @@ a.link:hover
 	object-fit: cover;
 }
 
+.circle {
+	border-radius: 50%;
+}
 
-.profile.dropdown .square
-{
+.profile.dropdown .square {
 	height: 40px;
 	width: 40px;
 }
 
-.profile.dropdown .dropdown-toggle:after
-{
+.profile.dropdown .dropdown-toggle:after {
 	content: none
 }
 
 /* Dropdown Animations */
 .dropdown .dropdown-menu {
-    -webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    -moz-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    -ms-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    -o-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	-webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	-moz-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	-ms-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	-o-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+	transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
 
-	min-width: 0!important;
-    max-height: 0;
-    display: block;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
+	min-width: 0 !important;
+	max-height: 0;
+	display: block;
+	overflow: hidden;
+	opacity: 0;
+	visibility: hidden;
 }
 
 .dropdown.show .dropdown-menu {
-    -webkit-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
-    -moz-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
-    -ms-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
-    -o-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
-    transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	-webkit-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	-moz-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	-ms-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	-o-transition: max-height 0.3s, opacity 0.2s, visibility 0s;
+	transition: max-height 0.3s, opacity 0.2s, visibility 0s;
 
-    max-height: 190px;
-    opacity: 1;
-    visibility: visible;
+	max-height: 190px;
+	opacity: 1;
+	visibility: visible;
+}
+
+.entity-card {
+	background-color: rgba(255, 255, 255, 0.25);
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+	padding: 0.75rem;
+	min-height: 280px;
+}
+
+.entity-card > .square {
+	margin-bottom: .5rem;
+	max-width: 150px;
+}
+
+.entity-card .badge {
+	white-space: initial;
+}
+
+.entity-card h1 {
+	font-size: large;
+}
+
+.entity-card h2 {
+	font-size: small;
+}
+
+.btn.suggest {
+	display: inline-block;
+	position: absolute;
+	left: 0;
 }

@@ -1,0 +1,38 @@
+<!-- templates/signup.html -->
+{% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load model_tag %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+	<link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+{% endblock %}
+
+{% block title %}نتایج جستجو{% endblock %}
+
+{% block inside_content %}
+	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+		{% crispy form %}
+	</div>
+
+	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass" id="results">
+		<h2>نتایج</h2>
+		<ul class="row">
+			{% for entity in object_list %}
+				<li class="col-lg-6">
+					{% if entity|model_name == 'دانشگاه' %}
+						{% render_university entity %}
+					{% elif entity|model_name == 'دانشکده' %}
+						{% render_department entity %}
+					{% elif entity|model_name == 'استاد' %}
+						{% render_professor entity %}
+					{% endif %}
+				</li>
+			{% empty %}
+				<p>جست‌وجوی شما نتیجه‌ای در بر نداشت!</p>
+			{% endfor %}
+		</ul>
+	</div>
+{% endblock %}

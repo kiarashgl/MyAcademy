@@ -3,6 +3,7 @@ from django.urls import reverse
 
 from accounts.models import User
 
+
 class LoginTest(TestCase):
 	@classmethod
 	def setUpTestData(cls):
@@ -20,19 +21,19 @@ class LoginTest(TestCase):
 		self.assertTrue(login)
 
 	def test_login_successful_redirect(self):
-		response = self.client.post(reverse('accounts:login'), {'username':'mamad', 'password':'NAZEomae'})
+		response = self.client.post(reverse('accounts:login'), {'username': 'mamad', 'password': 'NAZEomae'})
 
 		self.assertRedirects(response, reverse('home'))
 		self.assertIn('_auth_user_id', self.client.session)
 
 	def test_login_wrong_password(self):
-		response = self.client.post(reverse('accounts:login'), {'username':'mamad', 'password':'SoWrong132'})
+		response = self.client.post(reverse('accounts:login'), {'username': 'mamad', 'password': 'SoWrong132'})
 
 		self.assertEqual(response.status_code, 200)
 		self.assertNotIn('_auth_user_id', self.client.session)
 
 	def test_login_wrong_username(self):
-		response = self.client.post(reverse('accounts:login'), {'username':'wrong_desu', 'password':'SoWrong132'})
+		response = self.client.post(reverse('accounts:login'), {'username': 'wrong_desu', 'password': 'SoWrong132'})
 
 		self.assertEqual(response.status_code, 200)
 		self.assertNotIn('_auth_user_id', self.client.session)

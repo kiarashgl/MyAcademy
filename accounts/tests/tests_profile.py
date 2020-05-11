@@ -15,13 +15,13 @@ class ProfileTest(TestCase):
 	@classmethod
 	def setUpTestData(cls):
 		User.objects.create_user(username='user1',
-		                         first_name='fname',
-		                         last_name='lname',
-		                         email='my_mail@example.com',
-		                         password='SomeRandomStuff',
-		                         university='Sharif',
-		                         major='CE',
-		                         bio='People are awesome')
+								 first_name='fname',
+								 last_name='lname',
+								 email='my_mail@example.com',
+								 password='SomeRandomStuff',
+								 university='Sharif',
+								 major='CE',
+								 bio='People are awesome')
 
 	@classmethod
 	def tearDownClass(cls):
@@ -47,7 +47,6 @@ class ProfileTest(TestCase):
 		# Redirect to home if user is not logged in
 		self.assertEqual(response.url, reverse('accounts:login') + '?next=/accounts/profile/')
 
-
 	def test_profile_successful(self):
 		response = self.client.get(reverse('accounts:profile'))
 
@@ -68,10 +67,10 @@ class ProfileTest(TestCase):
 		new_major = '98tt5g683sd53sdf5sdf'
 
 		data = {'first_name': new_first_name,
-		        'last_name': new_last_name,
-		        'university': new_university,
-		        'major': new_major,
-		        'profile_picture': ''}
+				'last_name': new_last_name,
+				'university': new_university,
+				'major': new_major,
+				'profile_picture': ''}
 		response = self.client.post(reverse('accounts:profile_edit'), data)
 
 		self.assertEqual(response.status_code, 302)

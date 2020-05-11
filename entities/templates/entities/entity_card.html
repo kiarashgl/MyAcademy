@@ -1,0 +1,9 @@
+<a href="{% block url %}{% endblock %}">
+	<div class="entity-card mb-4 {% if dark %}dark{% endif %}">
+		<div class="square circle mx-auto">
+			<img src="{{ entity.get_picture }}">
+		</div>
+		{% block entity_content %}
+		{% endblock %}
+	</div>
+</a>
