@@ -2,14 +2,14 @@
 {% load static %}
 
 {% block css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/fullscreen_header-style.css' %}">
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/fullscreen_header-style.css' %}">
 {% endblock %}
 {% block content %}
-    <header class="d-flex justify-content-center align-items-center">
-        <div class="col m-auto text-center ">
-            {% block inside_content %}
-            {% endblock %}
-        </div>
-    </header>
+	<header class="d-flex justify-content-center align-items-center">
+		<div class="col m-auto text-center ">
+			{% block inside_content %}
+			{% endblock %}
+		</div>
+	</header>
 {% endblock %}

@@ -3,21 +3,21 @@
 {% load crispy_forms_tags %}
 
 {% block css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static "css/professor_detail.css" %}">
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static "css/professor_detail.css" %}">
 {% endblock %}
 
 {% block profile_content %}
-    <h5>{{ professor.get_rank_display }}</h5>
-    <h2>
-        {{ professor.name }}
-    </h2>
-    {% if professor.my_department %}
-        <h6>
-            {{ professor.my_department }}
-            {% if professor.my_department.my_university %}
-                - {{ professor.my_department.my_university }}
-            {% endif %}
-        </h6>
-    {% endif %}
+	<h5>{{ professor.get_rank_display }}</h5>
+	<h2>
+		{{ professor.name }}
+	</h2>
+	{% if professor.my_department %}
+		<h6>
+			{{ professor.my_department }}
+			{% if professor.my_department.my_university %}
+				- {{ professor.my_department.my_university }}
+			{% endif %}
+		</h6>
+	{% endif %}
 {% endblock %}
