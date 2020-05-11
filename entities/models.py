@@ -57,7 +57,7 @@ class Professor(Entity):
 
 class Department(Entity):
 	name = models.CharField(_("name"), max_length=30, blank=False)
-	my_university = models.ForeignKey('University', verbose_name="دانشکده", on_delete=models.SET_NULL, null=True)
+	my_university = models.ForeignKey('University', verbose_name="دانشگاه", on_delete=models.SET_NULL, null=True)
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
