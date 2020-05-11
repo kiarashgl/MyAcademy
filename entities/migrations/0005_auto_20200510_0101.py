@@ -4,25 +4,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('entities', '0004_auto_20200509_1607'),
+	]
 
-    dependencies = [
-        ('entities', '0004_auto_20200509_1607'),
-    ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='department',
-            name='picture',
-            field=models.ImageField(blank=True, default='department_default_picture.png', upload_to='profile_pictures'),
-        ),
-        migrations.AlterField(
-            model_name='professor',
-            name='picture',
-            field=models.ImageField(blank=True, default='professor_default_picture.png', upload_to='profile_pictures'),
-        ),
-        migrations.AlterField(
-            model_name='university',
-            name='picture',
-            field=models.ImageField(blank=True, default='university_default_picture.png', upload_to='profile_pictures'),
-        ),
-    ]
+	operations = [
+		migrations.AlterField(
+			model_name='department',
+			name='picture',
+			field=models.ImageField(blank=True, default='department_default_picture.png', upload_to='profile_pictures'),
+		),
+		migrations.AlterField(
+			model_name='professor',
+			name='picture',
+			field=models.ImageField(blank=True, default='professor_default_picture.png', upload_to='profile_pictures'),
+		),
+		migrations.AlterField(
+			model_name='university',
+			name='picture',
+			field=models.ImageField(blank=True, default='university_default_picture.png', upload_to='profile_pictures'),
+		),
+	]

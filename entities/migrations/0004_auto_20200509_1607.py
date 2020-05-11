@@ -5,25 +5,25 @@ import django.db.models.deletion
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('entities', '0003_auto_20200509_0429'),
+	]
 
-    dependencies = [
-        ('entities', '0003_auto_20200509_0429'),
-    ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='professor',
-            name='first_name',
-            field=models.CharField(max_length=30, verbose_name='first name'),
-        ),
-        migrations.AlterField(
-            model_name='professor',
-            name='last_name',
-            field=models.CharField(max_length=30, verbose_name='last name'),
-        ),
-        migrations.AlterField(
-            model_name='professor',
-            name='my_department',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='entities.Department', verbose_name='نام دانشکده'),
-        ),
-    ]
+	operations = [
+		migrations.AlterField(
+			model_name='professor',
+			name='first_name',
+			field=models.CharField(max_length=30, verbose_name='first name'),
+		),
+		migrations.AlterField(
+			model_name='professor',
+			name='last_name',
+			field=models.CharField(max_length=30, verbose_name='last name'),
+		),
+		migrations.AlterField(
+			model_name='professor',
+			name='my_department',
+			field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='entities.Department',
+									verbose_name='نام دانشکده'),
+		),
+	]

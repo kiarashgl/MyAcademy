@@ -10,7 +10,6 @@ from .forms import SignupForm, PasswordResetConfirmForm, EditProfileForm
 from .models import User
 
 
-
 class Login(LoginView):
 	redirect_authenticated_user = True
 	success_url = reverse_lazy('home')
@@ -42,6 +41,7 @@ class PasswordResetConfirm(SuccessMessageMixin, PasswordResetConfirmView):
 	success_message = "گذرواژه‌ی شما با موفقیت تغییر کرد. می‌توانید با گذرواژه‌ی جدید به حساب‌تان وارد شوید."
 	success_url = reverse_lazy('accounts:login')
 
+
 class Profile(LoginRequiredMixin, generic.detail.DetailView):
 	login_url = reverse_lazy('accounts:login')
 	model = User
@@ -60,4 +60,3 @@ class EditProfile(SuccessMessageMixin, LoginRequiredMixin, generic.edit.UpdateVi
 
 	def get_object(self, queryset=None):
 		return self.request.user
-

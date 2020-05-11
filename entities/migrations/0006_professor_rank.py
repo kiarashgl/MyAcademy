@@ -4,15 +4,15 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('entities', '0005_auto_20200510_0101'),
+	]
 
-    dependencies = [
-        ('entities', '0005_auto_20200510_0101'),
-    ]
-
-    operations = [
-        migrations.AddField(
-            model_name='professor',
-            name='rank',
-            field=models.CharField(choices=[('ins', 'مدرس'), ('asi', 'استادیار'), ('aso', 'دانشیار'), ('ful', 'استاد')], default='ins', max_length=3, verbose_name='مرتبه\u200cی علمی'),
-        ),
-    ]
+	operations = [
+		migrations.AddField(
+			model_name='professor',
+			name='rank',
+			field=models.CharField(choices=[('ins', 'مدرس'), ('asi', 'استادیار'), ('aso', 'دانشیار'), ('ful', 'استاد')],
+								   default='ins', max_length=3, verbose_name='مرتبه\u200cی علمی'),
+		),
+	]

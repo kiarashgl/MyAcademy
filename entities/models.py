@@ -42,7 +42,7 @@ class Professor(Entity):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self._meta.get_field('picture').default ='/profile_pictures/professor_default_picture.png'
+		self._meta.get_field('picture').default = '/profile_pictures/professor_default_picture.png'
 
 	def __str__(self):
 		return self.name
@@ -61,7 +61,7 @@ class Department(Entity):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self._meta.get_field('picture').default ='/profile_pictures/department_default_picture.png'
+		self._meta.get_field('picture').default = '/profile_pictures/department_default_picture.png'
 
 	def __str__(self):
 		return self.name
@@ -69,7 +69,6 @@ class Department(Entity):
 	@property
 	def professors(self):
 		return Professor.objects.filter(my_department=self)
-
 
 	class Meta:
 		verbose_name = _("دانشکده")
@@ -85,7 +84,7 @@ class University(Entity):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
-		self._meta.get_field('picture').default ='/profile_pictures/university_default_picture.png'
+		self._meta.get_field('picture').default = '/profile_pictures/university_default_picture.png'
 
 	def __str__(self):
 		return self.name

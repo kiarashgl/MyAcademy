@@ -2,12 +2,10 @@ header {
     background-image: url('../images/login.jpg');
 }
 
-.invalid-feedback
-{
-    color: #ff8d00!important;
+.invalid-feedback {
+    color: #ff8d00 !important;
 }
 
-.ltr-form input
-{
-	direction: ltr;
+.ltr-form input {
+    direction: ltr;
 }

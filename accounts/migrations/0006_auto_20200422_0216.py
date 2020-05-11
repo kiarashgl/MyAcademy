@@ -4,30 +4,30 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('accounts', '0005_auto_20200421_0235'),
+	]
 
-    dependencies = [
-        ('accounts', '0005_auto_20200421_0235'),
-    ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='user',
-            name='bio',
-            field=models.TextField(blank=True, verbose_name='بیوگرافی'),
-        ),
-        migrations.AlterField(
-            model_name='user',
-            name='major',
-            field=models.CharField(blank=True, max_length=100, verbose_name='رشته'),
-        ),
-        migrations.AlterField(
-            model_name='user',
-            name='profile_picture',
-            field=models.ImageField(default='default_profile_picture.png', upload_to='profile_pictures', verbose_name='تصویر نمایه'),
-        ),
-        migrations.AlterField(
-            model_name='user',
-            name='university',
-            field=models.CharField(blank=True, max_length=100, verbose_name='دانشگاه'),
-        ),
-    ]
+	operations = [
+		migrations.AlterField(
+			model_name='user',
+			name='bio',
+			field=models.TextField(blank=True, verbose_name='بیوگرافی'),
+		),
+		migrations.AlterField(
+			model_name='user',
+			name='major',
+			field=models.CharField(blank=True, max_length=100, verbose_name='رشته'),
+		),
+		migrations.AlterField(
+			model_name='user',
+			name='profile_picture',
+			field=models.ImageField(default='default_profile_picture.png', upload_to='profile_pictures',
+									verbose_name='تصویر نمایه'),
+		),
+		migrations.AlterField(
+			model_name='user',
+			name='university',
+			field=models.CharField(blank=True, max_length=100, verbose_name='دانشگاه'),
+		),
+	]

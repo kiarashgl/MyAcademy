@@ -4,25 +4,24 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('entities', '0006_professor_rank'),
+	]
 
-    dependencies = [
-        ('entities', '0006_professor_rank'),
-    ]
-
-    operations = [
-        migrations.AlterField(
-            model_name='department',
-            name='picture',
-            field=models.ImageField(blank=True, upload_to='profile_pictures'),
-        ),
-        migrations.AlterField(
-            model_name='professor',
-            name='picture',
-            field=models.ImageField(blank=True, upload_to='profile_pictures'),
-        ),
-        migrations.AlterField(
-            model_name='university',
-            name='picture',
-            field=models.ImageField(blank=True, upload_to='profile_pictures'),
-        ),
-    ]
+	operations = [
+		migrations.AlterField(
+			model_name='department',
+			name='picture',
+			field=models.ImageField(blank=True, upload_to='profile_pictures'),
+		),
+		migrations.AlterField(
+			model_name='professor',
+			name='picture',
+			field=models.ImageField(blank=True, upload_to='profile_pictures'),
+		),
+		migrations.AlterField(
+			model_name='university',
+			name='picture',
+			field=models.ImageField(blank=True, upload_to='profile_pictures'),
+		),
+	]

@@ -5,6 +5,7 @@ from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, UserCha
 
 from .models import User
 
+
 class SignupForm(UserCreationForm):
 	# Suppress help texts
 	def __init__(self, *args, **kwargs):

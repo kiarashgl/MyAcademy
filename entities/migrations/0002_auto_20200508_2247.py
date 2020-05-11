@@ -4,31 +4,31 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
+	dependencies = [
+		('entities', '0001_initial'),
+	]
 
-    dependencies = [
-        ('entities', '0001_initial'),
-    ]
-
-    operations = [
-        migrations.AlterModelOptions(
-            name='department',
-            options={'verbose_name': 'دانشکده', 'verbose_name_plural': 'دانشکده\u200cها'},
-        ),
-        migrations.AlterModelOptions(
-            name='university',
-            options={'verbose_name': 'دانشگاه', 'verbose_name_plural': 'دانشگاه\u200cها'},
-        ),
-        migrations.AlterField(
-            model_name='university',
-            name='name',
-            field=models.CharField(max_length=30, unique=True),
-        ),
-        migrations.AddConstraint(
-            model_name='department',
-            constraint=models.UniqueConstraint(fields=('name', 'my_university'), name='unique_department'),
-        ),
-        migrations.AddConstraint(
-            model_name='professor',
-            constraint=models.UniqueConstraint(fields=('first_name', 'last_name', 'my_department'), name='unique_professor'),
-        ),
-    ]
+	operations = [
+		migrations.AlterModelOptions(
+			name='department',
+			options={'verbose_name': 'دانشکده', 'verbose_name_plural': 'دانشکده\u200cها'},
+		),
+		migrations.AlterModelOptions(
+			name='university',
+			options={'verbose_name': 'دانشگاه', 'verbose_name_plural': 'دانشگاه\u200cها'},
+		),
+		migrations.AlterField(
+			model_name='university',
+			name='name',
+			field=models.CharField(max_length=30, unique=True),
+		),
+		migrations.AddConstraint(
+			model_name='department',
+			constraint=models.UniqueConstraint(fields=('name', 'my_university'), name='unique_department'),
+		),
+		migrations.AddConstraint(
+			model_name='professor',
+			constraint=models.UniqueConstraint(fields=('first_name', 'last_name', 'my_department'),
+											   name='unique_professor'),
+		),
+	]

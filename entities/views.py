@@ -22,6 +22,7 @@ class EntityDetail(DetailView):
 	class Meta:
 		abstract = True
 
+
 class ProfessorDetail(EntityDetail):
 	template_name = 'entities/professor_detail.html'
 	queryset = Professor.objects.filter(verified=True)
@@ -68,10 +69,12 @@ class EntitySuggest(LoginRequiredMixin, SuccessMessageMixin, CreateView):
 	class Meta:
 		abstract = True
 
+
 class ProfessorSuggest(EntitySuggest):
 	template_name = 'entities/professor_suggest.html'
 	form_class = ProfessorForm
 	success_message = "استاد با موفقیت پیشنهاد داده شد."
+
 
 class DepartmentSuggest(EntitySuggest):
 	template_name = 'entities/department_suggest.html'
