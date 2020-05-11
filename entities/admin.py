@@ -8,25 +8,25 @@ from .models import Professor, Department, University
 def make_verified(modeladmin, request, queryset):
 	updated = queryset.update(verified=True)
 	modeladmin.message_user(request, ngettext(
-		'%d entity با موفقیت تایید شد.',
-		'%d استاد با موفقیت تایید شدند.',
+		'%d موجود با موفقیت تایید شد.',
+		'%d موحود با موفقیت تایید شدند.',
 		updated,
 	) % updated, messages.SUCCESS)
 
 
-make_verified.short_description = "تایید entity های انتخاب شده"
+make_verified.short_description = "تایید موارد انتخاب شده"
 
 
 def make_unverified(modeladmin, request, queryset):
 	updated = queryset.update(verified=False)
 	modeladmin.message_user(request, ngettext(
-		'%d استاد با موفقیت عدم تایید شد.',
-		'%d استاد با موفقیت عدم تایید شدند.',
+		'%d موجود با موفقیت عدم تایید شد.',
+		'%d موجود با موفقیت عدم تایید شدند.',
 		updated,
 	) % updated, messages.SUCCESS)
 
 
-make_unverified.short_description = "عدم تایید entity های انتخاب شده"
+make_unverified.short_description = "عدم تایید موارد انتخاب شده"
 
 
 class EntityAdmin(admin.ModelAdmin):
