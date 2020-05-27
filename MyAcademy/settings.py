@@ -24,7 +24,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'MyAcademy')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get('DJANGO_DEBUG', '') != 'False'
 
-ALLOWED_HOSTS = ['EdenHazard.pythonanywhere.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 # Application definition
 
@@ -83,9 +83,6 @@ DATABASES = {
 		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
 	}
 }
-import dj_database_url
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
 
 LOGIN_URL = 'accounts.login'
 LOGIN_REDIRECT_URL = 'home'
@@ -152,3 +149,7 @@ NOSE_ARGS = [
 	'--with-coverage',
 	'--cover-package=accounts, entities',  # Add packages here
 ]
+
+local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
+if os.path.exists(local_settings_path):
+    exec(open(local_settings_path, 'rb').read())
