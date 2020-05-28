@@ -131,26 +131,27 @@ class SearchResultsView(FormView, ListView):
 		return search(query, filter_by)
 
 
-# def ajax_autocomplete(request):
-# 	if request.is_ajax():
-# 		query = request.GET.get('term', '')
-# 		filter_by = request.GET.get('filter_by')
-# 		search_results = search(query, filter_by)
-#
-# 		results = []
-# 		for entity in search_results:
-# 			entity_json = {'id': entity.name,
-# 						   'value': entity.name,
-# 						   'picture': entity.get_picture,
-# 						   'label': entity.name}
-# 			results.append(entity_json)
-# 		data = json.dumps(results)
-# 	else:
-# 		results = [{'id': 1, 'value': 'No record found', 'label': 'No record found'}]
-# 		data = json.dumps(results)
-# 	# data = 'fail'
-# 	mimetype = 'application/json'
-# 	return HttpResponse(data, mimetype)
+def entity_autocomplete(request):
+	if request.is_ajax():
+		query = request.GET.get('term', '')
+		filter_by = request.GET.get('filter_by')
+		search_results = search(query, filter_by)
+
+		results = []
+		for entity in search_results:
+			entity_json = {'id': entity.name,
+						   'value': entity.name,
+						   'label': '<a href="%s">  <span> %s </span> <img src="%s" width="50" height="50"> </a>' % (
+							   reverse_lazy('entities:professor_detail', args=(entity.pk,)), entity.name, entity.get_picture)
+						   }
+			results.append(entity_json)
+		data = json.dumps(results)
+	else:
+		results = [{'id': 1, 'value': 'No record found', 'label': 'No record found'}]
+		data = json.dumps(results)
+	# data = 'fail'
+	mimetype = 'application/json'
+	return HttpResponse(data, mimetype)
 
 
 class EntityAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
