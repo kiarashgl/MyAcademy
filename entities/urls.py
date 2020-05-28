@@ -17,4 +17,9 @@ urlpatterns = [
 	path('university/all', views.UniversityList.as_view(), name='university_all'),
 
 	path('search', views.SearchResultsView.as_view(), name='search_results'),
+
+	path('university-autocomplete', views.UniversityAutocomplete.as_view(), name='university_autocomplete'),
+	path('department-autocomplete', views.DepartmentAutocomplete.as_view(), name='department_autocomplete'),
+	path('professor-autocomplete', views.ProfessorAutocomplete.as_view(), name='professor_autocomplete'),
+
 ]
