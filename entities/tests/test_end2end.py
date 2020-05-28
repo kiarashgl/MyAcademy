@@ -82,7 +82,7 @@ class End2EndTestCase(LiveServerTestCase):
 			elem.click()
 		self.selenium.find_element(By.NAME, "action").click()
 		dropdown = self.selenium.find_element(By.NAME, "action")
-		dropdown.find_element(By.XPATH, "//option[. = 'تایید entity های انتخاب شده']").click()
+		dropdown.find_element(By.XPATH, "//option[. = 'تایید موارد انتخاب شده']").click()
 		self.selenium.find_element(By.NAME, "action").click()
 		self.selenium.find_element(By.NAME, "index").click()
 
@@ -106,7 +106,7 @@ class End2EndTestCase(LiveServerTestCase):
 			elem.click()
 		self.selenium.find_element(By.NAME, "action").click()
 		dropdown = self.selenium.find_element(By.NAME, "action")
-		dropdown.find_element(By.XPATH, "//option[. = 'تایید entity های انتخاب شده']").click()
+		dropdown.find_element(By.XPATH, "//option[. = 'تایید موارد انتخاب شده']").click()
 		self.selenium.find_element(By.NAME, "action").click()
 		self.selenium.find_element(By.NAME, "index").click()
 
@@ -131,7 +131,7 @@ class End2EndTestCase(LiveServerTestCase):
 			elem.click()
 		self.selenium.find_element(By.NAME, "action").click()
 		dropdown = self.selenium.find_element(By.NAME, "action")
-		dropdown.find_element(By.XPATH, "//option[. = 'تایید entity های انتخاب شده']").click()
+		dropdown.find_element(By.XPATH, "//option[. = 'تایید موارد انتخاب شده']").click()
 		self.selenium.find_element(By.NAME, "action").click()
 		self.selenium.find_element(By.NAME, "index").click()
 
