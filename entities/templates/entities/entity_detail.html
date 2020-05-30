@@ -10,7 +10,6 @@
 {% block title %}پروفایل {{ entity.name }}{% endblock %}
 
 {% block inside_content %}
-
 	<div class="container emp-profile">
 
 		<div class="row">
@@ -29,11 +28,11 @@
 
 		<div class="row mt-2 ">
 			<div class="col-8 col-sm-6 col-lg-3">
-				<a class="btn bg-light-purple mx-2" href='#'>نظر بده</a>
+				<a class="btn bg-light-purple mx-2" href="{% url entity|rating_path entity.pk %}">نظر بده</a>
 			</div>
 		</div>
 		{% block other_content %}
-		{% endblock %}
+		{% endblock %}	
 	</div>
 
 {% endblock %}

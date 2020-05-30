@@ -49,6 +49,9 @@ class ProfRating(Rating):
 	class Meta:
 		verbose_name = 'امتیاز استاد'
 		verbose_name_plural = 'امتیازهای اساتید'
+		constraints = [
+			models.UniqueConstraint(fields=['user', 'prof'], name='unique_prof_rating'),
+		]
 
 
 class DeptRating(Rating):
@@ -65,6 +68,9 @@ class DeptRating(Rating):
 	class Meta:
 		verbose_name = 'امتیاز دانشکده'
 		verbose_name_plural = 'امتیازهای دانشکده‌ها'
+		constraints = [
+			models.UniqueConstraint(fields=['user', 'dept'], name='unique_dept_rating'),
+		]
 
 
 class UniRating(Rating):
@@ -80,3 +86,6 @@ class UniRating(Rating):
 	class Meta:
 		verbose_name = 'امتیاز دانشگاه'
 		verbose_name_plural = 'امتیازهای دانشگاه‌ها'
+		constraints = [
+			models.UniqueConstraint(fields=['user', 'uni'], name='unique_uni_rating'),
+		]

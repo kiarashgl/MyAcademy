@@ -1,6 +1,18 @@
 from django import template
+from entities.models import Professor, Department, University
 
 register = template.Library()
+
+
+@register.filter(name='rating_path')
+def rating_path(entity):
+	if isinstance(entity, Professor):
+		return 'ratings:professor_rating'
+	if isinstance(entity, Department):
+		return 'ratings:department_rating'
+	if isinstance(entity, University):
+		return 'ratings:university_rating'
+	return ''
 
 
 @register.filter(name='model_name')
