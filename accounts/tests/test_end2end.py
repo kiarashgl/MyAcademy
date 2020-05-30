@@ -1,4 +1,6 @@
 from django.test import LiveServerTestCase
+
+from MyAcademy.settings import SELENIUM_ON_LINUX
 from accounts.models import User
 
 from selenium import webdriver
@@ -22,7 +24,6 @@ from unittest import skip
 import tempfile
 from accounts.models import User
 from entities.models import Professor, University, Department
-
 MEDIA_ROOT = tempfile.mkdtemp()
 
 
@@ -32,7 +33,12 @@ class End2EndTestCase(LiveServerTestCase):
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
-		cls.selenium = webdriver.Firefox(executable_path='webdriver/geckodriver.exe')
+		if SELENIUM_ON_LINUX:
+			options = webdriver.ChromeOptions()
+			options.add_argument("--headless")
+			cls.selenium = webdriver.Chrome(options=options, executable_path='webdriver/chromedriver')
+		else:
+			cls.selenium = webdriver.Firefox(executable_path='webdriver/geckodriver.exe')
 		cls.selenium.implicitly_wait(10)
 
 	@classmethod
