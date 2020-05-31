@@ -1,6 +1,6 @@
 from django.test import LiveServerTestCase
 
-from MyAcademy.settings import SELENIUM_ON_LINUX
+from MyAcademy.settings import SELENIUM_ON_LINUX, SKIP_SELENIUM_TESTS
 from accounts.models import User
 
 from selenium import webdriver
@@ -19,7 +19,7 @@ from django.urls import reverse
 from django.utils.crypto import get_random_string
 from django.db.models import Q
 import random
-from unittest import skip
+from unittest import skipIf
 
 import tempfile
 from accounts.models import User
@@ -33,21 +33,23 @@ class End2EndTestCase(LiveServerTestCase):
 	@classmethod
 	def setUpClass(cls):
 		super().setUpClass()
-		if SELENIUM_ON_LINUX:
-			options = webdriver.ChromeOptions()
-			options.add_argument("--headless")
-			cls.selenium = webdriver.Chrome(options=options, executable_path='webdriver/chromedriver')
-		else:
-			cls.selenium = webdriver.Firefox(executable_path='webdriver/geckodriver.exe')
-		cls.selenium.implicitly_wait(10)
+		if not SKIP_SELENIUM_TESTS:
+			if SELENIUM_ON_LINUX:
+				options = webdriver.ChromeOptions()
+				options.add_argument("--headless")
+				cls.selenium = webdriver.Chrome(options=options, executable_path='webdriver/chromedriver')
+			else:
+				cls.selenium = webdriver.Firefox(executable_path='webdriver/geckodriver.exe')
+			cls.selenium.implicitly_wait(10)
 
 	@classmethod
 	def tearDownClass(cls):
 		shutil.rmtree(MEDIA_ROOT, ignore_errors=True)
-		cls.selenium.quit()
+		if not SKIP_SELENIUM_TESTS:
+			cls.selenium.quit()
 		super().tearDownClass()
 
-	@skip("Don't want to test")
+	@skipIf(SKIP_SELENIUM_TESTS, "Don't want to test")
 	def test_end2end(self):
 		# Create a new user and login
 		self.selenium.get('%s%s' % (self.live_server_url, reverse('home')))
