@@ -11,7 +11,7 @@ from .forms import ProfRatingForm, DeptRatingForm, UniRatingForm
 class EntityRatingView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 	login_url = reverse_lazy('accounts:login')
 	success_url = reverse_lazy('home')
-	sucess_message = 'امتیازدهی شما با موفقیت ثبت شد.'
+	success_message = 'امتیازدهی شما با موفقیت ثبت شد.'
 
 	def get_object(self, queryset=None):
 		if queryset.exists():
@@ -42,7 +42,7 @@ class ProfRatingView(EntityRatingView):
 		return super().form_valid(form)
 
 	template_name = 'rating.html'
-	form_class = ProfRatingForm	
+	form_class = ProfRatingForm
 	model = ProfRating
 
 
