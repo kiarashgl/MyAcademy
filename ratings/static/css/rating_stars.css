@@ -1,0 +1,74 @@
+/*
+ * Selectable CSS3 Rating Stars by Martin Ivanov (@wemakesitesnet)
+ * @version 1.0
+ * @author Martin Ivanov
+ * @url portfolio http://wemakesites.net/
+ * @url twitter https://twitter.com/wemakesitesnet
+ * @url blog http://acidmartin.wordpress.com/
+ **/
+
+/*
+ * Do you like this solution? Please, donate:
+ * https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QFUHPWJB2JDBS
+ * 
+ * If you are looking for a feature-complete rating system http://acidjs.wemakesites.net/rating.html 
+ *
+ **/
+
+.rating-stars,
+.rating-stars label::before
+{
+    display: inline-block;
+}
+
+.rating-stars label:hover,
+.rating-stars label:hover ~ label
+{
+    color: #189800;
+}
+
+.rating-stars *
+{
+    margin: 0;
+    padding: 0;
+}
+
+.rating-stars input
+{
+    display: none;
+}
+
+.rating-stars
+{
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+.rating-stars label
+{
+    color: #ccc;
+}
+
+.rating-stars label::before
+{
+    content: "\2605";
+    width: 48px;
+    line-height: 48px;
+    text-align: center;
+    font-size: 48px;
+    cursor: pointer;
+}
+
+.rating-stars input:checked ~ label
+{
+    color: #f5b301;
+}
+
+.acidjs-rating-disabled
+{
+    opacity: .50;
+    
+    -webkit-pointer-events: none;
+    -moz-pointer-events: none;
+    pointer-events: none;
+}

@@ -1,4 +1,6 @@
 from django.db import models
+from .widgets import RatingStars
+from django_starfield import Stars
 
 
 class RatingField(models.IntegerField):
@@ -14,6 +16,10 @@ class RatingField(models.IntegerField):
 		kwargs['choices'] = RatingField.ONE_TO_FIVE_RATING_CHOICES
 		kwargs['null'] = True
 		super().__init__(*args, **kwargs)
+
+	def formfield(self, **kwargs):
+		kwargs['widget'] = RatingStars(stars=len(RatingField.ONE_TO_FIVE_RATING_CHOICES))
+		return super(models.IntegerField, self).formfield(**kwargs)
 
 
 class Rating(models.Model):
