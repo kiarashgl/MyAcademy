@@ -30,7 +30,7 @@ class EntityRatingView(LoginRequiredMixin, SuccessMessageMixin, UpdateView):
 class ProfRatingView(EntityRatingView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['entity_name'] = self.object.prof.name
+		context['entity_name'] = Professor.objects.get(pk=self.kwargs['pk']).name
 		return context
 
 	def get_object(self, queryset=None):
@@ -49,7 +49,7 @@ class ProfRatingView(EntityRatingView):
 class DeptRatingView(EntityRatingView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['entity_name'] = self.object.dept.name
+		context['entity_name'] = Department.objects.get(pk=self.kwargs['pk']).name
 		return context
 
 	def get_object(self, queryset=None):
@@ -68,7 +68,7 @@ class DeptRatingView(EntityRatingView):
 class UniRatingView(EntityRatingView):
 	def get_context_data(self, **kwargs):
 		context = super().get_context_data(**kwargs)
-		context['entity_name'] = self.object.uni.name
+		context['entity_name'] = University.objects.get(pk=self.kwargs['pk']).name
 		return context
 
 	def get_object(self, queryset=None):
