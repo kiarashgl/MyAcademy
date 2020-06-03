@@ -133,6 +133,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
 STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, "staticfiles"),
 ]
@@ -147,3 +149,7 @@ NOSE_ARGS = [
 	'--with-coverage',
 	'--cover-package=accounts, entities',  # Add packages here
 ]
+
+local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
+if os.path.exists(local_settings_path):
+    exec(open(local_settings_path, 'rb').read())
