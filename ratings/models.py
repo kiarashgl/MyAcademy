@@ -2,6 +2,26 @@ from django.db import models
 from .widgets import RatingStars
 
 
+class RatingReaction(models.Model):
+	user = models.ForeignKey('accounts.User', verbose_name='کاربر', on_delete=models.CASCADE)
+	is_like = models.BooleanField()
+
+	class Meta:
+		abstract = True
+
+
+class ProfRatingReaction(RatingReaction):
+	rating = models.ForeignKey('ProfRating', verbose_name='نظر', on_delete=models.CASCADE)
+
+
+class DeptRatingReaction(RatingReaction):
+	rating = models.ForeignKey('DeptRating', verbose_name='نظر', on_delete=models.CASCADE)
+
+
+class UniRatingReaction(RatingReaction):
+	rating = models.ForeignKey('UniRating', verbose_name='نظر', on_delete=models.CASCADE)
+
+
 class RatingField(models.IntegerField):
 	ONE_TO_FIVE_RATING_CHOICES = (
 		(1, '1'),
@@ -23,6 +43,8 @@ class RatingField(models.IntegerField):
 
 class Rating(models.Model):
 	user = models.ForeignKey('accounts.User', verbose_name='کاربر', on_delete=models.CASCADE)
+	comment = models.TextField(verbose_name='نظر', blank=True)
+	date = models.DateField(auto_now=True, verbose_name='تاریخ')
 
 	class Meta:
 		abstract = True
