@@ -14,11 +14,9 @@
 	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass" id="results">
 		<div class="position-relative">
 			<h2 class="mb-3 d-inline-block">لیست اساتید</h2>
-			{% if user.is_authenticated %}
-				<a href="{% url 'entities:professor_suggest' %}" class="suggest btn btn-warning">
-					+<i class="fas fa-chalkboard-teacher"></i>
-				</a>
-			{% endif %}
+			<a href="{% url 'entities:professor_suggest' %}" class="suggest btn btn-warning">
+				+<i class="fas fa-chalkboard-teacher"></i>
+			</a>
 		</div>
 		<ul class="row">
 			{% for entity in object_list %}
