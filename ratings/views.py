@@ -9,9 +9,7 @@ from entities.models import Professor, Department, University
 from .models import ProfRating, DeptRating, UniRating, RatingField
 from .forms import ProfRatingForm, DeptRatingForm, UniRatingForm
 
-from rest_framework.generics import RetrieveAPIView
 from rest_framework.views import APIView
-from rest_framework.viewsets import ViewSet
 from rest_framework.response import Response
 
 from django.db.models import Avg, Count, Max, Min, Q
@@ -94,7 +92,8 @@ class UniRatingView(EntityRatingView):
 
 
 class ProfessorRatingData(APIView):
-	queryset = ProfRating.objects.all()
+	authentication_classes = []
+	permission_classes = []
 
 	def get(self, request, pk):
 		query = ProfRating.objects.filter(prof=pk)
@@ -157,7 +156,8 @@ class ProfessorRatingData(APIView):
 
 
 class DepartmentRatingData(APIView):
-	queryset = DeptRating.objects.all()
+	authentication_classes = []
+	permission_classes = []
 
 	def get(self, request, pk):
 		query = DeptRating.objects.filter(dept=pk)
@@ -183,7 +183,8 @@ class DepartmentRatingData(APIView):
 
 
 class UniversityRatingData(APIView):
-	queryset = UniRating.objects.all()
+	authentication_classes = []
+	permission_classes = []
 
 	def get(self, request, pk):
 		query = UniRating.objects.filter(uni=pk)
