@@ -13,13 +13,28 @@ class RatingReaction(models.Model):
 class ProfRatingReaction(RatingReaction):
 	rating = models.ForeignKey('ProfRating', verbose_name='نظر', on_delete=models.CASCADE)
 
+	class Meta:
+		constraints = [
+			models.UniqueConstraint(fields=['user', 'rating'], name='unique_profcomment_like'),
+		]
+
 
 class DeptRatingReaction(RatingReaction):
 	rating = models.ForeignKey('DeptRating', verbose_name='نظر', on_delete=models.CASCADE)
 
+	class Meta:
+		constraints = [
+			models.UniqueConstraint(fields=['user', 'rating'], name='unique_deptcomment_like'),
+		]
+
 
 class UniRatingReaction(RatingReaction):
 	rating = models.ForeignKey('UniRating', verbose_name='نظر', on_delete=models.CASCADE)
+
+	class Meta:
+		constraints = [
+			models.UniqueConstraint(fields=['user', 'rating'], name='unique_unicomment_like'),
+		]
 
 
 class RatingField(models.IntegerField):
