@@ -20,4 +20,236 @@
 			{% endif %}
 		</h6>
 	{% endif %}
+
+
+{% endblock %}
+
+{% block rating_summary %}
+	<div class="row">
+		<div class="col-sm-8">
+			امتیاز تدریس:
+		</div>
+		<div dir="ltr" class="col-sm-4">
+			<div class="rating">
+				<div id="take-course" class="rating-upper">
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+				</div>
+				<div class="rating-lower">
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-8">
+			امتیاز استاد راهنمایی:
+		</div>
+		<div dir="ltr" class="col-sm-4">
+			<div class="rating">
+				<div id="do-research" class="rating-upper">
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+				</div>
+				<div class="rating-lower">
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+					<span>★</span>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+
+{% block ratings %}
+	<br>
+	<div class="row">
+		<div class="col-sm-4">
+			<canvas id="generalQChart" width="400" height="400"></canvas>
+		</div>
+		<div class="col-sm-4">
+			<canvas id="teachingQChart" width="400" height="400"></canvas>
+		</div>
+		<div class="col-sm-4">
+			<canvas id="researchAndAdviceQChart" width="400" height="400"></canvas>
+		</div>
+	</div>
+{% endblock %}
+
+{% block custom_scripts %}
+	<script>
+        Chart.defaults.global.defaultFontSize = 14;
+        $.ajax({
+            method: "GET",
+            url: '{% url 'ratings:professor_rating_data' pk=entity.pk %}',
+            success: function (data) {
+                console.log(data);
+                updateGeneralChart(data);
+                updateTeachingChart(data);
+                updateResearchAndAdviceChart(data);
+                updateOverallScores(data);
+            },
+            error: function (error_data) {
+                console.log("error");
+                console.log(error_data);
+            }
+        });
+
+        function updateGeneralChart(data) {
+            var generalChartCTX = document.getElementById('generalQChart').getContext('2d');
+            var generalChart = new Chart(generalChartCTX, {
+                type: 'radar',
+                data: {
+                    labels: data.general.labels,
+                    datasets: [{
+                        data: data.general.data,
+                        backgroundColor: 'rgba(90, 250, 132, 0.2)',
+                        borderColor: 'rgba(99, 255, 150, 1)',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scale: {
+                        ticks: {
+                            beginAtZero: true,
+                            max: 5,
+                            stepSize: 1,
+                        },
+                        pointLabels: {
+                            fontSize: 16
+                        },
+                    },
+                    legend: {
+                        display: false,
+                    },
+                    title: {
+                        display: true,
+                        text: data.general.title,
+                        fontSize: 20
+                    }
+                },
+
+            });
+        }
+
+        function updateTeachingChart(data) {
+            var teachingChartCTX = document.getElementById('teachingQChart').getContext('2d');
+            var teachingChart = new Chart(teachingChartCTX, {
+                type: 'bar',
+                data: {
+                    labels: data.teaching.labels,
+                    datasets: [{
+                        data: data.teaching.data,
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                max: 5,
+                                beginAtZero: true
+                            }
+                        }]
+                    },
+                    legend: {
+                        display: false
+                    },
+                    title: {
+                        display: true,
+                        text: data.teaching.title,
+                        fontSize: 20
+                    }
+                }
+            });
+        }
+
+        function updateResearchAndAdviceChart(data) {
+            var researchChartCTX = document.getElementById('researchAndAdviceQChart').getContext('2d');
+            var researchChart = new Chart(researchChartCTX, {
+                type: 'doughnut',
+                data: {
+                    datasets: [
+                        {
+                            data: data.research.research.data,
+                            backgroundColor: [
+                                'rgba(235, 72, 65, 1)',
+                                'rgba(244, 136, 71, 1)',
+                                'rgba(255, 200, 74, 1)',
+                                'rgba(166, 195, 76, 1)',
+                                'rgba(78, 192, 78, 1)',
+                            ],
+                            label: data.research.research.label
+                        },
+                        {
+                            data: data.research.advice.data,
+                            backgroundColor: [
+                                'rgba(235, 72, 65, 1)',
+                                'rgba(244, 136, 71, 1)',
+                                'rgba(255, 200, 74, 1)',
+                                'rgba(166, 195, 76, 1)',
+                                'rgba(78, 192, 78, 1)',
+                            ],
+                            label: data.research.advice.label
+                        }
+                    ],
+                    labels: data.research.labels,
+                },
+                options: {
+                    responsive: true,
+                    legend: {
+                        position: 'right',
+                    },
+                    animation: {
+                        animateScale: true,
+                        animateRotate: true
+                    },
+                    tooltips: {
+                        callbacks: {
+                            label: function (item, data) {
+                                return data.datasets[item.datasetIndex].label + " : " + " نمره " + data.labels[item.index][0] + " - " + data.datasets[item.datasetIndex].data[item.index] + " نفر";
+                            }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: data.research.title,
+                        fontSize: 20
+                    }
+                }
+            });
+        }
+
+        function updateOverallScores(data) {
+            var class_score = (data.overall.class_score / 5) * 100;
+            var research_score = (data.overall.research_score / 5) * 100;
+            document.getElementById("take-course").style.width = (class_score.toString()) + "%";
+            document.getElementById("do-research").style.width = (research_score.toString()) + "%";
+        }
+
+	</script>
 {% endblock %}

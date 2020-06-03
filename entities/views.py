@@ -7,7 +7,9 @@ from .models import Professor, Department, University, Entity
 from .forms import ProfessorForm, DepartmentForm, UniversityForm
 from core.forms import SearchForm
 from django.db.models import Q, F, Value as V
+from django.db.models import Avg
 from django.db.models.functions import Concat
+from ratings.models import *
 
 
 # Create your views here.
@@ -28,38 +30,17 @@ class ProfessorDetail(EntityDetail):
 	queryset = Professor.objects.filter(verified=True)
 	model = Professor
 
-	def get(self, request, **kwargs):
-		try:
-			self.model.objects.get(pk=kwargs['pk'])
-			return super(DetailView, self).get(request, **kwargs)
-		except self.model.DoesNotExist:
-			return redirect(reverse_lazy('home'))
-
 
 class DepartmentDetail(EntityDetail):
 	template_name = 'entities/department_detail.html'
 	queryset = Department.objects.filter(verified=True)
 	model = Department
 
-	def get(self, request, **kwargs):
-		try:
-			self.model.objects.get(pk=kwargs['pk'])
-			return super(DetailView, self).get(request, **kwargs)
-		except self.model.DoesNotExist:
-			return redirect(reverse_lazy('home'))
-
 
 class UniversityDetail(EntityDetail):
 	template_name = 'entities/university_detail.html'
 	queryset = University.objects.filter(verified=True)
 	model = University
-
-	def get(self, request, **kwargs):
-		try:
-			self.model.objects.get(pk=kwargs['pk'])
-			return super(DetailView, self).get(request, **kwargs)
-		except self.model.DoesNotExist:
-			return redirect(reverse_lazy('home'))
 
 
 class EntitySuggest(LoginRequiredMixin, SuccessMessageMixin, CreateView):

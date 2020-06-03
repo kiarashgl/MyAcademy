@@ -42,6 +42,7 @@ INSTALLED_APPS = [
 	'crispy_forms',
 	'django_cleanup',
 	'django_nose',
+	'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -72,6 +73,14 @@ TEMPLATES = [
 		},
 	},
 ]
+
+REST_FRAMEWORK = {
+	# Use Django's standard `django.contrib.auth` permissions,
+	# or allow read-only access for unauthenticated users.
+	'DEFAULT_PERMISSION_CLASSES': [
+		'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+	]
+}
 
 WSGI_APPLICATION = 'MyAcademy.wsgi.application'
 
@@ -153,4 +162,4 @@ NOSE_ARGS = [
 
 local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
 if os.path.exists(local_settings_path):
-    exec(open(local_settings_path, 'rb').read())
+	exec(open(local_settings_path, 'rb').read())

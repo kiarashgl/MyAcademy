@@ -24,6 +24,10 @@
 					{% block profile_content %}{% endblock %}
 				</div>
 			</div>
+
+			<div class="col-lg-4">
+				{% block rating_summary %} {% endblock %}
+			</div>
 		</div>
 
 		<div class="row mt-2 ">
@@ -32,7 +36,10 @@
 			</div>
 		</div>
 		{% block other_content %}
-		{% endblock %}	
+		{% endblock %}
+
+		{% block ratings %}
+		{% endblock %}
 	</div>
 
 {% endblock %}

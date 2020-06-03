@@ -11,3 +11,6 @@ selenium==3.141.0
 webdrivermanager==0.8.0
 python-dotenv==0.13.0
 mysqlclient==1.4.6
+djangorestframework==3.11.0
+markdown==3.2.2
+django-filter==2.2.0

@@ -1,6 +1,5 @@
 from django.db import models
 from .widgets import RatingStars
-from django_starfield import Stars
 
 
 class RatingField(models.IntegerField):
@@ -47,7 +46,6 @@ class ProfRating(Rating):
 	# research questions
 	research = RatingField(verbose_name='توانایی در کارهای پژوهشی', blank=True)
 	advice = RatingField(verbose_name='راهنمایی‌های مفید', blank=True)
-
 
 	take_course_suggestion = RatingField(blank=True)
 	research_suggestion = RatingField(blank=True)
