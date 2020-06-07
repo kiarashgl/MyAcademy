@@ -1,6 +1,7 @@
 {% extends 'fullscreen_header.html' %}
 {% load static %}
 {% load model_tag %}
+{% load comment_tag %}
 {% load crispy_forms_tags %}
 
 {% block css %}
@@ -40,6 +41,10 @@
 
 		{% block ratings %}
 		{% endblock %}
+
+		{% for comment in comments %}
+			{% render_comment comment %}
+		{% endfor %}
 	</div>
 
 {% endblock %}

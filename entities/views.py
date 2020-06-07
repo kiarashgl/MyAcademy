@@ -30,17 +30,32 @@ class ProfessorDetail(EntityDetail):
 	queryset = Professor.objects.filter(verified=True)
 	model = Professor
 
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['comments'] = ProfRating.objects.filter(prof=self.kwargs['pk']).exclude(comment=u'')
+		return context
+
 
 class DepartmentDetail(EntityDetail):
 	template_name = 'entities/department_detail.html'
 	queryset = Department.objects.filter(verified=True)
 	model = Department
 
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['comments'] = DeptRating.objects.filter(dept=self.kwargs['pk']).exclude(comment=u'')
+		return context
+
 
 class UniversityDetail(EntityDetail):
 	template_name = 'entities/university_detail.html'
 	queryset = University.objects.filter(verified=True)
 	model = University
+
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['comments'] = UniRating.objects.filter(uni=self.kwargs['pk']).exclude(comment=u'')
+		return context
 
 
 class EntitySuggest(LoginRequiredMixin, SuccessMessageMixin, CreateView):
