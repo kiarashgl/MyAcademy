@@ -2,14 +2,19 @@ language: python
 python:
 - '3.8'
 services:
-- mysql
+- postgresql
 addons:
   ssh_known_hosts: myacademysut.ir
 env:
 - DJANGO=3.0.5
-- DJANGO_SETTINGS_MODULE='MyAcademy.settings'
+
+before_install:
+- export DJANGO_SETTINGS_MODULE='MyAcademy.test_settings'
 install:
 - pip install -r requirements.txt
+
+before_script:
+- psql -c 'create database travis_ci_db;' -U postgres
 script:
 - python manage.py migrate
 - python manage.py test
