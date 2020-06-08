@@ -1,1 +1,22 @@
-Comment from {{first_name}} {{last_name}} says {{content}} on {{date}}
+{#Comment from {{ first_name }} {{ last_name }} says {{ content }} on {{ date }}#}
+
+
+<div class="row">
+	<div class="col-lg-4">
+		<h4>
+			{{ first_name }} {{ last_name }}
+		</h4>
+		<img src="{{ picture }}" height="150">
+	</div>
+
+	<div class="col-lg-8 container" style="text-align: right; position: relative;">
+		<div style=" white-space: pre-line;">
+			{{ content }}
+		</div>
+		<div style="position: absolute; bottom: 0;">
+			{{ date }}
+		</div>
+	</div>
+</div>
+
+<hr style="border-top: 2px solid yellow;">
