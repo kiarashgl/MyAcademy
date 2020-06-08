@@ -19,8 +19,22 @@
 	</div>
 
 	<div class="col-lg-2 container">
-		<button id="like{{ pk }}" class="like-btn" data-href="{{ like_url }}">Like {{ likes }}</button>
-		<button id="dislike{{ pk }}" class="dislike-btn" data-href="{{ dislike_url }}">Dislike {{ dislikes }}</button>
+
+		{% if liked %}
+			<button id="like{{ pk }}" class="like-btn" data-href="{{ like_url }}" style="color: green;">
+				Like {{ likes }}</button>
+		{% else %}
+			<button id="like{{ pk }}" class="like-btn" data-href="{{ like_url }}">Like {{ likes }}</button>
+		{% endif %}
+
+
+		{% if disliked %}
+			<button id="dislike{{ pk }}" class="dislike-btn" data-href="{{ dislike_url }}" style="color: red;">
+				Dislike {{ dislikes }}</button>
+		{% else %}
+			<button id="dislike{{ pk }}" class="dislike-btn" data-href="{{ dislike_url }}">
+				Dislike {{ dislikes }}</button>
+		{% endif %}
 	</div>
 </div>
 
