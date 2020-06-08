@@ -36,6 +36,7 @@
 {% endblock %}
 
 {% block custom_scripts %}
+	{{ block.super }}
 	<script>
         Chart.defaults.global.defaultFontSize = 14;
         $.ajax({

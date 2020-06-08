@@ -1,5 +1,8 @@
 from django.db import models
+from django.urls import reverse_lazy
+
 from .widgets import RatingStars
+from MyAcademy.settings import AUTH_USER_MODEL
 
 
 class RatingReaction(models.Model):
@@ -57,9 +60,25 @@ class RatingField(models.IntegerField):
 
 
 class Rating(models.Model):
-	user = models.ForeignKey('accounts.User', verbose_name='کاربر', on_delete=models.CASCADE)
+	user = models.ForeignKey(AUTH_USER_MODEL, verbose_name='کاربر', on_delete=models.CASCADE)
 	comment = models.TextField(verbose_name='نظر', blank=True)
 	date = models.DateField(auto_now=True, verbose_name='تاریخ')
+
+	# https://docs.djangoproject.com/en/dev/topics/db/models/#be-careful-with-related-name
+	liked_users = models.ManyToManyField(AUTH_USER_MODEL,
+										 blank=True,
+										 related_name='%(app_label)s_%(class)s_likes')
+	disliked_users = models.ManyToManyField(AUTH_USER_MODEL,
+											blank=True,
+											related_name='%(app_label)s_%(class)s_dislikes')
+
+	@property
+	def get_like_url(self):
+		return reverse_lazy('ratings:comment_like', kwargs={"pk": self.pk})
+
+	@property
+	def get_dislike_url(self):
+		return reverse_lazy('ratings:comment_dislike', kwargs={"pk": self.pk})
 
 	class Meta:
 		abstract = True

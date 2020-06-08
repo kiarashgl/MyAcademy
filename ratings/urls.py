@@ -11,4 +11,6 @@ urlpatterns = [
 	path('api/department/<int:pk>', views.DepartmentRatingData.as_view(), name='department_rating_data'),
 	path('api/university/<int:pk>', views.UniversityRatingData.as_view(), name='university_rating_data'),
 
+	path('api/comment/<int:pk>/like', views.CommentToggleLikeAPI.as_view(), name='comment_like'),
+	path('api/comment/<int:pk>/dislike', views.CommentToggleDislikeAPI.as_view(), name='comment_dislike'),
 ]

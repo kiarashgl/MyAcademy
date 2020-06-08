@@ -56,3 +56,106 @@
 	</div>
 
 {% endblock %}
+
+{% block custom_scripts %}
+	{{ block.super }}
+	<script>
+
+        function updateLikeButtons(likeButton, dislikeButton, likes, dislikes, liked, disliked) {
+            likeButton.text("Like " + likes);
+            if (liked) {
+                likeButton.css('color', 'green');
+            } else {
+                likeButton.css('color', 'black');
+            }
+
+            dislikeButton.text("Dislike " + dislikes);
+            if (disliked) {
+                dislikeButton.css('color', 'red');
+            } else {
+                dislikeButton.css('color', 'black');
+            }
+        }
+
+        $(".like-btn").click(function (e) {
+            var this_ = $(this);
+            var url_ = this_.attr("data-href");
+            var partnerButtonID = this.id.replace("like", "dislike");
+
+            var likeButton = this_;
+            var dislikeButton = $("#" + partnerButtonID);
+
+
+            var model_name = "";
+            {% if entity|model_name == 'دانشگاه' %}
+                model_name = "University";
+            {% elif entity|model_name == 'دانشکده' %}
+                model_name = "Department";
+            {% elif entity|model_name == 'استاد' %}
+                model_name = "Professor";
+            {% endif %}
+
+            e.preventDefault();
+            $.ajax({
+                url: url_,
+                method: "GET",
+                data: {
+                    model_name: model_name,
+                },
+                success: function (data) {
+                    var like_number_changes = data.like_count_change;
+                    var dislike_number_changes = data.dislike_count_change;
+
+
+                    var likes = parseInt(likeButton.text().split(" ")[1]) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.text().split(" ")[1]) + dislike_number_changes;
+
+                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+                },
+                error: function (error) {
+                    console.log("ERROR");
+                }
+            });
+        });
+
+        $(".dislike-btn").click(function (e) {
+            var this_ = $(this);
+            var url_ = this_.attr("data-href");
+            var partnerButtonID = this.id.replace("dislike", "like");
+
+            var likeButton = $("#" + partnerButtonID);
+            var dislikeButton = this_;
+
+            var model_name = "";
+            {% if entity|model_name == 'دانشگاه' %}
+                model_name = "University";
+            {% elif entity|model_name == 'دانشکده' %}
+                model_name = "Department";
+            {% elif entity|model_name == 'استاد' %}
+                model_name = "Professor";
+            {% endif %}
+
+            e.preventDefault();
+            $.ajax({
+                url: url_,
+                method: "GET",
+                data: {
+                    model_name: model_name,
+                },
+                success: function (data) {
+                    var like_number_changes = data.like_count_change;
+                    var dislike_number_changes = data.dislike_count_change;
+
+                    var likes = parseInt(likeButton.text().split(" ")[1]) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.text().split(" ")[1]) + dislike_number_changes;
+
+                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+                },
+                error: function (error) {
+                    console.log("ERROR");
+                }
+            });
+        });
+
+	</script>
+{% endblock %}

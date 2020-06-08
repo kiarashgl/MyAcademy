@@ -11,6 +11,7 @@ from .forms import ProfRatingForm, DeptRatingForm, UniRatingForm
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from rest_framework import authentication, permissions
 
 from django.db.models import Avg, Count, Max, Min, Q
 
@@ -205,5 +206,88 @@ class UniversityRatingData(APIView):
 				"data": avg_data,
 				"title": "میانگین امتیاز ها"
 			}
+
+		return Response(data)
+
+
+class CommentToggleLikeAPI(APIView):
+	authentication_classes = [authentication.SessionAuthentication]
+	permission_classes = [permissions.IsAuthenticated]
+
+	def get(self, request, pk):
+		model_name = dict(request.GET)["model_name"][0]
+		rating_model = None
+		if model_name == "Professor":
+			rating_model = ProfRating
+		elif model_name == "Department":
+			rating_model = DeptRating
+		elif model_name == "University":
+			rating_model = UniRating
+
+		rating = rating_model.objects.get(pk=pk)
+		user = request.user
+
+		dislike_count_change = 0
+
+		if user in rating.disliked_users.all():
+			rating.disliked_users.remove(user)
+			dislike_count_change = -1
+
+		liked = False
+		if user not in rating.liked_users.all():
+			rating.liked_users.add(user)
+			liked = True
+			like_count_change = 1
+		else:
+			rating.liked_users.remove(user)
+			like_count_change = -1
+
+		data = {
+			'liked': liked,
+			'like_count_change': like_count_change,
+			'disliked': False,
+			'dislike_count_change': dislike_count_change
+		}
+
+		return Response(data)
+
+
+class CommentToggleDislikeAPI(APIView):
+	authentication_classes = [authentication.SessionAuthentication]
+	permission_classes = [permissions.IsAuthenticated]
+
+	def get(self, request, pk):
+		model_name = dict(request.GET)["model_name"][0]
+		rating_model = None
+		if model_name == "Professor":
+			rating_model = ProfRating
+		elif model_name == "Department":
+			rating_model = DeptRating
+		elif model_name == "University":
+			rating_model = UniRating
+
+		rating = rating_model.objects.get(pk=pk)
+		user = request.user
+
+		like_count_change = 0
+		if user in rating.liked_users.all():
+			rating.liked_users.remove(user)
+			like_count_change = -1
+
+		disliked = False
+		if user not in rating.disliked_users.all():
+			rating.disliked_users.add(user)
+			disliked = True
+			dislike_count_change = 1
+		else:
+			rating.disliked_users.remove(user)
+			dislike_count_change = -1
+
+		data = {
+			'liked': False,
+			'like_count_change': like_count_change,
+			'disliked': disliked,
+			'dislike_count_change': dislike_count_change,
+		}
 
 		return Response(data)
