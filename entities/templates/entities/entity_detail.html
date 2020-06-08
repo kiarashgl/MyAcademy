@@ -33,7 +33,9 @@
 
 		<div class="row mt-2 ">
 			<div class="col-8 col-sm-6 col-lg-3">
-				<a class="btn bg-light-purple mx-2" href="{% url entity|rating_path entity.pk %}">نظر بده</a>
+				<div>
+					<a class="btn bg-light-purple mx-2" href="{% url entity|rating_path entity.pk %}">نظر بده</a>
+				</div>
 			</div>
 		</div>
 		{% block other_content %}
@@ -62,26 +64,26 @@
 	<script>
 
         function updateLikeButtons(likeButton, dislikeButton, likes, dislikes, liked, disliked) {
-            likeButton.text("Like " + likes);
+            likeButton.find(".count").text(likes);
             if (liked) {
-                likeButton.css('color', 'green');
+                likeButton.find(".like-btn").addClass('active');
             } else {
-                likeButton.css('color', 'black');
+                likeButton.find(".like-btn").removeClass('active');
             }
 
-            dislikeButton.text("Dislike " + dislikes);
+            dislikeButton.find(".count").text(dislikes);
             if (disliked) {
-                dislikeButton.css('color', 'red');
+                dislikeButton.find(".dislike-btn").addClass('active');
             } else {
-                dislikeButton.css('color', 'black');
+                dislikeButton.find(".dislike-btn").removeClass('active');
             }
         }
 
         $(".like-btn").click(function (e) {
-            var this_ = $(this);
+            var this_ = $(this).parent();
             var url_ = this_.attr("data-href");
-            var partnerButtonID = this.id.replace("like", "dislike");
 
+            var partnerButtonID = this_.attr('id').replace("like", "dislike");
             var likeButton = this_;
             var dislikeButton = $("#" + partnerButtonID);
 
@@ -107,8 +109,8 @@
                     var dislike_number_changes = data.dislike_count_change;
 
 
-                    var likes = parseInt(likeButton.text().split(" ")[1]) + like_number_changes;
-                    var dislikes = parseInt(dislikeButton.text().split(" ")[1]) + dislike_number_changes;
+                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
 
                     updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
                 },
@@ -119,12 +121,12 @@
         });
 
         $(".dislike-btn").click(function (e) {
-            var this_ = $(this);
+						var this_ = $(this).parent();
             var url_ = this_.attr("data-href");
-            var partnerButtonID = this.id.replace("dislike", "like");
 
-            var likeButton = $("#" + partnerButtonID);
+            var partnerButtonID = this_.attr('id').replace("dislike", "like");
             var dislikeButton = this_;
+            var likeButton = $("#" + partnerButtonID);
 
             var model_name = "";
             {% if entity|model_name == 'دانشگاه' %}
@@ -146,8 +148,8 @@
                     var like_number_changes = data.like_count_change;
                     var dislike_number_changes = data.dislike_count_change;
 
-                    var likes = parseInt(likeButton.text().split(" ")[1]) + like_number_changes;
-                    var dislikes = parseInt(dislikeButton.text().split(" ")[1]) + dislike_number_changes;
+                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
 
                     updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
                 },

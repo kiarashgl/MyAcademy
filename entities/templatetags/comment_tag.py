@@ -7,8 +7,7 @@ register = template.Library()
 def render_comment(rating, user):
 	return {
 		'content': rating.comment,
-		'first_name': rating.user.first_name,
-		'last_name': rating.user.last_name,
+		'full_name': rating.user.get_full_name(),
 		'picture': rating.user.profile_picture.url,
 		'date': rating.date,
 		'pk': rating.pk,

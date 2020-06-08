@@ -82,3 +82,30 @@ body {
 	display: flex;
 	z-index: 0;
 }
+
+.dislike-btn .fa-thumbs-down, .like-btn .fa-thumbs-up
+{
+	transition: all 0.3s ease!important;
+	cursor: pointer;
+}
+
+.like-btn
+{
+	color: #009c00 !important;
+	transition: all 0.2s ease!important;
+}
+.like-btn.active .fa-thumbs-up
+{
+	text-shadow: 0 0 8px #00ff16!important;
+}
+
+.dislike-btn
+{
+	color: #ab0000 !important;
+	transition: all 0.3s ease!important;
+}
+
+.dislike-btn.active .fa-thumbs-down
+{
+	text-shadow: 0 0 8px #ff1000!important;
+}
