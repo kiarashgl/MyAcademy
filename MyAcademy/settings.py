@@ -147,8 +147,12 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
 NOSE_ARGS = [
 	'--with-coverage',
+	'--traverse-namespace',
 	'--cover-package=accounts, entities',  # Add packages here
 ]
+
+SELENIUM_ON_LINUX = False # Set to true if you want to run selenium tests on linux (Probably on server)
+SKIP_SELENIUM_TESTS = True # Set to true if you want to skip selenium tests
 
 local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
 if os.path.exists(local_settings_path):
