@@ -63,101 +63,101 @@
 	{{ block.super }}
 	<script>
 
-        function updateLikeButtons(likeButton, dislikeButton, likes, dislikes, liked, disliked) {
-            likeButton.find(".count").text(likes);
-            if (liked) {
-                likeButton.find(".like-btn").addClass('active');
-            } else {
-                likeButton.find(".like-btn").removeClass('active');
-            }
+		function updateLikeButtons(likeButton, dislikeButton, likes, dislikes, liked, disliked) {
+			likeButton.find(".count").text(likes);
+			if (liked) {
+				likeButton.find(".like-btn").addClass('active');
+			} else {
+				likeButton.find(".like-btn").removeClass('active');
+			}
 
-            dislikeButton.find(".count").text(dislikes);
-            if (disliked) {
-                dislikeButton.find(".dislike-btn").addClass('active');
-            } else {
-                dislikeButton.find(".dislike-btn").removeClass('active');
-            }
-        }
+			dislikeButton.find(".count").text(dislikes);
+			if (disliked) {
+				dislikeButton.find(".dislike-btn").addClass('active');
+			} else {
+				dislikeButton.find(".dislike-btn").removeClass('active');
+			}
+		}
 
-        $(".like-btn").click(function (e) {
-            var this_ = $(this).parent();
-            var url_ = this_.attr("data-href");
+		$(".like-btn").click(function (e) {
+			var this_ = $(this).parent();
+			var url_ = this_.attr("data-href");
 
-            var partnerButtonID = this_.attr('id').replace("like", "dislike");
-            var likeButton = this_;
-            var dislikeButton = $("#" + partnerButtonID);
-
-
-            var model_name = "";
-            {% if entity|model_name == 'دانشگاه' %}
-                model_name = "University";
-            {% elif entity|model_name == 'دانشکده' %}
-                model_name = "Department";
-            {% elif entity|model_name == 'استاد' %}
-                model_name = "Professor";
-            {% endif %}
-
-            e.preventDefault();
-            $.ajax({
-                url: url_,
-                method: "GET",
-                data: {
-                    model_name: model_name,
-                },
-                success: function (data) {
-                    var like_number_changes = data.like_count_change;
-                    var dislike_number_changes = data.dislike_count_change;
+			var partnerButtonID = this_.attr('id').replace("like", "dislike");
+			var likeButton = this_;
+			var dislikeButton = $("#" + partnerButtonID);
 
 
-                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
-                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+			var model_name = "";
+			{% if entity|model_name == 'دانشگاه' %}
+				model_name = "University";
+			{% elif entity|model_name == 'دانشکده' %}
+				model_name = "Department";
+			{% elif entity|model_name == 'استاد' %}
+				model_name = "Professor";
+			{% endif %}
 
-                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
-                },
-                error: function (error) {
-                    console.log("ERROR");
-                }
-            });
-        });
+			e.preventDefault();
+			$.ajax({
+				url: url_,
+				method: "GET",
+				data: {
+					model_name: model_name,
+				},
+				success: function (data) {
+					var like_number_changes = data.like_count_change;
+					var dislike_number_changes = data.dislike_count_change;
 
-        $(".dislike-btn").click(function (e) {
+
+					var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+					var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+
+					updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+				},
+				error: function (error) {
+					console.log("ERROR");
+				}
+			});
+		});
+
+		$(".dislike-btn").click(function (e) {
 						var this_ = $(this).parent();
-            var url_ = this_.attr("data-href");
+			var url_ = this_.attr("data-href");
 
-            var partnerButtonID = this_.attr('id').replace("dislike", "like");
-            var dislikeButton = this_;
-            var likeButton = $("#" + partnerButtonID);
+			var partnerButtonID = this_.attr('id').replace("dislike", "like");
+			var dislikeButton = this_;
+			var likeButton = $("#" + partnerButtonID);
 
-            var model_name = "";
-            {% if entity|model_name == 'دانشگاه' %}
-                model_name = "University";
-            {% elif entity|model_name == 'دانشکده' %}
-                model_name = "Department";
-            {% elif entity|model_name == 'استاد' %}
-                model_name = "Professor";
-            {% endif %}
+			var model_name = "";
+			{% if entity|model_name == 'دانشگاه' %}
+				model_name = "University";
+			{% elif entity|model_name == 'دانشکده' %}
+				model_name = "Department";
+			{% elif entity|model_name == 'استاد' %}
+				model_name = "Professor";
+			{% endif %}
 
-            e.preventDefault();
-            $.ajax({
-                url: url_,
-                method: "GET",
-                data: {
-                    model_name: model_name,
-                },
-                success: function (data) {
-                    var like_number_changes = data.like_count_change;
-                    var dislike_number_changes = data.dislike_count_change;
+			e.preventDefault();
+			$.ajax({
+				url: url_,
+				method: "GET",
+				data: {
+					model_name: model_name,
+				},
+				success: function (data) {
+					var like_number_changes = data.like_count_change;
+					var dislike_number_changes = data.dislike_count_change;
 
-                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
-                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+					var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+					var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
 
-                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
-                },
-                error: function (error) {
-                    console.log("ERROR");
-                }
-            });
-        });
+					updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+				},
+				error: function (error) {
+					console.log("ERROR");
+				}
+			});
+		});
 
 	</script>
 {% endblock %}
