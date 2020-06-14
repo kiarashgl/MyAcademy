@@ -53,9 +53,9 @@ class SuggestTest(TestCase):
 			username='user1', password='SomeRandomStuff'
 		)
 
-		self.professor = Professor.objects.get(pk=1)
-		self.department = Department.objects.get(pk=1)
-		self.university = University.objects.get(pk=1)
+		self.professor = Professor.objects.first()
+		self.department = Department.objects.first()
+		self.university = University.objects.first()
 
 	def test_suggest_valid_professor(self):
 		response = self.client.post(reverse('entities:professor_suggest'),
