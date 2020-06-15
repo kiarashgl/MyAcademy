@@ -48,7 +48,9 @@
 			url: '{% url 'ratings:department_rating_data' pk=entity.pk %}',
 			success: function (data) {
 				console.log(data);
-				updateChart(data);
+				if (!jQuery.isEmptyObject(data)) {
+                    updateChart(data);
+                }
 			},
 			error: function (error_data) {
 				console.log("error");

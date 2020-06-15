@@ -97,10 +97,12 @@
 			url: '{% url 'ratings:professor_rating_data' pk=entity.pk %}',
 			success: function (data) {
 				console.log(data);
-				updateGeneralChart(data);
-				updateTeachingChart(data);
-				updateResearchAndAdviceChart(data);
-				updateOverallScores(data);
+				if (!jQuery.isEmptyObject(data)) {
+                    updateGeneralChart(data);
+                    updateTeachingChart(data);
+                    updateResearchAndAdviceChart(data);
+                    updateOverallScores(data);
+                }
 			},
 			error: function (error_data) {
 				console.log("error");
