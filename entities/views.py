@@ -6,8 +6,11 @@ from django.views.generic import DetailView, CreateView, ListView, FormView
 from .models import Professor, Department, University, Entity
 from .forms import ProfessorForm, DepartmentForm, UniversityForm
 from core.forms import SearchForm
-from django.db.models import Q, F, Value as V
+from django.db.models import Q, F, Value as V, Count
+
+from django.db.models import Avg
 from django.db.models.functions import Concat
+from ratings.models import *
 
 
 # Create your views here.
@@ -28,12 +31,11 @@ class ProfessorDetail(EntityDetail):
 	queryset = Professor.objects.filter(verified=True)
 	model = Professor
 
-	def get(self, request, **kwargs):
-		try:
-			self.model.objects.get(pk=kwargs['pk'])
-			return super(DetailView, self).get(request, **kwargs)
-		except self.model.DoesNotExist:
-			return redirect(reverse_lazy('home'))
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['comments'] = ProfRating.objects.filter(prof=self.kwargs['pk']).exclude(comment=u'') \
+			.annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
+		return context
 
 
 class DepartmentDetail(EntityDetail):
@@ -41,12 +43,11 @@ class DepartmentDetail(EntityDetail):
 	queryset = Department.objects.filter(verified=True)
 	model = Department
 
-	def get(self, request, **kwargs):
-		try:
-			self.model.objects.get(pk=kwargs['pk'])
-			return super(DetailView, self).get(request, **kwargs)
-		except self.model.DoesNotExist:
-			return redirect(reverse_lazy('home'))
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['comments'] = DeptRating.objects.filter(dept=self.kwargs['pk']).exclude(comment=u'') \
+			.annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
+		return context
 
 
 class UniversityDetail(EntityDetail):
@@ -54,12 +55,11 @@ class UniversityDetail(EntityDetail):
 	queryset = University.objects.filter(verified=True)
 	model = University
 
-	def get(self, request, **kwargs):
-		try:
-			self.model.objects.get(pk=kwargs['pk'])
-			return super(DetailView, self).get(request, **kwargs)
-		except self.model.DoesNotExist:
-			return redirect(reverse_lazy('home'))
+	def get_context_data(self, **kwargs):
+		context = super().get_context_data(**kwargs)
+		context['comments'] = UniRating.objects.filter(uni=self.kwargs['pk']).exclude(comment=u'') \
+			.annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
+		return context
 
 
 class EntitySuggest(LoginRequiredMixin, SuccessMessageMixin, CreateView):
