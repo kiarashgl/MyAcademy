@@ -9,6 +9,8 @@ from wagtail.core.fields import RichTextField, StreamField
 from wagtail.core import blocks as core_blocks
 from wagtail.images import blocks as image_blocks
 
+from wagtail.images.fields import ImageField
+
 from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPanel
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
@@ -49,6 +51,10 @@ class HomePage(Page):
 class BlogPage(Page):
 	date = models.DateField("Post date")
 	intro = models.CharField(max_length=250)
+	thumbnail = models.ForeignKey(
+		'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='+'
+	)
+
 	body = RichTextField(blank=True)
 
 	search_fields = Page.search_fields + [
@@ -57,8 +63,11 @@ class BlogPage(Page):
 	]
 
 	content_panels = Page.content_panels + [
+		ImageChooserPanel('thumbnail'),
+
 		FieldPanel('date'),
 		FieldPanel('intro'),
+
 		FieldPanel('body', classname="full"),
 		InlinePanel('gallery_images', label="Gallery images"),
 	]
@@ -73,6 +82,11 @@ class BlogPage(Page):
 
 class AdvancedBlogPage(Page):
 	date = models.DateField("Post date")
+	intro = models.CharField(max_length=250)
+	thumbnail = models.ForeignKey(
+		'wagtailimages.Image', blank=True, null=True, on_delete=models.SET_NULL, related_name='+'
+	)
+
 	body = StreamField([
 		('heading', core_blocks.CharBlock(classname="full title")),
 		('paragraph', core_blocks.RichTextBlock()),
@@ -81,11 +95,16 @@ class AdvancedBlogPage(Page):
 	])
 
 	search_fields = Page.search_fields + [
+		index.SearchField('intro'),
 		index.SearchField('body'),
 	]
 
 	content_panels = Page.content_panels + [
+		ImageChooserPanel('thumbnail'),
+
 		FieldPanel('date'),
+		FieldPanel('intro'),
+
 		StreamFieldPanel('body'),
 	]
 
