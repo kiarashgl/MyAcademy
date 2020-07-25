@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+	'blog',
 	'ratings',
 	'accounts',
 	'entities',
@@ -42,7 +43,22 @@ INSTALLED_APPS = [
 	'crispy_forms',
 	'django_cleanup',
 	'django_nose',
-	'rest_framework'
+	'rest_framework',
+
+	'wagtail.contrib.forms',
+	'wagtail.contrib.redirects',
+	'wagtail.embeds',
+	'wagtail.sites',
+	'wagtail.users',
+	'wagtail.snippets',
+	'wagtail.documents',
+	'wagtail.images',
+	'wagtail.search',
+	'wagtail.admin',
+	'wagtail.core',
+
+	'modelcluster',
+	'taggit',
 ]
 
 MIDDLEWARE = [
@@ -53,6 +69,7 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'MyAcademy.urls'
@@ -161,9 +178,11 @@ NOSE_ARGS = [
 	'--cover-package=accounts, entities',  # Add packages here
 ]
 
-SELENIUM_ON_LINUX = False # Set to true if you want to run selenium tests on linux (Probably on server)
-SKIP_SELENIUM_TESTS = True # Set to true if you want to skip selenium tests
+SELENIUM_ON_LINUX = False  # Set to true if you want to run selenium tests on linux (Probably on server)
+SKIP_SELENIUM_TESTS = True  # Set to true if you want to skip selenium tests
 
 local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
 if os.path.exists(local_settings_path):
 	exec(open(local_settings_path, 'rb').read())
+
+WAGTAIL_SITE_NAME = 'MyAcademy'
