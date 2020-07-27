@@ -34,6 +34,8 @@ urlpatterns = [
 	# Wagtail and Blog stuff
 	path('cms-admin/', include(wagtailadmin_urls)),
 	path('blog/', include(wagtail_urls)),
+
+	path('comments/', include('django_comments_xtd.urls')),
 ]
 
 if settings.DEBUG is True:

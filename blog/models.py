@@ -15,10 +15,11 @@ from wagtail.admin.edit_handlers import FieldPanel, InlinePanel, StreamFieldPane
 from wagtail.images.edit_handlers import ImageChooserPanel
 from wagtail.search import index
 
+from MyAcademy.settings import BLOG_PAGINATION_PER_PAGE, DEBUG
+
 
 class HomePage(Page):
 	body = RichTextField(blank=True)
-	paginate_by = 2
 
 	content_panels = Page.content_panels + [
 		FieldPanel('body', classname="full"),
@@ -29,7 +30,7 @@ class HomePage(Page):
 
 		all_posts = self.get_children().live().public().order_by('-first_published_at')
 
-		paginator = Paginator(all_posts, self.paginate_by)
+		paginator = Paginator(all_posts, BLOG_PAGINATION_PER_PAGE)
 
 		# Try to get the ?page=x value
 		page = request.GET.get("page")
@@ -72,12 +73,11 @@ class BlogPage(Page):
 		InlinePanel('gallery_images', label="Gallery images"),
 	]
 
-	def main_image(self):
-		gallery_item = self.gallery_images.first()
-		if gallery_item:
-			return gallery_item.image
+	def get_absolute_url(self):
+		if DEBUG:
+			return 'http://localhost:8000' + self.url
 		else:
-			return None
+			return self.full_url
 
 
 class AdvancedBlogPage(Page):
@@ -107,6 +107,12 @@ class AdvancedBlogPage(Page):
 
 		StreamFieldPanel('body'),
 	]
+
+	def get_absolute_url(self):
+		if DEBUG:
+			return 'http://localhost:8000' + self.url
+		else:
+			return self.full_url
 
 
 class BlogPageGalleryImage(Orderable):

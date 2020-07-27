@@ -26,20 +26,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 # Application definition
 
 INSTALLED_APPS = [
+	'django_comments_xtd',
+	'django_comments',
+
 	'blog',
 	'ratings',
 	'accounts',
 	'entities',
 	'core',
+
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django.contrib.sites',
 	'crispy_forms',
 	'django_cleanup',
 	'django_nose',
@@ -186,3 +193,21 @@ if os.path.exists(local_settings_path):
 	exec(open(local_settings_path, 'rb').read())
 
 WAGTAIL_SITE_NAME = 'MyAcademy'
+BLOG_PAGINATION_PER_PAGE = 2
+
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 2
+COMMENTS_XTD_CONFIRM_EMAIL = False
+
+COMMENTS_XTD_APP_MODEL_OPTIONS = {
+	'blog.blogpage': {
+		'allow_flagging': True,
+		'allow_feedback': True,
+		'show_feedback': True,
+	},
+	'blog.advancedblogpage': {
+		'allow_flagging': True,
+		'allow_feedback': True,
+		'show_feedback': True,
+	}
+}

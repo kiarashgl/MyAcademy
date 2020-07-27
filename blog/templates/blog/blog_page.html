@@ -1,6 +1,12 @@
 {% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags comments comments_xtd %}
 
-{% load wagtailcore_tags wagtailimages_tags %}
+{% block css %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+{% endblock %}
 
 {% block title %}blog{% endblock %}
 
@@ -12,12 +18,26 @@
 
     {{ page.body|richtext }}
 
-    {% for item in page.gallery_images.all %}
-        <div style="float: left; margin: 10px">
-            {% image item.image fill-350x300 %}
-            <p>{{ item.caption }}</p>
+    <div class="container">
+        <div class="row">
+            {% for item in page.gallery_images.all %}
+                <div class="col-lg-3">
+                    {% image item.image fill-200x200 %}
+                    <p>{{ item.caption }}</p>
+                </div>
+            {% endfor %}
         </div>
-    {% endfor %}
+    </div>
 
     <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+
+    <div dir="ltr" align="left">
+        <ul class="media-list">
+            {% render_xtdcomment_tree for self allow_feedback show_feedback %}
+        </ul>
+
+        {% render_comment_form for self %}
+        {% get_comment_count for self as comment_count %}
+        <p>{{ comment_count }} comments have been posted.</p>
+    </div>
 {% endblock %}
