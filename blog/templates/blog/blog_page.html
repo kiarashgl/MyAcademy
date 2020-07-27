@@ -1,43 +1,170 @@
 {% extends 'fullscreen_header.html' %}
 {% load static %}
 {% load wagtailcore_tags wagtailimages_tags comments comments_xtd %}
+{% load wagtailroutablepage_tags %}
+
 
 {% block css %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
-    <link rel="stylesheet" href="{% static 'css/search_results.css' %}">
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static "css/entity_detail.css" %}">
 {% endblock %}
 
 {% block title %}blog{% endblock %}
 
 {% block inside_content %}
-    <h1>{{ page.title }}</h1>
-    <p class="meta">{{ page.date }}</p>
+	<h1>{{ page.title }}</h1>
 
-    <div class="intro">{{ page.intro }}</div>
+	<div align="left">
+		{% for block in page.body %}
+			{% if block.block_type == 'image' %}
+				<div align="center">
+					{% image block.value fill-300x300 %}
+				</div>
+			{% elif block.block_type == 'heading' %}
+				<h3>
+					{% include_block block %}
+				</h3>
+			{% elif block.block_type == 'image_slider' %}
+				<div class="container">
+					<div class="row">
+						{% for item in block.value %}
+							<div class="col-lg-3" align="center">
+								{% image item.image fill-200x200 %}
 
-    {{ page.body|richtext }}
+								{#                                This is another way of doing it                   #}
+								{#                                            |                                     #}
+								{#                                            |                                     #}
+								{#                                            |                                     #}
+								{#                                            V                                     #}
+								{#                                {% image item.image fill-200x200 as photo %}      #}
+								{#                                <img src="{{ photo.url }}">                       #}
 
-    <div class="container">
-        <div class="row">
-            {% for item in page.gallery_images.all %}
-                <div class="col-lg-3">
-                    {% image item.image fill-200x200 %}
-                    <p>{{ item.caption }}</p>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+								{{ item.image.url }}
+								<p> {{ item.caption }} </p>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
 
-    <p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
+			{% else %}
+				<div>
+					{% include_block block %}
+				</div>
+			{% endif %}
+		{% endfor %}
+	</div>
 
-    <div dir="ltr" align="left">
-        <ul class="media-list">
-            {% render_xtdcomment_tree for self allow_feedback show_feedback %}
-        </ul>
+	<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
 
-        {% render_comment_form for self %}
-        {% get_comment_count for self as comment_count %}
-        <p>{{ comment_count }} comments have been posted.</p>
-    </div>
+	<!-- Like and dislike stuff  -->
+	<div align="center">
+		<div class="d-flex flex-row">
+		<span id="like" data-href="{{ page.url }}like/" class="d-flex flex-row px-2">
+			<a class="like-btn {% if liked %}active{% endif %}">
+				<i class="fa fa-thumbs-up"></i>
+			</a>
+			<span class="count mr-2">
+				{{ likes }}
+			</span>
+		</span>
+			<span id="dislike" data-href="{{ page.url }}dislike/" class="d-flex flex-row px-2">
+			<a class="dislike-btn {% if disliked %}active{% endif %}">
+				<i class="fa fa-thumbs-down"></i>
+			</a>
+			<span class="count mr-2">
+				{{ dislikes }}
+			</span>
+		</span>
+		</div>
+	</div>
+
+	<div dir="ltr" align="left">
+		<ul class="media-list">
+			{% render_xtdcomment_tree for self allow_feedback show_feedback %}
+		</ul>
+
+		{% render_comment_form for self %}
+		{% get_comment_count for self as comment_count %}
+		<p>{{ comment_count }} comments have been posted.</p>
+	</div>
+{% endblock %}
+
+
+{% block custom_scripts %}
+	{{ block.super }}
+	<script>
+        function updateLikeButtons(likeButton, dislikeButton, likes, dislikes, liked, disliked) {
+            likeButton.find(".count").text(likes);
+            if (liked) {
+                likeButton.find(".like-btn").addClass('active');
+            } else {
+                likeButton.find(".like-btn").removeClass('active');
+            }
+
+            dislikeButton.find(".count").text(dislikes);
+            if (disliked) {
+                dislikeButton.find(".dislike-btn").addClass('active');
+            } else {
+                dislikeButton.find(".dislike-btn").removeClass('active');
+            }
+        }
+
+        $(".like-btn").click(function (e) {
+            var this_ = $(this).parent();
+            var url_ = this_.attr("data-href");
+
+            var partnerButtonID = this_.attr('id').replace("like", "dislike");
+            var likeButton = this_;
+            var dislikeButton = $("#" + partnerButtonID);
+
+            e.preventDefault();
+            $.ajax({
+                url: url_,
+                method: "GET",
+                data: {},
+                success: function (data) {
+                    var like_number_changes = data.like_count_change;
+                    var dislike_number_changes = data.dislike_count_change;
+
+
+                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+
+                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+                },
+                error: function (error) {
+                    console.log("ERROR");
+                }
+            });
+        });
+
+        $(".dislike-btn").click(function (e) {
+            var this_ = $(this).parent();
+            var url_ = this_.attr("data-href");
+
+            var partnerButtonID = this_.attr('id').replace("dislike", "like");
+            var dislikeButton = this_;
+            var likeButton = $("#" + partnerButtonID);
+
+
+            e.preventDefault();
+            $.ajax({
+                url: url_,
+                method: "GET",
+                data: {},
+                success: function (data) {
+                    var like_number_changes = data.like_count_change;
+                    var dislike_number_changes = data.dislike_count_change;
+
+                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+
+                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+                },
+                error: function (error) {
+                    console.log("ERROR");
+                }
+            });
+        });
+	</script>
 {% endblock %}
