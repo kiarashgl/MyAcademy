@@ -65,6 +65,8 @@ INSTALLED_APPS = [
 	'wagtail.admin',
 	'wagtail.core',
 
+	'captcha',
+
 	'modelcluster',
 	'taggit',
 ]
@@ -212,3 +214,7 @@ COMMENTS_XTD_APP_MODEL_OPTIONS = {
 		'show_feedback': True,
 	}
 }
+
+# ReCaptcha v3
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+DISABLE_RECAPTCHA = False

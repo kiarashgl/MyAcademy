@@ -1,12 +1,26 @@
 from crispy_forms.bootstrap import FormActions
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Submit, Layout, Div, HTML
+from crispy_forms.layout import Submit, Layout, Div, HTML, Field
 from django.contrib.auth.forms import UserCreationForm, SetPasswordForm, UserChangeForm
 
+from captcha.fields import ReCaptchaField
+from captcha.widgets import ReCaptchaV2Checkbox
+
 from .models import User
+from MyAcademy import settings
+
+
+class TestableReCaptchaField(ReCaptchaField):
+	def validate(self, value):
+		if settings.DISABLE_RECAPTCHA:
+			return
+		else:
+			super(TestableReCaptchaField, self).validate(value)
 
 
 class SignupForm(UserCreationForm):
+	captcha = TestableReCaptchaField(widget=ReCaptchaV2Checkbox)
+
 	# Suppress help texts
 	def __init__(self, *args, **kwargs):
 		super(UserCreationForm, self).__init__(*args, **kwargs)
@@ -18,6 +32,7 @@ class SignupForm(UserCreationForm):
 		self.helper.label_class = 'col-lg-12'
 		self.helper.field_class = 'col'
 		self.helper.use_custom_control = True
+
 		self.helper.layout = Layout(
 			Div('username', css_class='ltr-form'),
 			Div(
@@ -28,6 +43,9 @@ class SignupForm(UserCreationForm):
 			Div('email', css_class='ltr-form'),
 			Div('password1', css_class='ltr-form'),
 			Div('password2', css_class='ltr-form'),
+
+			Div('captcha'),
+
 			FormActions(
 				Submit('submit', 'ثبت‌نام', css_class="bg-light-purple"),
 			),

@@ -1,14 +1,20 @@
-from django.test import TestCase
+from django.forms import CharField
+from django.test import TestCase, override_settings
 from django.urls import reverse
 
 from accounts.models import User
+from captcha import constants
+
+from MyAcademy import settings
 
 
 class SignUpTest(TestCase):
+
 	@classmethod
 	def setUpTestData(cls):
 		User.objects.create_user(username='mamad', first_name='ممد', last_name='ممدی',
 								 email='mamad@mamadi.ir', password='yY3Kky4Rz1S31v')
+		settings.DISABLE_RECAPTCHA = True
 
 	def test_signup_template(self):
 		response = self.client.get(reverse('accounts:signup'))
@@ -16,7 +22,7 @@ class SignUpTest(TestCase):
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'registration/signup.html')
 
-	def test_signupـsuccessful(self):
+	def test_signup_successful(self):
 		response = self.client.post(reverse('accounts:signup'), {'username': 'aliZ', 'first_name': 'Ali',
 																 'last_name': 'Alavi', 'email': 'ali@alavi.ir',
 																 'password1': 'yY3Kky4Rz1S31v',
