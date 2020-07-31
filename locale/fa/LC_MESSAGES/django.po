@@ -2,13 +2,13 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
+# 
 #, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-07-31 19:29+0430\n"
+"POT-Creation-Date: 2020-07-31 21:01+0430\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,53 +18,113 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\blog\templates\blog\comment_tree.html:18
+#: .\templates\comments\form.html:62
+msgid "send"
+msgstr "ارسال"
+
+#: .\templates\django_comments_xtd\comment_tree.html:18
 msgid "moderator"
 msgstr "مدیر سایت"
 
-#: .\blog\templates\blog\comment_tree.html:18
+#: .\templates\django_comments_xtd\comment_tree.html:18
 msgid "comment permalink"
 msgstr "لینک دائمی نظر"
 
-#: .\blog\templates\blog\comment_tree.html:23
+#: .\templates\django_comments_xtd\comment_tree.html:23
 #, python-format
 msgid "A user has flagged this comment as inappropriate."
 msgid_plural "%(counter)s users have flagged this comment as inappropriate."
 msgstr[0] "یک کاربر این نظر را به عنوان نامناسب علامت‌گذاری کرده‌است."
 msgstr[1] "چند کاربر این نظر را به عنوان نامناسب علامت‌گذاری کرده‌اند."
 
-#: .\blog\templates\blog\comment_tree.html:27
+#: .\templates\django_comments_xtd\comment_tree.html:27
 msgid "comment flagged"
 msgstr "نظر علامت‌گذاری شد."
 
-#: .\blog\templates\blog\comment_tree.html:31
+#: .\templates\django_comments_xtd\comment_tree.html:31
 msgid "flag comment"
 msgstr "علامت‌گذاری نظر"
 
-#: .\blog\templates\blog\comment_tree.html:36
+#: .\templates\django_comments_xtd\comment_tree.html:36
 msgid "remove comment"
 msgstr "حذف نظر"
 
-#: .\blog\templates\blog\comment_tree.html:42
+#: .\templates\django_comments_xtd\comment_tree.html:42
 msgid "This comment has been removed."
 msgstr "این نظر حذف شده‌است."
 
-#: .\blog\templates\blog\comment_tree.html:51
+#: .\templates\django_comments_xtd\comment_tree.html:51
 msgid "Reply"
 msgstr "پاسخ"
 
-#: .\templates\comments\form.html:69
-msgid "send"
-msgstr "ارسال"
+#: .\templates\django_comments_xtd\dislike.html:10
+#: .\templates\django_comments_xtd\reply.html:10
+msgid "Comment reply"
+msgstr "پاسخ به نظر"
 
-#: .\templates\comments\form.html:70
-msgid "preview"
-msgstr "پیش‌نمایش"
+#: .\templates\django_comments_xtd\dislike.html:14
+msgid "You didn't like this comment, do you want to change it?"
+msgstr "شما این نظر را دوست نداشتید. آیا می‌خواهید آن را تغییر دهید؟"
+
+#: .\templates\django_comments_xtd\dislike.html:16
+msgid "Do you dislike this comment?"
+msgstr "آیا از این نظر خوشتان نمی‌آید؟"
+
+#: .\templates\django_comments_xtd\dislike.html:24
+#: .\templates\django_comments_xtd\like.html:22
+msgid "Posted to "
+msgstr "نظری مربوط به پست"
+
+#: .\templates\django_comments_xtd\dislike.html:30
+msgid ""
+"Click on the \"withdraw\" button if you want to withdraw your negative "
+"opinion on this comment."
+msgstr "روی دکمه‌ی \"صرف‌نظر\" کلیک کنید تا نظر منفی شما بازگردانده شود."
+
+#: .\templates\django_comments_xtd\dislike.html:38
+#: .\templates\django_comments_xtd\like.html:37
+msgid "Withdraw"
+msgstr "صرف‌نظر"
+
+#: .\templates\django_comments_xtd\dislike.html:40
+msgid "I dislike it"
+msgstr "نمی‌پسندم"
+
+#: .\templates\django_comments_xtd\dislike.html:42
+#: .\templates\django_comments_xtd\like.html:41
+msgid "cancel"
+msgstr "بی‌خیال"
+
+#: .\templates\django_comments_xtd\like.html:10
+msgid "Confirm your opinion"
+msgstr "نظر خود را بازنگری کنید"
+
+#: .\templates\django_comments_xtd\like.html:13
+msgid "You liked this comment, do you want to change it?"
+msgstr "شما این نظر را پسندیدید، آیا می‌خواهید آن را تغییر دهید؟"
+
+#: .\templates\django_comments_xtd\like.html:15
+msgid "Do you like this comment?"
+msgstr "نظر خود را ارسال کنید"
+
+#: .\templates\django_comments_xtd\like.html:28
+msgid ""
+"Click on the \"withdraw\" button if you want to withdraw your positive "
+"opinion on this comment."
+msgstr "روی دکمه‌ی \"صرف‌نظر\" کلیک کنید تا نظر مثبت شما بازگردانده شود."
+
+#: .\templates\django_comments_xtd\like.html:39
+msgid "I like it"
+msgstr "می‌پسندم"
+
+#: .\templates\django_comments_xtd\reply.html:11
+msgid "Reply to comment"
+msgstr "به این نظر، پاسخ دهید"
 
 #: forms.py:41
 msgid "Your comment"
 msgstr "نظر شما"
 
-#: forms.py:13
-msgid "Notify me about follow-up comments"
-msgstr "مرا از نظرهای بعدی مطلع کن."
+#: .\templates\django_comments_xtd\reply.html:43
+msgid "Post your comment"
+msgstr "نظر خود را ارسال کنید"
