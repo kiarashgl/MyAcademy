@@ -6,87 +6,103 @@
 
 {% block css %}
 	{{ block.super }}
-	<link rel="stylesheet" href="{% static "css/entity_detail.css" %}">
+	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
 {% endblock %}
 
-{% block title %}blog{% endblock %}
+{% block title %}{{ page.title }}{% endblock %}
 
-{% block inside_content %}
-	<h1>{{ page.title }}</h1>
+{% block content %}
+	<header>
+	<div class="d-flex justify-content-center align-items-center">
+		<div class="col-11 mx-auto bg-gray-glass text-right pb-0">
+		{% block inside_content %}
+			<h1 style="background: transparent; border-bottom-color: white" class="card-header pr-0 mb-3">{{ page.title }}</h1>
 
-	<div align="left">
-		{% for block in page.body %}
-			{% if block.block_type == 'image' %}
-				<div align="center">
-					{% image block.value fill-300x300 %}
-				</div>
-			{% elif block.block_type == 'heading' %}
-				<h3>
-					{% include_block block %}
-				</h3>
-			{% elif block.block_type == 'image_slider' %}
-				<div class="container">
-					<div class="row">
-						{% for item in block.value %}
-							<div class="col-lg-3" align="center">
-								{% image item.image fill-200x200 %}
-
-								{#                                This is another way of doing it                   #}
-								{#                                            |                                     #}
-								{#                                            |                                     #}
-								{#                                            |                                     #}
-								{#                                            V                                     #}
-								{#                                {% image item.image fill-200x200 as photo %}      #}
-								{#                                <img src="{{ photo.url }}">                       #}
-
-								{{ item.image.url }}
-								<p> {{ item.caption }} </p>
+			<div align="justify">
+				{% for block in page.body %}
+					{% if block.block_type == 'image' %}
+						<div align="center">
+							{% image block.value fill-300x300 %}
+						</div>
+					{% elif block.block_type == 'heading' %}
+						<h3>
+							{% include_block block %}
+						</h3>
+					{% elif block.block_type == 'image_slider' %}
+						<div class="container">
+							<div class="row d-flex justify-content-center">
+								{% for item in block.value %}
+									<div class="col-md-4 mx-3 text-center">
+										{% image item.image width-200 %}
+										{{ item.image.url }}
+										<p> {{ item.caption }} </p>
+									</div>
+								{% endfor %}
 							</div>
-						{% endfor %}
+						</div>
+
+					{% else %}
+						<div>
+							{% include_block block %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<!-- Like and dislike stuff  -->
+			<div class="card-footer" align="center">
+				<div class="d-flex flex-row justify-content-between">
+					<div class="d-flex align-items-center">
+						<div class="d-inline-block ml-2" style="width: 2rem">
+							<div class="square">
+								<img class="rounded-circle" src="{{ page.owner.profile_picture.url | safe }}"
+								     alt="User Picture">
+							</div>
+						</div>
+						<span>
+							{{ page.owner.get_full_name }}
+						</span>
+					</div>
+					<div class="d-flex flex-row justify-content-between">
+						<span id="like" data-href="{{ page.url }}like/" class="d-flex flex-row px-2">
+							<a class="like-btn {% if liked %}active{% endif %}">
+								<i class="fa fa-thumbs-up"></i>
+							</a>
+							<span class="count mr-2">
+								{{ likes }}
+							</span>
+						</span>
+						<span id="dislike" data-href="{{ page.url }}dislike/" class="d-flex flex-row px-2">
+							<a class="dislike-btn {% if disliked %}active{% endif %}">
+								<i class="fa fa-thumbs-down"></i>
+							</a>
+							<span class="count mr-2">
+								{{ dislikes }}
+							</span>
+						</span>
+					</div>
+					<div>
+						{{ page.last_published_at }}
 					</div>
 				</div>
-
-			{% else %}
-				<div>
-					{% include_block block %}
-				</div>
-			{% endif %}
-		{% endfor %}
-	</div>
-
-	<p><a href="{{ page.get_parent.url }}">Return to blog</a></p>
-
-	<!-- Like and dislike stuff  -->
-	<div align="center">
-		<div class="d-flex flex-row">
-		<span id="like" data-href="{{ page.url }}like/" class="d-flex flex-row px-2">
-			<a class="like-btn {% if liked %}active{% endif %}">
-				<i class="fa fa-thumbs-up"></i>
-			</a>
-			<span class="count mr-2">
-				{{ likes }}
-			</span>
-		</span>
-			<span id="dislike" data-href="{{ page.url }}dislike/" class="d-flex flex-row px-2">
-			<a class="dislike-btn {% if disliked %}active{% endif %}">
-				<i class="fa fa-thumbs-down"></i>
-			</a>
-			<span class="count mr-2">
-				{{ dislikes }}
-			</span>
-		</span>
+			</div>
 		</div>
 	</div>
-
-	<div dir="ltr" align="left">
-		<ul class="media-list">
-			{% render_xtdcomment_tree for self allow_feedback show_feedback %}
-		</ul>
-
-		{% render_comment_form for self %}
-		{% get_comment_count for self as comment_count %}
-		<p>{{ comment_count }} comments have been posted.</p>
-	</div>
+	<div class="d-flex justify-content-center align-items-center">
+		<div class="col-11 mx-auto bg-gray-glass text-right">
+			<div>
+				<ul class="media-list">
+					{% render_xtdcomment_tree for self allow_feedback show_feedback %}
+				</ul>
+				{% if user.is_authenticated %}
+				{% render_comment_form for self %}
+				{% else %}
+					برای نظر دادن،‌ لطفاً با حساب کاربری خود وارد شوید.
+				{% endif %}
+			</div>
+		{% endblock %}
+		</div>
+		</div>
+	</header>
 {% endblock %}
 
 

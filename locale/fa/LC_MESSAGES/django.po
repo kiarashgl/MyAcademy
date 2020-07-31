@@ -1,0 +1,70 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-07-31 19:29+0430\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: .\blog\templates\blog\comment_tree.html:18
+msgid "moderator"
+msgstr "مدیر سایت"
+
+#: .\blog\templates\blog\comment_tree.html:18
+msgid "comment permalink"
+msgstr "لینک دائمی نظر"
+
+#: .\blog\templates\blog\comment_tree.html:23
+#, python-format
+msgid "A user has flagged this comment as inappropriate."
+msgid_plural "%(counter)s users have flagged this comment as inappropriate."
+msgstr[0] "یک کاربر این نظر را به عنوان نامناسب علامت‌گذاری کرده‌است."
+msgstr[1] "چند کاربر این نظر را به عنوان نامناسب علامت‌گذاری کرده‌اند."
+
+#: .\blog\templates\blog\comment_tree.html:27
+msgid "comment flagged"
+msgstr "نظر علامت‌گذاری شد."
+
+#: .\blog\templates\blog\comment_tree.html:31
+msgid "flag comment"
+msgstr "علامت‌گذاری نظر"
+
+#: .\blog\templates\blog\comment_tree.html:36
+msgid "remove comment"
+msgstr "حذف نظر"
+
+#: .\blog\templates\blog\comment_tree.html:42
+msgid "This comment has been removed."
+msgstr "این نظر حذف شده‌است."
+
+#: .\blog\templates\blog\comment_tree.html:51
+msgid "Reply"
+msgstr "پاسخ"
+
+#: .\templates\comments\form.html:69
+msgid "send"
+msgstr "ارسال"
+
+#: .\templates\comments\form.html:70
+msgid "preview"
+msgstr "پیش‌نمایش"
+
+#: forms.py:41
+msgid "Your comment"
+msgstr "نظر شما"
+
+#: forms.py:13
+msgid "Notify me about follow-up comments"
+msgstr "مرا از نظرهای بعدی مطلع کن."

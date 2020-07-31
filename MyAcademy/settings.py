@@ -121,7 +121,7 @@ DATABASES = {
 	}
 }
 
-LOGIN_URL = 'accounts.login'
+#LOGIN_URL = 'accounts.login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 AUTH_USER_MODEL = 'accounts.User'
@@ -176,6 +176,10 @@ STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, "staticfiles"),
 ]
 
+LOCALE_PATHS = (
+	os.path.join(BASE_DIR, "locale"),
+)
+
 # Django Crispy Forms Config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -203,16 +207,12 @@ COMMENTS_XTD_MAX_THREAD_LEVEL = 2
 COMMENTS_XTD_CONFIRM_EMAIL = False
 
 COMMENTS_XTD_APP_MODEL_OPTIONS = {
-	'blog.blogpage': {
+	'default': {
 		'allow_flagging': True,
 		'allow_feedback': True,
 		'show_feedback': True,
+		'who_can_post': 'users'
 	},
-	'blog.advancedblogpage': {
-		'allow_flagging': True,
-		'allow_feedback': True,
-		'show_feedback': True,
-	}
 }
 
 # ReCaptcha v3
