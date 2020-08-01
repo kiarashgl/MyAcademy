@@ -38,9 +38,9 @@ class BlogListingPage(Page):
 	def get_context(self, request, *args, **kwargs):
 		context = super(BlogListingPage, self).get_context(request)
 
-
 		# all_posts = BlogDetailPage.objects.live().public().order_by('-first_published_at')
-		all_posts = BlogDetailPage.objects.live().public().annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
+		all_posts = BlogDetailPage.objects.child_of(self).live().public() \
+			.annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
 
 		paginator = Paginator(all_posts, BLOG_PAGINATION_PER_PAGE)
 
