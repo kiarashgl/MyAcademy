@@ -12,9 +12,21 @@
 {% block content %}
 	<header class="d-flex justify-content-center align-items-center">
 		<div class="col-11 mx-auto bg-gray-glass text-right">
-			<h1>{{ page.title }}</h1>
+			<div class="d-flex justify-content-center">
+				<h1>{{ page.title }}</h1>
+			</div>
 			<h5>{{ page.specific.body|richtext }}</h5>
 
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-6 d-flex justify-content-center">
+						<center><a href="{% slugurl 'home' %}?orderby=popular" class="btn btn-primary">محبوب‌ترین‌ها</a>
+					</div>
+					<div class="col-sm-6 d-flex justify-content-center">
+						<a href="{% slugurl 'home' %}?orderby=date" class="btn btn-primary">جدید‌ترین‌ها</a>
+					</div>
+				</div>
+			</div>
 			{% for post in posts %}
 				{% with post=post.specific %}
 
