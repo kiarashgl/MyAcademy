@@ -14,7 +14,8 @@ urlpatterns = [
 	path('reset/<uidb64>/<token>/', views.PasswordResetConfirm.as_view(), name='password_reset_confirm'),
 	path('reset/done/', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
-	path('profile/', views.Profile.as_view(), name='profile'),
+	path('profile/', views.Profile.as_view(), name='my_profile'),
+	path('profile/<int:pk>', views.Profile.as_view(), name='user_profile'),
 	path('profile/edit/', views.EditProfile.as_view(), name='profile_edit'),
 
 	path('', include('django.contrib.auth.urls')),

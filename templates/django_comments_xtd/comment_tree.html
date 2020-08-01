@@ -8,8 +8,10 @@
   <a name="c{{ item.comment.id }}"></a>
 	<div class="d-inline-block ml-2" style="width: 3rem">
 		<div class="square">
-			<img class="rounded-circle" src="{{ item.comment.user.profile_picture.url | safe }}"
+			<a href="{% url "accounts:user_profile" item.comment.user.pk %}">
+				<img class="rounded-circle" src="{{ item.comment.user.profile_picture.url | safe }}"
 			     alt="User Picture">
+			</a>
 		</div>
 	</div>
   <div class="media-body">

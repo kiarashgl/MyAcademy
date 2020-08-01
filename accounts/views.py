@@ -46,15 +46,20 @@ class Profile(LoginRequiredMixin, generic.detail.DetailView):
 	login_url = reverse_lazy('accounts:login')
 	model = User
 	template_name = 'registration/profile.html'
+	context_object_name = 'profile_user'
 
-	def get_object(self, queryset=None):
-		return self.request.user
+	def get_object(self, pk=None, queryset=None):
+		pk = self.kwargs.get('pk', None)
+		if pk:
+			return User.objects.get(pk=pk)
+		else:
+			return self.request.user
 
 
 class EditProfile(SuccessMessageMixin, LoginRequiredMixin, generic.edit.UpdateView):
 	login_url = reverse_lazy('accounts:login')
 	form_class = EditProfileForm
-	success_url = reverse_lazy('accounts:profile')
+	success_url = reverse_lazy('accounts:my_profile')
 	success_message = "پروفایل شما با موفقیت به روزرسانی شد."
 	template_name = 'registration/profile_edit.html'
 

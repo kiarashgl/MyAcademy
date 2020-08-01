@@ -35,20 +35,20 @@ class ProfileTest(TestCase):
 		)
 
 	def test_profile_template(self):
-		response = self.client.get(reverse('accounts:profile'))
+		response = self.client.get(reverse('accounts:my_profile'))
 
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'registration/profile.html')
 
 	def test_profile_redirect(self):
 		self.client.logout()
-		response = self.client.get(reverse('accounts:profile'))
+		response = self.client.get(reverse('accounts:my_profile'))
 
 		# Redirect to home if user is not logged in
 		self.assertEqual(response.url, reverse('accounts:login') + '?next=/accounts/profile/')
 
 	def test_profile_successful(self):
-		response = self.client.get(reverse('accounts:profile'))
+		response = self.client.get(reverse('accounts:my_profile'))
 
 		self.assertEqual(response.status_code, 200)
 		self.assertTemplateUsed(response, 'registration/profile.html')
