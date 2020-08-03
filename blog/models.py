@@ -80,7 +80,7 @@ class BlogDetailPage(RoutablePageMixin, Page):
 		('paragraph', core_blocks.RichTextBlock()),
 		('image', image_blocks.ImageChooserBlock()),
 		('image_slider', core_blocks.ListBlock(CaptionedImageBlock(), icon='image', label='Slider')),
-	])
+	], blank=True)
 
 	# https://docs.djangoproject.com/en/dev/topics/db/models/#be-careful-with-related-name
 	liked_users = ParentalManyToManyField(AUTH_USER_MODEL,
