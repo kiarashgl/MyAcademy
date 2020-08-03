@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+from ratings.models import ProfRating, DeptRating, UniRating, RatingField
 from MyAcademy.settings import MEDIA_URL
 
 
@@ -10,7 +11,7 @@ class Entity(models.Model):
 
 	@property
 	def get_picture(self):
-		if (self.picture):
+		if self.picture:
 			return self.picture.url
 		else:
 			return MEDIA_URL + self._meta.get_field('picture').default

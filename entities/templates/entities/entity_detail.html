@@ -1,6 +1,7 @@
 {% extends 'fullscreen_header.html' %}
 {% load static %}
 {% load model_tag %}
+{% load comment_tag %}
 {% load crispy_forms_tags %}
 
 {% block css %}
@@ -10,7 +11,6 @@
 {% block title %}پروفایل {{ entity.name }}{% endblock %}
 
 {% block inside_content %}
-
 	<div class="container emp-profile">
 
 		<div class="row">
@@ -25,15 +25,139 @@
 					{% block profile_content %}{% endblock %}
 				</div>
 			</div>
+
+			<div class="col-lg-4">
+				{% block rating_summary %} {% endblock %}
+			</div>
 		</div>
 
 		<div class="row mt-2 ">
 			<div class="col-8 col-sm-6 col-lg-3">
-				<a class="btn bg-light-purple mx-2" href='#'>نظر بده</a>
+				<div>
+					<a class="btn bg-light-purple mx-2" href="{% url entity|rating_path entity.pk %}">نظر بده</a>
+				</div>
 			</div>
 		</div>
 		{% block other_content %}
 		{% endblock %}
+
+		{% block ratings %}
+		{% endblock %}
+
+
+		<div class="col-lg-12 col-sm-12 bg-purple-glass" id="results">
+			<h2>نظرات</h2>
+			<ul>
+				{% for comment in comments %}
+					<li>
+						{% render_comment comment user %}
+					</li>
+				{% endfor %}
+			</ul>
+		</div>
 	</div>
 
+{% endblock %}
+
+{% block custom_scripts %}
+	{{ block.super }}
+	<script>
+
+		function updateLikeButtons(likeButton, dislikeButton, likes, dislikes, liked, disliked) {
+			likeButton.find(".count").text(likes);
+			if (liked) {
+				likeButton.find(".like-btn").addClass('active');
+			} else {
+				likeButton.find(".like-btn").removeClass('active');
+			}
+
+			dislikeButton.find(".count").text(dislikes);
+			if (disliked) {
+				dislikeButton.find(".dislike-btn").addClass('active');
+			} else {
+				dislikeButton.find(".dislike-btn").removeClass('active');
+			}
+		}
+
+		$(".like-btn").click(function (e) {
+			var this_ = $(this).parent();
+			var url_ = this_.attr("data-href");
+
+			var partnerButtonID = this_.attr('id').replace("like", "dislike");
+			var likeButton = this_;
+			var dislikeButton = $("#" + partnerButtonID);
+
+
+			var model_name = "";
+			{% if entity|model_name == 'دانشگاه' %}
+				model_name = "University";
+			{% elif entity|model_name == 'دانشکده' %}
+				model_name = "Department";
+			{% elif entity|model_name == 'استاد' %}
+				model_name = "Professor";
+			{% endif %}
+
+			e.preventDefault();
+			$.ajax({
+				url: url_,
+				method: "GET",
+				data: {
+					model_name: model_name,
+				},
+				success: function (data) {
+					var like_number_changes = data.like_count_change;
+					var dislike_number_changes = data.dislike_count_change;
+
+
+					var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+					var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+
+					updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+				},
+				error: function (error) {
+					console.log("ERROR");
+				}
+			});
+		});
+
+		$(".dislike-btn").click(function (e) {
+						var this_ = $(this).parent();
+			var url_ = this_.attr("data-href");
+
+			var partnerButtonID = this_.attr('id').replace("dislike", "like");
+			var dislikeButton = this_;
+			var likeButton = $("#" + partnerButtonID);
+
+			var model_name = "";
+			{% if entity|model_name == 'دانشگاه' %}
+				model_name = "University";
+			{% elif entity|model_name == 'دانشکده' %}
+				model_name = "Department";
+			{% elif entity|model_name == 'استاد' %}
+				model_name = "Professor";
+			{% endif %}
+
+			e.preventDefault();
+			$.ajax({
+				url: url_,
+				method: "GET",
+				data: {
+					model_name: model_name,
+				},
+				success: function (data) {
+					var like_number_changes = data.like_count_change;
+					var dislike_number_changes = data.dislike_count_change;
+
+					var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+					var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+
+					updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+				},
+				error: function (error) {
+					console.log("ERROR");
+				}
+			});
+		});
+
+	</script>
 {% endblock %}

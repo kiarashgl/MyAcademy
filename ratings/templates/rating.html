@@ -1,0 +1,18 @@
+{% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/signup.css' %}">
+	<link rel="stylesheet" href="{% static 'css/rating_stars.css' %}">
+{% endblock %}
+
+{% block title %}امتیازدهی به {{entity_name}}{% endblock %}
+
+{% block inside_content %}
+	<div class="col-lg-6 col-sm-8 mx-auto bg-purple-glass">
+		<h2 class="mb-4">امتیازدهی به {{entity_name}}</h2>
+		{% crispy form %}
+	</div>
+{% endblock %}

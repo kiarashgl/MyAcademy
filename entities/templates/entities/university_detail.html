@@ -29,3 +29,67 @@
 		</ul>
 	{% endif %}
 {% endblock %}
+
+{% block ratings %}
+	<br>
+	<canvas id="ratingsChart"></canvas>
+{% endblock %}
+
+{% block custom_scripts %}
+	{{ block.super }}
+	<script>
+		Chart.defaults.global.defaultFontSize = 14;
+		$.ajax({
+			method: "GET",
+			url: '{% url 'ratings:university_rating_data' pk=entity.pk %}',
+			success: function (data) {
+				console.log(data);
+				if (!jQuery.isEmptyObject(data)) {
+                    updateChart(data);
+                }
+			},
+			error: function (error_data) {
+				console.log("error");
+				console.log(error_data);
+			}
+		});
+
+		function updateChart(data) {
+			var ratingsChartCTX = document.getElementById('ratingsChart').getContext('2d');
+			var ratingsChart = new Chart(ratingsChartCTX, {
+				type: 'radar',
+				data: {
+					labels: data.labels,
+					datasets: [{
+						data: data.data,
+						backgroundColor: 'rgba(90, 250, 132, 0.2)',
+						borderColor: 'rgba(99, 255, 150, 1)',
+						borderWidth: 1
+					}]
+				},
+				options: {
+					scale: {
+						ticks: {
+							beginAtZero: true,
+							max: 5,
+							stepSize: 1,
+						},
+						pointLabels: {
+							fontSize: 20
+						},
+					},
+					legend: {
+						display: false,
+					},
+					title: {
+						display: true,
+						text: data.title,
+						fontSize: 28
+					}
+				},
+
+			});
+		}
+
+	</script>
+{% endblock %}

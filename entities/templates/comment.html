@@ -1,0 +1,41 @@
+<div class="row my-2">
+	<div class="card w-100" style="background: #FFF5">
+		<div class="card-header text-right d-flex align-items-center justify-content-between">
+			<div class="d-flex align-items-center">
+				<div class="d-inline-block ml-2" style="width: 2rem">
+					<div class="square">
+						<img class="rounded-circle" src="{{ picture | safe }}" alt="User Picture">
+					</div>
+				</div>
+				<span>
+					{{ full_name }}
+				</span>
+			</div>
+			<div class="d-flex flex-row">
+				<span id="like{{ pk }}" data-href="{{ like_url }}" class="d-flex flex-row px-2">
+						<a class="like-btn {% if liked %}active{% endif %}">
+							<i class="fa fa-thumbs-up"></i>
+						</a>
+						<span class="count mr-2">
+							{{ likes }}
+						</span>
+				</span>
+				<span id="dislike{{ pk }}" data-href="{{ dislike_url }}" class="d-flex flex-row px-2" >
+					<a class="dislike-btn {% if disliked %}active{% endif %}">
+						<i class="fa fa-thumbs-down"></i>
+					</a>
+					<span class="count mr-2">
+						{{ dislikes }}
+					</span>
+				</span>
+			</div>
+		</div>
+		<div class="card-body">
+			<p class="card-text text-right">{{ content | safe }}</p>
+		</div>
+		<div class="card-footer text-right">
+			{{ date }}
+		</div>
+	</div>
+</div>
+
