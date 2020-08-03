@@ -263,3 +263,4 @@ pip-selfcheck.json
 .history
 
 # End of https://www.gitignore.io/api/venv,django,sublimetext,pycharm+all,visualstudiocode
+id_rsa 

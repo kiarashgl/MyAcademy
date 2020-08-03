@@ -1,5 +1,8 @@
 language: python
 dist: bionic
+addons:
+  ssh_known_hosts:
+    - 213.233.179.179
 python:
 - '3.8'
 services:
@@ -7,13 +10,23 @@ services:
 env:
 - DJANGO=3.0.5
 before_install:
+- openssl aes-256-cbc -K $encrypted_f217180e22ee_key -iv $encrypted_f217180e22ee_iv
+  -in id_rsa.enc -out id_rsa -d
+- eval "$(ssh-agent -s)"
+- chmod 600 id_rsa
+- ssh-add id_rsa
 - export DJANGO_SETTINGS_MODULE='MyAcademy.test_settings'
 install:
 - pip install -r requirements.txt
-
 before_script:
 - psql -c 'create database travis_ci_db;' -U postgres
 script:
 - python manage.py migrate
 - python manage.py test
-
+deploy:
+- provider: script
+  skip_cleanup: true
+  script: "ping google.com -c 4; ping 213.233.179.179 -c 4; echo 'As you see, our server is not reachable from Travis
+    server. You could continue the deployment process by pushing to the Production branch.' "
+  on:
+    branch: master
