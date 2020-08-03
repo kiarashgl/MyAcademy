@@ -3,7 +3,10 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Submit, Layout, Div, HTML
 
 from django.forms import ModelForm
+from django.urls import reverse, reverse_lazy
+
 from .models import Professor, Department, University
+from dal import autocomplete
 
 
 class ProfessorForm(ModelForm):
@@ -36,6 +39,9 @@ class ProfessorForm(ModelForm):
 	class Meta:
 		model = Professor
 		fields = ['first_name', 'last_name', 'rank', 'my_department']
+		widgets = {
+			'my_department': autocomplete.ModelSelect2(url=reverse_lazy('entities:department_autocomplete')),
+		}
 
 
 class DepartmentForm(ModelForm):
@@ -61,6 +67,10 @@ class DepartmentForm(ModelForm):
 	class Meta:
 		model = Department
 		fields = ['name', 'my_university']
+
+		widgets = {
+			'my_university': autocomplete.ModelSelect2(url=reverse_lazy('entities:university_autocomplete')),
+		}
 
 
 class UniversityForm(ModelForm):

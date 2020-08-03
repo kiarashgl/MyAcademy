@@ -36,3 +36,34 @@
 		</ul>
 	</div>
 {% endblock %}
+
+{% block custom_scripts %}
+	{{ block.super }}
+
+	<script type="text/javascript">
+        $(".mainSearch").autocomplete({
+            source: function (request, response) {
+                data = {
+                    'term': request.term,
+                    'filter_by': $("input[name=filter_by]:checked").val()
+                };
+                $.ajax({
+                    url: "{% url 'entities:entity_autocomplete' %}",
+                    data: data,
+                    success: function (data) {
+                        response($.map(data, function (el) {
+                            return {
+                                label: el.label,
+                                value: el.value
+                            };
+                        }));
+                    }
+                });
+            }
+        }).data("ui-autocomplete")._renderItem = function (ul, item) {
+            return $("<li></li>")
+                .append(item.label)
+                .appendTo(ul);
+        };
+	</script>
+{% endblock %}

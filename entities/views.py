@@ -1,5 +1,6 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.messages.views import SuccessMessageMixin
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import DetailView, CreateView, ListView, FormView
@@ -10,6 +11,8 @@ from django.db.models import Q, F, Value as V, Count
 
 from django.db.models import Avg
 from django.db.models.functions import Concat
+import json
+from dal import autocomplete
 from ratings.models import *
 
 
@@ -109,6 +112,36 @@ class UniversityList(ListView):
 		return University.objects.filter(verified=True)
 
 
+def search(query, filter_by=None):
+	filter_by = filter_by if filter_by is not None else 'all'
+	if filter_by == 'all' or filter_by == 'profs':
+		profs = Professor.objects.annotate(
+			full_name=Concat('first_name', V(' '), 'last_name')).filter(
+			Q(full_name__icontains=query),
+			verified=True
+		)
+	else:
+		profs = Professor.objects.none()
+
+	if filter_by == 'all' or filter_by == 'deps':
+		deps = Department.objects.filter(
+			Q(name__icontains=query),
+			verified=True
+		)
+	else:
+		deps = Department.objects.none()
+
+	if filter_by == 'all' or filter_by == 'unis':
+		unis = University.objects.filter(
+			Q(name__icontains=query),
+			verified=True
+		)
+	else:
+		unis = University.objects.none()
+
+	return list(profs) + list(deps) + list(unis)
+
+
 class SearchResultsView(FormView, ListView):
 	template_name = 'entities/search_results.html'
 	form_class = SearchForm
@@ -116,31 +149,81 @@ class SearchResultsView(FormView, ListView):
 	def get_queryset(self):
 		query = self.request.GET.get('q')
 		filter_by = self.request.GET.get('filter_by')
-		filter_by = filter_by if filter_by is not None else 'all'
+		return search(query, filter_by)
 
-		if filter_by == 'all' or filter_by == 'profs':
-			profs = Professor.objects.annotate(
+
+def entity_autocomplete(request):
+	if request.is_ajax():
+		query = request.GET.get('term', '')
+		filter_by = request.GET.get('filter_by')
+		search_results = search(query, filter_by)
+
+		results = []
+		for entity in search_results:
+
+			if isinstance(entity, Professor):
+				link = reverse_lazy('entities:professor_detail', args=(entity.pk,))
+			elif isinstance(entity, Department):
+				link = reverse_lazy('entities:department_detail', args=(entity.pk,))
+			elif isinstance(entity, University):
+				link = reverse_lazy('entities:university_detail', args=(entity.pk,))
+			else:
+				link = '#'
+
+			entity_json = {'id': entity.name,
+						   'value': entity.name,
+						   'label': '<a href="%s">  <span> %s </span> <img src="%s" width="50" height="50"> </a>' % (
+							   link, entity.name, entity.get_picture)
+						   }
+			results.append(entity_json)
+		data = json.dumps(results)
+	else:
+		results = [{'id': 1, 'value': 'No record found', 'label': 'No record found'}]
+		data = json.dumps(results)
+	# data = 'fail'
+	mimetype = 'application/json'
+	return HttpResponse(data, mimetype)
+
+
+class EntityAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+	def get_queryset(self):
+		return search(self.q)
+
+
+class ProfessorAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+	def get_queryset(self):
+		qs = Professor.objects.filter(
+			verified=True
+		)
+
+		if self.q is not None:
+			qs = qs.annotate(
 				full_name=Concat('first_name', V(' '), 'last_name')).filter(
-				Q(full_name__icontains=query),
-				verified=True
+				Q(full_name__icontains=self.q)
 			)
-		else:
-			profs = Professor.objects.none()
 
-		if filter_by == 'all' or filter_by == 'deps':
-			deps = Department.objects.filter(
-				Q(name__icontains=query),
-				verified=True
-			)
-		else:
-			deps = Department.objects.none()
+		return qs
 
-		if filter_by == 'all' or filter_by == 'unis':
-			unis = University.objects.filter(
-				Q(name__icontains=query),
-				verified=True
-			)
-		else:
-			unis = University.objects.none()
 
-		return list(profs) + list(deps) + list(unis)
+class DepartmentAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+	def get_queryset(self):
+		qs = Department.objects.filter(
+			verified=True
+		)
+
+		if self.q is not None:
+			qs = qs.filter(Q(name__icontains=self.q))
+
+		return qs
+
+
+class UniversityAutocomplete(LoginRequiredMixin, autocomplete.Select2QuerySetView):
+	def get_queryset(self):
+		qs = University.objects.filter(
+			verified=True
+		)
+
+		if self.q is not None:
+			qs = qs.filter(Q(name__icontains=self.q))
+
+		return qs
