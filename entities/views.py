@@ -139,10 +139,20 @@ def entity_autocomplete(request):
 
 		results = []
 		for entity in search_results:
+
+			if isinstance(entity, Professor):
+				link = reverse_lazy('entities:professor_detail', args=(entity.pk,))
+			elif isinstance(entity, Department):
+				link = reverse_lazy('entities:department_detail', args=(entity.pk,))
+			elif isinstance(entity, University):
+				link = reverse_lazy('entities:university_detail', args=(entity.pk,))
+			else:
+				link = '#'
+
 			entity_json = {'id': entity.name,
 						   'value': entity.name,
 						   'label': '<a href="%s">  <span> %s </span> <img src="%s" width="50" height="50"> </a>' % (
-							   reverse_lazy('entities:professor_detail', args=(entity.pk,)), entity.name, entity.get_picture)
+							   link, entity.name, entity.get_picture)
 						   }
 			results.append(entity_json)
 		data = json.dumps(results)

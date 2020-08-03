@@ -67,7 +67,6 @@
         source: "{% url 'entities:entity_autocomplete' %}",
         minLength: 1,
     }).data("ui-autocomplete")._renderItem = function (ul, item) {
-        console.log(item);
         return $( "<li></li>" )
         .append( item.label )
         .appendTo( ul );
