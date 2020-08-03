@@ -26,9 +26,9 @@
 			</li>
 		</ul>
 
-		<form class="form-inline ml-md-2 my-2 my-md-0 mr-auto" action="{% url 'entities:search_results' %}"
-			  method="get">
-			<input name="q" placeholder="جستجو..." class="form-control mr-md-2">
+		<form id="searchForm" class="form-inline ml-md-2 my-2 my-md-0 mr-auto ui-widget"
+			  action="{% url 'entities:search_results' %}" method="get">
+			<input id="searchField" name="q" placeholder="جستجو..." class="form-control mr-md-2 search">
 		</form>
 
 		{% if user.is_authenticated %}
@@ -60,3 +60,15 @@
 		{% endif %}
 	</div>
 </nav>
+
+
+<script type="text/javascript">
+    $(".search").autocomplete({
+        source: "{% url 'entities:entity_autocomplete' %}",
+        minLength: 1,
+    }).data("ui-autocomplete")._renderItem = function (ul, item) {
+        return $("<li></li>")
+            .append(item.label)
+            .appendTo(ul);
+    };
+</script>

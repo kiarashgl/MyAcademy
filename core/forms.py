@@ -7,7 +7,7 @@ from django.forms import Form, CharField, ChoiceField, RadioSelect, TextInput
 
 
 class SearchForm(Form):
-	q = CharField(label='جست‌وجو', widget=TextInput(attrs={'placeholder': 'مثال: دانشگاه صنعتی شریف'}),
+	q = CharField(label='جست‌وجو', widget=TextInput(attrs={'placeholder': 'مثال: دانشگاه صنعتی شریف', 'class': 'mainSearch'}),
 				  max_length=100)
 
 	filter_by = ChoiceField(label='میان', initial='all',
