@@ -192,7 +192,7 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 NOSE_ARGS = [
 	'--with-coverage',
 	'--traverse-namespace',
-	'--cover-package=accounts, entities',  # Add packages here
+	'--cover-package=accounts, entities, blog',  # Add packages here
 ]
 
 SELENIUM_ON_LINUX = False  # Set to true if you want to run selenium tests on linux (Probably on server)
