@@ -71,6 +71,10 @@ class Department(Entity):
 	def professors(self):
 		return Professor.objects.filter(my_department=self)
 
+	@property
+	def verified_professors(self):
+		return Professor.objects.filter(my_department=self, verified=True)
+
 	class Meta:
 		verbose_name = _("دانشکده")
 		verbose_name_plural = _("دانشکده‌ها")
@@ -93,6 +97,10 @@ class University(Entity):
 	@property
 	def departments(self):
 		return Department.objects.filter(my_university=self)
+
+	@property
+	def verified_departments(self):
+		return Department.objects.filter(my_university=self, verified=True)
 
 	class Meta:
 		verbose_name = _("دانشگاه")

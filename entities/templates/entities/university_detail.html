@@ -21,7 +21,7 @@
 {% block other_content %}
 	{% if university.departments %}<h2>دانشکده‌ها</h2>
 		<ul class="row justify-content-center">
-			{% for entity in university.departments %}
+			{% for entity in university.verified_departments %}
 				<li class="col-8 col-sm-6 col-lg-3">
 					{% render_department entity True %}
 				</li>
