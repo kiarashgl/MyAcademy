@@ -51,7 +51,7 @@ msgstr "حذف نظر"
 
 #: .\templates\django_comments_xtd\comment_tree.html:42
 msgid "This comment has been removed."
-msgstr "این نظر حذف شده‌است."
+msgstr "این نظر توسط مدیر سایت حذف شده‌است."
 
 #: .\templates\django_comments_xtd\comment_tree.html:51
 msgid "Reply"
@@ -128,3 +128,22 @@ msgstr "نظر شما"
 #: .\templates\django_comments_xtd\reply.html:43
 msgid "Post your comment"
 msgstr "نظر خود را ارسال کنید"
+
+#: .\templates\comments\delete.html:9
+msgid "Remove Comment"
+msgstr "حذف نظر"
+
+#: .\templates\comments\delete.html:11
+msgid "Do you want to remove this comment?"
+msgstr "آیا می‌خواهید این نظر را حذف کنید؟"
+
+#: .\templates\comments\delete.html:13
+msgid ""
+"As a moderator you can delete comments. Deleting a comment does not remove "
+"it from the site, only prevents your website from showing the text. Click on "
+"the remove button to delete the following comment:"
+msgstr "با پاک کردن یک نظر، این نظر از سایت به کلی حذف نمی‌شود، بلکه تنها متن آن نمایش داده نمی‌شود. روی دکمه‌ی حذف کلیک کنید تا نظر زیر حذف شود:"
+
+#: .\templates\comments\delete.html:18
+msgid "Remove"
+msgstr "حذف"

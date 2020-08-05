@@ -1,0 +1,23 @@
+{% extends 'django_comments_xtd/comment_dialog.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+{% block title %}{% trans "Remove Comment" %}{% endblock %}
+
+{% block dialog_title %}{% trans "Do you want to remove this comment?" %}{% endblock %}
+{% block dialog_form %}
+	{% trans "As a moderator you can delete comments. Deleting a comment does not remove it from the site, only prevents your website from showing the text. Click on the remove button to delete the following comment:" %}
+	<form action="." method="post">{% csrf_token %}
+          <input type="hidden" name="next" value="{{ comment.get_absolute_url }}"/>
+          <div class="form-group">
+              <div class="text-center">
+                  <input type="submit" name="submit" class="btn btn-danger" value="{% trans "Remove" %}"/>
+                  <a class="btn btn-secondary" href="{{ comment.get_absolute_url }}">{% trans "cancel" %}</a>
+              </div>
+          </div>
+      </form>
+{% endblock %}
