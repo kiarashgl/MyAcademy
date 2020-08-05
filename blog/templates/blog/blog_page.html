@@ -55,7 +55,7 @@
 						<div class="d-inline-block ml-2" style="width: 2rem">
 							<div class="square">
 								<a href="{% url "accounts:user_profile" page.owner.pk %}">
-									<img class="rounded-circle" src="{{ page.owner.profile_picture.url | safe }}"
+									<img class="rounded-circle" src="{{ page.owner.get_profile_picture_url | safe }}"
 										 alt="User Picture">
 								</a>
 							</div>

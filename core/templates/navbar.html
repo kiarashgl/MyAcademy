@@ -38,7 +38,7 @@
 			<div class="nav-item profile dropdown">
 				<div class="square dropdown-toggle mr-auto" type="button" id="dropdownMenuButton" data-toggle="dropdown"
 					 aria-haspopup="true" aria-expanded="false">
-					<img class="rounded-circle" src="{{ user.profile_picture.url | safe }}" alt="Profile Picture">
+					<img class="rounded-circle" src="{{ user.get_profile_picture_url | safe }}" alt="Profile Picture">
 				</div>
 				</button>
 				<div dir="rtl" class="dropdown-menu" aria-labelledby="dropdownMenuButton">

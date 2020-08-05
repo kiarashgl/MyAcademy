@@ -21,7 +21,7 @@
 					<div class="d-inline-block ml-2" style="width: 3rem">
 						<div class="square">
 							<a href="{% url "accounts:user_profile" comment.user.pk %}">
-								<img class="rounded-circle" src="{{ comment.user.profile_picture.url | safe }}"
+								<img class="rounded-circle" src="{{ comment.user.get_profile_picture_url | safe }}"
 									 alt="User Picture">
 							</a>
 						</div>
