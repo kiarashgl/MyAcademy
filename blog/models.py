@@ -38,12 +38,13 @@ class BlogListingPage(Page):
 	def get_context(self, request, *args, **kwargs):
 		context = super(BlogListingPage, self).get_context(request)
 
-		order = request.GET.get('orderby')
+		order = request.GET.get('sortby')
 
 		if order == 'popular':
 			all_posts = BlogDetailPage.objects.child_of(self).live().public() \
 				.annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
 		else:
+			order = 'date'
 			all_posts = BlogDetailPage.objects.child_of(self).live().public() \
 				.order_by('-first_published_at')
 
@@ -62,6 +63,7 @@ class BlogListingPage(Page):
 			# Then return the last page
 			posts = paginator.page(paginator.num_pages)
 
+		context['order'] = order
 		context['posts'] = posts
 		return context
 
