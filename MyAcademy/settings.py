@@ -52,7 +52,6 @@ INSTALLED_APPS = [
 	'django.contrib.sites',
 	'crispy_forms',
 	'django_cleanup',
-	'django_nose',
 	'rest_framework',
 
 	'wagtail.contrib.forms',
