@@ -42,9 +42,10 @@ class BlogListingPage(Page):
 
 		if order == 'popular':
 			all_posts = BlogDetailPage.objects.child_of(self).live().public() \
-			.annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
+				.annotate(score=Count('liked_users') - Count('disliked_users')).order_by('-score')
 		else:
-			all_posts = BlogDetailPage.objects.live().public().order_by('-first_published_at')
+			all_posts = BlogDetailPage.objects.child_of(self).live().public() \
+				.order_by('-first_published_at')
 
 		paginator = Paginator(all_posts, BLOG_PAGINATION_PER_PAGE)
 
@@ -60,7 +61,6 @@ class BlogListingPage(Page):
 			# If the ?page=x is out of range (too high most likely)
 			# Then return the last page
 			posts = paginator.page(paginator.num_pages)
-
 
 		context['posts'] = posts
 		return context
@@ -99,9 +99,6 @@ class BlogDetailPage(RoutablePageMixin, Page):
 		ImageChooserPanel('thumbnail'),
 		FieldPanel('intro'),
 		StreamFieldPanel('body'),
-
-		FieldPanel('liked_users', widget=forms.CheckboxSelectMultiple),
-		FieldPanel('disliked_users', widget=forms.CheckboxSelectMultiple),
 	]
 
 	@property
