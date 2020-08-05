@@ -8,7 +8,7 @@ def render_comment(rating, user):
 	return {
 		'content': rating.comment,
 		'full_name': rating.user.get_full_name(),
-		'picture': rating.user.profile_picture.url,
+		'picture': rating.user.get_profile_picture_url,
 		'date': rating.date,
 		'pk': rating.pk,
 
