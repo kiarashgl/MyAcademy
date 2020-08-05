@@ -26,6 +26,8 @@ from accounts.models import User
 from entities.models import Professor, University, Department
 MEDIA_ROOT = tempfile.mkdtemp()
 
+from MyAcademy import settings
+
 
 @override_settings(MEDIA_ROOT=MEDIA_ROOT)
 class End2EndTestCase(LiveServerTestCase):
@@ -41,6 +43,8 @@ class End2EndTestCase(LiveServerTestCase):
 			else:
 				cls.selenium = webdriver.Firefox(executable_path='webdriver/geckodriver.exe')
 			cls.selenium.implicitly_wait(10)
+
+			settings.DISABLE_RECAPTCHA = True
 
 	@classmethod
 	def tearDownClass(cls):

@@ -1,0 +1,14 @@
+{% extends 'django_comments_xtd/comment_dialog.html' %}
+{% load i18n %}
+{% load static %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block title %}{% trans "Comment reply" %}{% endblock %}
+{% block dialog_title %}{% trans "Reply to comment" %}{% endblock %}
+{% block dialog_form %}
+	{% include "comments/form.html" %}
+{% endblock %}

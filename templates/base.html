@@ -50,6 +50,9 @@
         $(document).ready(function () {
             $('.toast').toast({delay: 3000}).toast('show');
         });
+        $(function () {
+            $('[data-toggle="tooltip"]').attr('data-html', true).tooltip()
+        })
 	</script>
 	{% block custom_scripts %}
 	{% endblock %}

@@ -16,6 +16,11 @@ Including another URLconf
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+
+from wagtail.admin import urls as wagtailadmin_urls
+from wagtail.core import urls as wagtail_urls
+from wagtail.documents import urls as wagtaildocs_urls
+
 from . import settings
 
 urlpatterns = [
@@ -25,6 +30,12 @@ urlpatterns = [
 	path('ratings/', include('ratings.urls')),
 	path('admin/', admin.site.urls),
 	path('api-auth/', include('rest_framework.urls')),
+
+	# Wagtail and Blog stuff
+	path('cms-admin/', include(wagtailadmin_urls)),
+	path('blog/', include(wagtail_urls)),
+
+	path('comments/', include('django_comments_xtd.urls')),
 ]
 
 if settings.DEBUG is True:

@@ -1,0 +1,188 @@
+{% extends 'fullscreen_header.html' %}
+{% load static %}
+{% load wagtailcore_tags wagtailimages_tags comments comments_xtd %}
+{% load wagtailroutablepage_tags %}
+
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+	<header>
+	<div class="d-flex justify-content-center align-items-center">
+		<div class="col-11 mx-auto bg-gray-glass text-right pb-0">
+		{% block inside_content %}
+			<h1 style="background: transparent; border-bottom-color: white" class="card-header pr-0 mb-3">{{ page.title }}</h1>
+
+			<div align="justify">
+				{% for block in page.body %}
+					{% if block.block_type == 'image' %}
+						<div align="center">
+							{% image block.value fill-300x300 %}
+						</div>
+					{% elif block.block_type == 'heading' %}
+						<h3>
+							{% include_block block %}
+						</h3>
+					{% elif block.block_type == 'image_slider' %}
+						<div class="container">
+							<div class="row d-flex justify-content-center">
+								{% for item in block.value %}
+									<div class="col-md-4 mx-3 text-center">
+										{% image item.image width-200 %}
+										{{ item.image.url }}
+										<p> {{ item.caption }} </p>
+									</div>
+								{% endfor %}
+							</div>
+						</div>
+
+					{% else %}
+						<div>
+							{% include_block block %}
+						</div>
+					{% endif %}
+				{% endfor %}
+			</div>
+			<!-- Like and dislike stuff  -->
+			<div class="card-footer" align="center">
+				<div class="d-flex flex-row justify-content-between">
+					<div class="d-flex align-items-center">
+						<div class="d-inline-block ml-2" style="width: 2rem">
+							<div class="square">
+								<a href="{% url "accounts:user_profile" page.owner.pk %}">
+									<img class="rounded-circle" src="{{ page.owner.get_profile_picture_url | safe }}"
+										 alt="User Picture">
+								</a>
+							</div>
+						</div>
+						<span>
+							{{ page.owner.get_full_name }}
+						</span>
+					</div>
+					<div class="d-flex flex-row justify-content-between">
+						<span id="like" data-href="{{ page.url }}like/" class="d-flex flex-row px-2">
+							<a class="like-btn {% if liked %}active{% endif %}">
+								<i class="fa fa-thumbs-up"></i>
+							</a>
+							<span class="count mr-2">
+								{{ likes }}
+							</span>
+						</span>
+						<span id="dislike" data-href="{{ page.url }}dislike/" class="d-flex flex-row px-2">
+							<a class="dislike-btn {% if disliked %}active{% endif %}">
+								<i class="fa fa-thumbs-down"></i>
+							</a>
+							<span class="count mr-2">
+								{{ dislikes }}
+							</span>
+						</span>
+					</div>
+					<div>
+						{{ page.last_published_at }}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="d-flex justify-content-center align-items-center">
+		<div class="col-11 mx-auto bg-gray-glass text-right">
+			<div>
+				<ul class="media-list">
+					{% render_xtdcomment_tree for self allow_feedback show_feedback %}
+				</ul>
+				{% if user.is_authenticated %}
+				{% render_comment_form for self %}
+				{% else %}
+					برای نظر دادن،‌ لطفاً با حساب کاربری خود وارد شوید.
+				{% endif %}
+			</div>
+		{% endblock %}
+		</div>
+		</div>
+	</header>
+{% endblock %}
+
+
+{% block custom_scripts %}
+	{{ block.super }}
+	<script>
+        function updateLikeButtons(likeButton, dislikeButton, likes, dislikes, liked, disliked) {
+            likeButton.find(".count").text(likes);
+            if (liked) {
+                likeButton.find(".like-btn").addClass('active');
+            } else {
+                likeButton.find(".like-btn").removeClass('active');
+            }
+
+            dislikeButton.find(".count").text(dislikes);
+            if (disliked) {
+                dislikeButton.find(".dislike-btn").addClass('active');
+            } else {
+                dislikeButton.find(".dislike-btn").removeClass('active');
+            }
+        }
+
+        $(".like-btn").click(function (e) {
+            var this_ = $(this).parent();
+            var url_ = this_.attr("data-href");
+
+            var partnerButtonID = this_.attr('id').replace("like", "dislike");
+            var likeButton = this_;
+            var dislikeButton = $("#" + partnerButtonID);
+
+            e.preventDefault();
+            $.ajax({
+                url: url_,
+                method: "GET",
+                data: {},
+                success: function (data) {
+                    var like_number_changes = data.like_count_change;
+                    var dislike_number_changes = data.dislike_count_change;
+
+
+                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+
+                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+                },
+                error: function (error) {
+                    console.log("ERROR");
+                }
+            });
+        });
+
+        $(".dislike-btn").click(function (e) {
+            var this_ = $(this).parent();
+            var url_ = this_.attr("data-href");
+
+            var partnerButtonID = this_.attr('id').replace("dislike", "like");
+            var dislikeButton = this_;
+            var likeButton = $("#" + partnerButtonID);
+
+
+            e.preventDefault();
+            $.ajax({
+                url: url_,
+                method: "GET",
+                data: {},
+                success: function (data) {
+                    var like_number_changes = data.like_count_change;
+                    var dislike_number_changes = data.dislike_count_change;
+
+                    var likes = parseInt(likeButton.find(".count").text()) + like_number_changes;
+                    var dislikes = parseInt(dislikeButton.find(".count").text()) + dislike_number_changes;
+
+                    updateLikeButtons(likeButton, dislikeButton, likes, dislikes, data.liked, data.disliked);
+                },
+                error: function (error) {
+                    console.log("ERROR");
+                }
+            });
+        });
+	</script>
+{% endblock %}

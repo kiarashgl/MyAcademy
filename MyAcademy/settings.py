@@ -26,25 +26,51 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+SITE_ID = 1
+
 # Application definition
 
 INSTALLED_APPS = [
+	'django_comments_xtd',
+	'django_comments',
+
+	'blog',
 	'ratings',
 	'accounts',
 	'entities',
 	'core',
+
 	'dal',
 	'dal_select2',
+
 	'django.contrib.admin',
 	'django.contrib.auth',
 	'django.contrib.contenttypes',
 	'django.contrib.sessions',
 	'django.contrib.messages',
 	'django.contrib.staticfiles',
+	'django.contrib.sites',
 	'crispy_forms',
 	'django_cleanup',
-	'django_nose',
-	'rest_framework'
+	'rest_framework',
+
+	'wagtail.contrib.forms',
+	'wagtail.contrib.redirects',
+	"wagtail.contrib.routable_page",
+	'wagtail.embeds',
+	'wagtail.sites',
+	'wagtail.users',
+	'wagtail.snippets',
+	'wagtail.documents',
+	'wagtail.images',
+	'wagtail.search',
+	'wagtail.admin',
+	'wagtail.core',
+
+	'captcha',
+
+	'modelcluster',
+	'taggit',
 ]
 
 MIDDLEWARE = [
@@ -55,6 +81,7 @@ MIDDLEWARE = [
 	'django.contrib.auth.middleware.AuthenticationMiddleware',
 	'django.contrib.messages.middleware.MessageMiddleware',
 	'django.middleware.clickjacking.XFrameOptionsMiddleware',
+	'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
 
 ROOT_URLCONF = 'MyAcademy.urls'
@@ -96,7 +123,7 @@ DATABASES = {
 	}
 }
 
-LOGIN_URL = 'accounts.login'
+#LOGIN_URL = 'accounts.login'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 AUTH_USER_MODEL = 'accounts.User'
@@ -151,21 +178,37 @@ STATICFILES_DIRS = [
 	os.path.join(BASE_DIR, "staticfiles"),
 ]
 
+LOCALE_PATHS = (
+	os.path.join(BASE_DIR, "locale"),
+)
+
 # Django Crispy Forms Config
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# Use nose to run all tests
-TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
-NOSE_ARGS = [
-	'--with-coverage',
-	'--traverse-namespace',
-	'--cover-package=accounts, entities',  # Add packages here
-]
-
-SELENIUM_ON_LINUX = False # Set to true if you want to run selenium tests on linux (Probably on server)
-SKIP_SELENIUM_TESTS = True # Set to true if you want to skip selenium tests
+SELENIUM_ON_LINUX = False  # Set to true if you want to run selenium tests on linux (Probably on server)
+SKIP_SELENIUM_TESTS = True  # Set to true if you want to skip selenium tests
 
 local_settings_path = os.path.join(os.path.dirname(__file__), 'local_settings.py')
 if os.path.exists(local_settings_path):
 	exec(open(local_settings_path, 'rb').read())
+
+WAGTAIL_SITE_NAME = 'MyAcademy'
+BLOG_PAGINATION_PER_PAGE = 2
+
+COMMENTS_APP = 'django_comments_xtd'
+COMMENTS_XTD_MAX_THREAD_LEVEL = 2
+COMMENTS_XTD_CONFIRM_EMAIL = False
+
+COMMENTS_XTD_APP_MODEL_OPTIONS = {
+	'default': {
+		'allow_flagging': True,
+		'allow_feedback': True,
+		'show_feedback': True,
+		'who_can_post': 'users'
+	},
+}
+
+# ReCaptcha v3
+SILENCED_SYSTEM_CHECKS = ['captcha.recaptcha_test_key_error']
+DISABLE_RECAPTCHA = False

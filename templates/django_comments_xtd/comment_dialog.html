@@ -1,0 +1,50 @@
+{% extends 'blog/blog_page.html' %}
+{% load i18n %}
+{% load static %}
+{% load comments %}
+{% load comments_xtd %}
+
+{% block css %}
+	{{ block.super }}
+	<link rel="stylesheet" href="{% static 'css/blog.css' %}">
+{% endblock %}
+
+{% block inside_content %}
+	<div class="container">
+		<div class="mb-4">
+			<h3 class="text-center">{% block dialog_title %}{% endblock %}</h3>
+			<hr/>
+		</div>
+		<div class="row">
+			<div class="col">
+				<div class="media">
+					<div class="d-inline-block ml-2" style="width: 3rem">
+						<div class="square">
+							<a href="{% url "accounts:user_profile" comment.user.pk %}">
+								<img class="rounded-circle" src="{{ comment.user.get_profile_picture_url | safe }}"
+									 alt="User Picture">
+							</a>
+						</div>
+					</div>
+					<div class="media-body">
+						<div class="comment pb-3">
+							<h6 class="mb-1 small">
+								{{ comment.submit_date|date:"N j, Y, P" }}&nbsp;-&nbsp;
+								{% if comment.user_url %}
+									<a href="{{ comment.user_url }}" target="_new">{% endif %}
+								{{ comment.user_name }}{% if comment.user_url %}</a>{% endif %}
+							</h6>
+							<p>{{ comment.comment }}</p>
+						</div>
+					</div>
+				</div>
+				<div class="card mt-4 mb-5">
+					<div class="card-body">
+						{% block dialog_form %}
+						{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -25,15 +25,15 @@
 		<div class="row">
 			<div class="col-sm-3 mb-3 mb-sm-0">
 				<div class="square circle">
-					<img src="{{ user.profile_picture.url }}">
+					<img src="{{ profile_user.get_profile_picture_url }}">
 				</div>
 			</div>
 			<div class="col text-right">
 				<div>
 					<h3 class="d-inline">
-						{{ user.get_full_name }}
+						{{ profile_user.get_full_name }}
 					</h3>
-					{% if request.user == user %}
+					{% if request.user == profile_user %}
 						<a href="{% url 'accounts:profile_edit' %}" style="font-size:2rem"
 						   class="float-left text-white">
 							<i class="fas fa-user-edit"></i>
@@ -43,18 +43,18 @@
 				<div class="row pt-2">
 					<div class="col-sm-6 px-0">
 						<span class="badge badge-secondary">دانشگاه</span>
-						{{ user.university }}
+						{{ profile_user.university }}
 					</div>
 					<div class="col-sm-6 px-0">
 						<span class="badge badge-secondary">رشته</span>
-						{{ user.major }}
+						{{ profile_user.major }}
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="text-justify my-2">
 			<span class="badge badge-secondary">بیوگرافی</span>
-			<p>{{ user.bio }}</p>
+			<p>{{ profile_user.bio }}</p>
 		</div>
 	</div>
 {% endblock %}
