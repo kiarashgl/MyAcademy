@@ -9,7 +9,7 @@ coverage==5.1
 selenium==3.141.0
 webdrivermanager==0.8.0
 django-autocomplete-light==3.5.1
-djangorestframework==3.11.0
+djangorestframework==3.11.2
 markdown==3.2.2
 django-filter==2.2.0
 psycopg2==2.8.5
