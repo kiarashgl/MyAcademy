@@ -3,6 +3,8 @@
 
 Website for comparing universities, departments and professors.
 
+Systems Analysis and Design course project, developed using Scrum methodology.
+
 ## About
 This website is used to get information about quality of teaching and academic services in different universities, and choose the right one.
 Also, it has a blog to discuss about different topics in academic fields.
